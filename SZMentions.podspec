@@ -9,10 +9,10 @@ Pod::Spec.new do |s|
   s.source           = { :git => "git@github.com:szweier/SZMentions.git", :tag => s.version.to_s }
   s.platform     = :ios, '7.1'
   s.requires_arc = true
-  s.source_files = 'SZMentions/Classes/**/*'
+  s.source_files = 'SZMentions/SZMentions/Classes/**/*'
 
   s.resource_bundles = {
-    'SZMentions' => ['SZMentions/Assets/*']
+    'SZMentions' => ['SZMentions/SZMentions/Assets/*']
     }
 
 end
