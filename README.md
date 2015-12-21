@@ -83,13 +83,12 @@ This class is returned via the `mentions` method, it includes the `range` of the
 
 This class is used to pass attributes to apply mentions text as well as regular text.
 
-Example: ```
+Example:
     
     SZAttribute *attribute = [[SZAttribute alloc] init];
     [attribute setAttributeName:NSForegroundColorAttributeName];
     [attribute setAttributeValue:[UIColor redColor]];
     
-```
 
 ## Unit Tests
 
