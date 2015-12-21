@@ -1,10 +1,12 @@
+[![Cocoapods Compatible](https://img.shields.io/cocoapods/v/SZMentions.svg)](https://img.shields.io/cocoapods/v/SZMentions.svg)
+[![Platform](https://img.shields.io/cocoapods/p/SZMentions.svg?style=flat)](http://cocoadocs.org/docsets/SZMentions)
 [![Twitter](https://img.shields.io/badge/twitter-@StevenZweier-blue.svg?style=flat)](http://twitter.com/StevenZweier)
 
 SZMentions is a lightweight mentions library for iOS. This library was built to assist with the adding, removing and editing of a mention within a textview.
 
 ## How To Get Started
 
-- [Download SZMentions]() and try out the iOS example app. 
+- [Download SZMentions](https://github.com/szweier/SZMentions/archive/master.zip) and try out the iOS example app. 
 
 ## Communication
 
