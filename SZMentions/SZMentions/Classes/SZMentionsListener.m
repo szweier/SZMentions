@@ -299,7 +299,10 @@ shouldInteractWithURL:(NSURL *)URL
             NSString *mentionString = [[strings lastObject] stringByAppendingString:text];
             NSString *filterString = [mentionString stringByReplacingOccurrencesOfString:self.trigger
                                                                               withString:@""];
-            [self.mentionsManager showMentionsListWithString:filterString];
+            
+            if (filterString.length) {
+                [self.mentionsManager showMentionsListWithString:filterString];
+            }
         } else {
             [self.mentionsManager hideMentionsList];
         }
@@ -310,13 +313,8 @@ shouldInteractWithURL:(NSURL *)URL
 
 - (void)_showHideMentionsListForTextView:(UITextView *)textView text:(NSString *)text
 {
-    if ([text isEqualToString:self.trigger] &&
-        textView.text.length &&
-        [[textView.text substringFromIndex:textView.text.length - 1] isEqualToString:@" "]) {
-        [self.mentionsManager showMentionsListWithString:nil];
-    } else if ([text isEqualToString:@" "]) {
-        [self.mentionsManager hideMentionsList];
-    } else if (text.length && [[text substringFromIndex:text.length - 1] isEqualToString:@" "]) {
+    if ([text isEqualToString:@" "] ||
+        (text.length && [[text substringFromIndex:text.length - 1] isEqualToString:@" "])) {
         [self.mentionsManager hideMentionsList];
     }
 }
