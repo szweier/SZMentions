@@ -58,6 +58,7 @@
                       text:(NSString *)text
                      range:(NSRange)range
 {
+    self.mutableMentions = @[].mutableCopy;
     NSMutableAttributedString *mutableAttributedString = [textView.attributedText mutableCopy];
     [[mutableAttributedString mutableString] replaceCharactersInRange:range withString:text];
     
