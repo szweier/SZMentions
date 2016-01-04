@@ -28,7 +28,7 @@
  */
 @property (nonatomic, assign) BOOL editingMention;
 
-/** 
+/**
  @brief Allow us to edit text internally without triggering delegate
  */
 @property (nonatomic, assign) BOOL settingText;
@@ -100,6 +100,11 @@ shouldChangeTextInRange:(NSRange)range
         return NO;
     }
     
+    return [self _adjustTextView:textView range:range text:text];
+}
+
+- (BOOL)_adjustTextView:(UITextView *)textView range:(NSRange)range text:(NSString *)text
+{
     if (textView.text.length == 0) {
         return [self resetEmptyTextView:textView text:text range:range];
     }
@@ -114,9 +119,7 @@ shouldChangeTextInRange:(NSRange)range
         [self.mutableMentions removeObject:editedMention];
     }
     
-    NSArray *mentionsAfterTextEntry = [self _mentionsAfterTextEntryForRange:range];
-    
-    [self _adjustMentions:mentionsAfterTextEntry range:range text:text];
+    [self _adjustMentionsInRange:range text:text];
     
     if (self.editingMention) {
         return [self _handleEditingMention:editedMention
@@ -232,6 +235,8 @@ shouldInteractWithURL:(NSURL *)URL
     [[mutableAttributedString mutableString] replaceCharactersInRange:self.currentMentionRange
                                                            withString:mention.szMentionName];
     
+    [self _adjustMentionsInRange:self.currentMentionRange text:mention.szMentionName];
+    
     self.currentMentionRange = NSMakeRange(self.currentMentionRange.location, mention.szMentionName.length);
     
     [self _applyAttributes:self.mentionTextAttributes
@@ -244,6 +249,7 @@ shouldInteractWithURL:(NSURL *)URL
     
     self.settingText = YES;
     [self.textView setAttributedText:mutableAttributedString];
+    [self.textView setSelectedRange:NSMakeRange(self.currentMentionRange.location + self.currentMentionRange.length, 0)];
     self.settingText = NO;
     
     SZMention *szmention = [[SZMention alloc] init];
@@ -370,9 +376,9 @@ shouldInteractWithURL:(NSURL *)URL
     return mentionsAfterTextEntry.copy;
 }
 
-- (void)_adjustMentions:(NSArray *)mentions range:(NSRange)range text:(NSString *)text
+- (void)_adjustMentionsInRange:(NSRange)range text:(NSString *)text
 {
-    for (SZMention *mention in mentions) {
+    for (SZMention *mention in [self _mentionsAfterTextEntryForRange:range]) {
         NSInteger rangeAdjustment = (text.length ? text.length - (range.length > 0 ? range.length : 0) : -(range.length > 0 ? range.length : 0));
         [mention setRange:NSMakeRange(mention.range.location + rangeAdjustment,
                                       mention.range.length)];
