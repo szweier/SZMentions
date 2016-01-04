@@ -28,6 +28,11 @@
  */
 @property (nonatomic, assign) BOOL editingMention;
 
+/** 
+ @brief Allow us to edit text internally without triggering delegate
+ */
+@property (nonatomic, assign) BOOL settingText;
+
 @end
 
 @implementation SZMentionsListener
@@ -66,7 +71,9 @@
                      range:NSMakeRange(range.location, text.length)
    mutableAttributedString:mutableAttributedString];
     
+    self.settingText = YES;
     [textView setAttributedText:mutableAttributedString];
+    self.settingText = NO;
     
     if ([self.delegate respondsToSelector:
          @selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
@@ -88,6 +95,10 @@ shouldChangeTextInRange:(NSRange)range
  replacementText:(NSString *)text
 {
     NSAssert([textView.delegate isEqual:self], @"Textview delegate must be set equal to %@", self);
+    
+    if (self.settingText) {
+        return NO;
+    }
     
     if (textView.text.length == 0) {
         return [self resetEmptyTextView:textView text:text range:range];
@@ -231,7 +242,9 @@ shouldInteractWithURL:(NSURL *)URL
                      range:NSMakeRange(self.currentMentionRange.location + self.currentMentionRange.length - 1, 0)
    mutableAttributedString:mutableAttributedString];
     
+    self.settingText = YES;
     [self.textView setAttributedText:mutableAttributedString];
+    self.settingText = NO;
     
     SZMention *szmention = [[SZMention alloc] init];
     [szmention setRange:self.currentMentionRange];
@@ -383,7 +396,9 @@ shouldInteractWithURL:(NSURL *)URL
    mutableAttributedString:mutableAttributedString];
     
     [[mutableAttributedString mutableString] replaceCharactersInRange:range withString:text];
+    self.settingText = YES;
     [textView setAttributedText:mutableAttributedString];
+    self.settingText = NO;
     [textView setSelectedRange:NSMakeRange(range.location + text.length, 0)];
     
     if ([self.delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)])
@@ -404,7 +419,9 @@ shouldInteractWithURL:(NSURL *)URL
                      range:NSMakeRange(range.location, text.length)
    mutableAttributedString:mutableAttributedString];
     
+    self.settingText = YES;
     [textView setAttributedText:mutableAttributedString];
+    self.settingText = NO;
     
     if (range.length > 0)
         [textView setSelectedRange:NSMakeRange(range.location, 0)];
