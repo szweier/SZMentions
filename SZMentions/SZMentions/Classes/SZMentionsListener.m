@@ -74,6 +74,9 @@
                 replacementText:text];
     }
     
+    [self textViewDidChange:textView];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:textView];
+    
     return NO;
 }
 
