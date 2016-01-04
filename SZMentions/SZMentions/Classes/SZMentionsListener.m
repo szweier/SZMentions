@@ -373,13 +373,11 @@ shouldInteractWithURL:(NSURL *)URL
 - (void)_adjustMentions:(NSArray *)mentions range:(NSRange)range text:(NSString *)text
 {
     for (SZMention *mention in mentions) {
-        [mention setRange:NSMakeRange(mention.range.location +
-                                      ((range.length > 0 ? range.length : 1) *
-                                       (text.length ? 1 : -1)),
+        NSInteger rangeAdjustment = (text.length ? text.length - (range.length > 0 ? range.length : 0) : -(range.length > 0 ? range.length : 0));
+        [mention setRange:NSMakeRange(mention.range.location + rangeAdjustment,
                                       mention.range.length)];
     }
 }
-
 - (BOOL)_handleEditingMention:(SZMention *)mention
                      textView:(UITextView *)textView
                         range:(NSRange)range
