@@ -13,7 +13,7 @@
 
 /**
  @brief Called when the UITextView is editing a mention.
- 
+
  @param MentionString the current text entered after the mention trigger.
  Generally used for filtering a mentions list.
  */
@@ -58,7 +58,7 @@
 @property (nonatomic, weak) UITextView *textView;
 
 /**
- @brief An optional delegate that can be used to handle all UITextView delegate 
+ @brief An optional delegate that can be used to handle all UITextView delegate
  methods after they've been handled by the SZMentionsListener
  */
 @property (nonatomic, weak) id<UITextViewDelegate> delegate;
@@ -80,8 +80,13 @@
 @property (nonatomic, assign) CGFloat cooldownInterval;
 
 /**
+ @brief Whether or not we should add a space after the mention, default: NO
+ */
+@property (nonatomic, assign) BOOL spaceAfterMention;
+
+/**
  @brief Add mention object to current string being edited
- 
+
  @param mention the mention object adhereing to SZCreateMentionProtocol
  szMentionName is used as the name to set for the mention.  This parameter
  is returned in the mentions array in the object parameter of the SZMention object.

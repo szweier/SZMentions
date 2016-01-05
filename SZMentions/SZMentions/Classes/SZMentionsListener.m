@@ -52,7 +52,7 @@
 - (instancetype)init
 {
     self = [super init];
-    
+
     if (self) {
         _trigger = @"@";
         _mutableMentions = @[].mutableCopy;
@@ -60,7 +60,7 @@
         _mentionTextAttributes = @[[self _mentionColor]];
         _cooldownInterval = 0.5;
     }
-    
+
     return self;
 }
 
@@ -77,25 +77,25 @@
     self.mutableMentions = @[].mutableCopy;
     NSMutableAttributedString *mutableAttributedString = [textView.attributedText mutableCopy];
     [[mutableAttributedString mutableString] replaceCharactersInRange:range withString:text];
-    
+
     [self _applyAttributes:self.defaultTextAttributes
                      range:NSMakeRange(range.location, text.length)
    mutableAttributedString:mutableAttributedString];
-    
+
     self.settingText = YES;
     [textView setAttributedText:mutableAttributedString];
     self.settingText = NO;
-    
+
     if ([self.delegate respondsToSelector:
          @selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
         [self.delegate textView:textView
         shouldChangeTextInRange:range
                 replacementText:text];
     }
-    
+
     [self textViewDidChange:textView];
     [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:textView];
-    
+
     return NO;
 }
 
@@ -106,11 +106,11 @@ shouldChangeTextInRange:(NSRange)range
  replacementText:(NSString *)text
 {
     NSAssert([textView.delegate isEqual:self], @"Textview delegate must be set equal to %@", self);
-    
+
     if (self.settingText) {
         return NO;
     }
-    
+
     return [self _adjustTextView:textView range:range text:text];
 }
 
@@ -119,39 +119,39 @@ shouldChangeTextInRange:(NSRange)range
     if (textView.text.length == 0) {
         return [self resetEmptyTextView:textView text:text range:range];
     }
-    
+
     [self _showHideMentionsListForTextView:textView text:text];
-    
+
     self.editingMention = NO;
     SZMention *editedMention = [self _mentionBeingEditedForRange:range];
-    
+
     if (editedMention) {
         self.editingMention = YES;
         [self.mutableMentions removeObject:editedMention];
     }
-    
+
     [self _adjustMentionsInRange:range text:text];
-    
+
     if (self.editingMention) {
         return [self _handleEditingMention:editedMention
                                   textView:textView
                                      range:range
                                       text:text];
     }
-    
+
     if ([self _needsToChangeToDefaultColorForTextView:textView range:range]) {
         return [self _forceDefaultColorForTextView:textView
                                              range:range
                                               text:text];
     }
-    
+
     if ([self.delegate respondsToSelector:
          @selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
         return [self.delegate textView:textView
                shouldChangeTextInRange:range
                        replacementText:text];
     }
-    
+
     return YES;
 }
 
@@ -165,7 +165,7 @@ shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment
       shouldInteractWithTextAttachment:textAttachment
                                inRange:characterRange];
     }
-    
+
     return YES;
 }
 
@@ -179,7 +179,7 @@ shouldInteractWithURL:(NSURL *)URL
                  shouldInteractWithURL:URL
                                inRange:characterRange];
     }
-    
+
     return YES;
 }
 
@@ -201,7 +201,7 @@ shouldInteractWithURL:(NSURL *)URL
 {
     if (!self.editingMention) {
         [self _adjustTextView:textView text:@"" range:textView.selectedRange];
-        
+
         if ([self.delegate respondsToSelector:@selector(textViewDidChangeSelection:)]) {
             [self.delegate textViewDidChangeSelection:textView];
         }
@@ -220,7 +220,7 @@ shouldInteractWithURL:(NSURL *)URL
     if ([self.delegate respondsToSelector:@selector(textViewShouldBeginEditing:)]) {
         [self.delegate textViewShouldBeginEditing:textView];
     }
-    
+
     return YES;
 }
 
@@ -229,7 +229,7 @@ shouldInteractWithURL:(NSURL *)URL
     if ([self.delegate respondsToSelector:@selector(textViewShouldEndEditing:)]) {
         return [self.delegate textViewShouldEndEditing:textView];
     }
-    
+
     return YES;
 }
 
@@ -242,31 +242,43 @@ shouldInteractWithURL:(NSURL *)URL
 
 - (void)addMention:(NSObject<SZCreateMentionProtocol> *)mention
 {
+    NSString *displayName = mention.szMentionName;
+
+    if (self.spaceAfterMention) {
+        displayName = [displayName stringByAppendingString:@" "];
+    }
     NSMutableAttributedString *mutableAttributedString = [self.textView.attributedText mutableCopy];
     [[mutableAttributedString mutableString] replaceCharactersInRange:self.currentMentionRange
-                                                           withString:mention.szMentionName];
-    
+                                                           withString:displayName];
+
     [self _adjustMentionsInRange:self.currentMentionRange text:mention.szMentionName];
-    
+
     self.currentMentionRange = NSMakeRange(self.currentMentionRange.location, mention.szMentionName.length);
-    
+
     [self _applyAttributes:self.mentionTextAttributes
                      range:NSMakeRange(self.currentMentionRange.location, self.currentMentionRange.length)
    mutableAttributedString:mutableAttributedString];
-    
+
     [self _applyAttributes:self.defaultTextAttributes
                      range:NSMakeRange(self.currentMentionRange.location + self.currentMentionRange.length - 1, 0)
    mutableAttributedString:mutableAttributedString];
-    
+
     self.settingText = YES;
     [self.textView setAttributedText:mutableAttributedString];
-    [self.textView setSelectedRange:NSMakeRange(self.currentMentionRange.location + self.currentMentionRange.length, 0)];
+
+    NSRange selectedRange = NSMakeRange(self.currentMentionRange.location + self.currentMentionRange.length, 0);
+
+    if (self.spaceAfterMention) {
+        selectedRange.location++;
+    }
+
+    [self.textView setSelectedRange:selectedRange];
     self.settingText = NO;
-    
+
     SZMention *szmention = [[SZMention alloc] init];
     [szmention setRange:self.currentMentionRange];
     [szmention setObject:mention];
-    
+
     [self.mentionsManager hideMentionsList];
     [self.mutableMentions addObject:szmention];
 }
@@ -289,7 +301,7 @@ shouldInteractWithURL:(NSURL *)URL
     SZAttribute *defaultColor = [[SZAttribute alloc] init];
     [defaultColor setAttributeName:NSForegroundColorAttributeName];
     [defaultColor setAttributeValue:[UIColor greenColor]];
-    
+
     return defaultColor;
 }
 
@@ -298,7 +310,7 @@ shouldInteractWithURL:(NSURL *)URL
     SZAttribute *mentionColor = [[SZAttribute alloc] init];
     [mentionColor setAttributeName:NSForegroundColorAttributeName];
     [mentionColor setAttributeValue:[UIColor blueColor]];
-    
+
     return mentionColor;
 }
 
@@ -308,13 +320,13 @@ shouldInteractWithURL:(NSURL *)URL
 {
     NSString *substring = [textView.text substringToIndex:range.location];
     BOOL mentionEnabled = NO;
-    
+
     if ([substring rangeOfString:self.trigger
                          options:NSBackwardsSearch].location != NSNotFound) {
         NSUInteger location = [substring rangeOfString:self.trigger
                                                options:NSBackwardsSearch].location;
         mentionEnabled = location == 0;
-        
+
         if (location > 0) {
             NSRange substringRange =
             NSMakeRange([substring rangeOfString:self.trigger
@@ -323,9 +335,9 @@ shouldInteractWithURL:(NSURL *)URL
                               isEqualToString:@" "];
         }
     }
-    
+
     NSArray *strings = [substring componentsSeparatedByString:@" "];
-    
+
     if ([[strings lastObject] rangeOfString:self.trigger].location != NSNotFound) {
         if (mentionEnabled) {
             self.currentMentionRange = [textView.text rangeOfString:[strings lastObject]
@@ -333,7 +345,7 @@ shouldInteractWithURL:(NSURL *)URL
             NSString *mentionString = [[strings lastObject] stringByAppendingString:text];
             self.filterString = [mentionString stringByReplacingOccurrencesOfString:self.trigger
                                                                          withString:@""];
-            
+
             if (self.filterString.length && !self.cooldownTimer.isValid) {
                 [self.mentionsManager showMentionsListWithString:self.filterString];
             }
@@ -357,10 +369,10 @@ shouldInteractWithURL:(NSURL *)URL
 - (SZMention *)_mentionBeingEditedForRange:(NSRange)range
 {
     SZMention *editedMention;
-    
+
     for (SZMention *mention in self.mentions) {
         NSRange currentMentionRange = mention.range;
-        
+
         if (NSIntersectionRange(range, currentMentionRange).length > 0 ||
             (range.length == 0 &&
              range.location > currentMentionRange.location &&
@@ -369,22 +381,22 @@ shouldInteractWithURL:(NSURL *)URL
                 break;
             }
     }
-    
+
     return editedMention;
 }
 
 - (NSArray *)_mentionsAfterTextEntryForRange:(NSRange)range
 {
     NSMutableArray *mentionsAfterTextEntry = @[].mutableCopy;
-    
+
     for (SZMention *mention in self.mentions) {
         NSRange currentMentionRange = mention.range;
-        
+
         if (range.location + range.length <= currentMentionRange.location) {
             [mentionsAfterTextEntry addObject:mention];
         }
     }
-    
+
     return mentionsAfterTextEntry.copy;
 }
 
@@ -402,24 +414,24 @@ shouldInteractWithURL:(NSURL *)URL
                          text:(NSString *)text
 {
     NSMutableAttributedString *mutableAttributedString = [textView.attributedText mutableCopy];
-    
+
     [self _applyAttributes:self.mentionTextAttributes
                      range:mention.range
    mutableAttributedString:mutableAttributedString];
-    
+
     [self _applyAttributes:self.defaultTextAttributes
                      range:mention.range
    mutableAttributedString:mutableAttributedString];
-    
+
     [[mutableAttributedString mutableString] replaceCharactersInRange:range withString:text];
     self.settingText = YES;
     [textView setAttributedText:mutableAttributedString];
     self.settingText = NO;
     [textView setSelectedRange:NSMakeRange(range.location + text.length, 0)];
-    
+
     if ([self.delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)])
         [self.delegate textView:textView shouldChangeTextInRange:range replacementText:text];
-    
+
     return NO;
 }
 
@@ -430,20 +442,20 @@ shouldInteractWithURL:(NSURL *)URL
     NSMutableAttributedString *mutableAttributedString = [textView.attributedText mutableCopy];
     [[mutableAttributedString mutableString] replaceCharactersInRange:range
                                                            withString:text];
-    
+
     [self _applyAttributes:self.defaultTextAttributes
                      range:NSMakeRange(range.location, text.length)
    mutableAttributedString:mutableAttributedString];
-    
+
     self.settingText = YES;
     [textView setAttributedText:mutableAttributedString];
     self.settingText = NO;
-    
+
     if (range.length > 0)
         [textView setSelectedRange:NSMakeRange(range.location, 0)];
     else
         [textView setSelectedRange:NSMakeRange(range.location + text.length, 0)];
-    
+
     return NO;
 }
 
@@ -452,7 +464,7 @@ shouldInteractWithURL:(NSURL *)URL
     if (index < 0 || textView.attributedText.length <= index) {
         return NO;
     }
-    
+
     return [[textView.attributedText
              attribute:[self.mentionTextAttributes[0] attributeName]
              atIndex:index effectiveRange:0]
@@ -470,7 +482,7 @@ shouldInteractWithURL:(NSURL *)URL
      textView.text.length > 0 &&
      [self _isMentionAtIndex:range.location + 1
                     textView:textView]);
-    
+
     return (isAheadOfMention || isAtStartOfTextViewAndIsTouchingMention);
 }
 
@@ -486,7 +498,7 @@ shouldInteractWithURL:(NSURL *)URL
     [self.cooldownTimer invalidate];
     // Add and activate the timer
     NSTimer *timer = [NSTimer timerWithTimeInterval:self.cooldownInterval
-                      
+
                                              target:self
                                            selector:@selector(cooldownTimerFired:)
                                            userInfo:nil
