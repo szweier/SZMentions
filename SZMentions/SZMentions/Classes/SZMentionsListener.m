@@ -242,6 +242,7 @@ shouldInteractWithURL:(NSURL *)URL
 
 - (void)addMention:(NSObject<SZCreateMentionProtocol> *)mention
 {
+    self.filterString = nil;
     NSString *displayName = mention.szMentionName;
 
     if (self.spaceAfterMention) {
