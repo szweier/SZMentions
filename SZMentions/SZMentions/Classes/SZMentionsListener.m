@@ -33,6 +33,16 @@
  */
 @property (nonatomic, assign) BOOL settingText;
 
+/**
+ @brief String to filter by
+ */
+@property (nonatomic, strong) NSString *filterString;
+
+/**
+ @brief Timer to space out mentions requests
+ */
+@property (nonatomic, strong) NSTimer *cooldownTimer;
+
 @end
 
 @implementation SZMentionsListener
@@ -320,12 +330,13 @@ shouldInteractWithURL:(NSURL *)URL
             self.currentMentionRange = [textView.text rangeOfString:[strings lastObject]
                                                             options:NSBackwardsSearch];
             NSString *mentionString = [[strings lastObject] stringByAppendingString:text];
-            NSString *filterString = [mentionString stringByReplacingOccurrencesOfString:self.trigger
-                                                                              withString:@""];
+            self.filterString = [mentionString stringByReplacingOccurrencesOfString:self.trigger
+                                                                         withString:@""];
             
-            if (filterString.length) {
-                [self.mentionsManager showMentionsListWithString:filterString];
+            if (self.filterString.length && !self.cooldownTimer.isValid) {
+                [self.mentionsManager showMentionsListWithString:self.filterString];
             }
+            [self activateCooldownTimer];
         } else {
             [self.mentionsManager hideMentionsList];
         }
@@ -460,6 +471,27 @@ shouldInteractWithURL:(NSURL *)URL
                     textView:textView]);
     
     return (isAheadOfMention || isAtStartOfTextViewAndIsTouchingMention);
+}
+
+- (void)cooldownTimerFired:(NSTimer *)timer
+{
+    if (self.filterString.length) {
+        [self.mentionsManager showMentionsListWithString:self.filterString];
+    }
+}
+
+- (void)activateCooldownTimer
+{
+    [self.cooldownTimer invalidate];
+    // Add and activate the timer
+    NSTimer *timer = [NSTimer timerWithTimeInterval:0.5
+                      
+                                             target:self
+                                           selector:@selector(cooldownTimerFired:)
+                                           userInfo:nil
+                                            repeats:NO];
+    self.cooldownTimer = timer;
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
 
 @end
