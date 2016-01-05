@@ -58,6 +58,7 @@
         _mutableMentions = @[].mutableCopy;
         _defaultTextAttributes = @[[self _defaultColor]];
         _mentionTextAttributes = @[[self _mentionColor]];
+        _cooldownInterval = 0.5;
     }
     
     return self;
@@ -484,7 +485,7 @@ shouldInteractWithURL:(NSURL *)URL
 {
     [self.cooldownTimer invalidate];
     // Add and activate the timer
-    NSTimer *timer = [NSTimer timerWithTimeInterval:0.5
+    NSTimer *timer = [NSTimer timerWithTimeInterval:self.cooldownInterval
                       
                                              target:self
                                            selector:@selector(cooldownTimerFired:)

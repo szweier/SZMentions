@@ -75,6 +75,11 @@
 @property (nonatomic, readonly) NSArray *mentions;
 
 /**
+ @brief Amount of time to delay between showMentions calls default:0.5
+ */
+@property (nonatomic, assign) CGFloat cooldownInterval;
+
+/**
  @brief Add mention object to current string being edited
  
  @param mention the mention object adhereing to SZCreateMentionProtocol
