@@ -39,7 +39,7 @@ $ pod install
 
 | SZMentions Version | Minimum iOS Target |
 |:--------------------:|:---------------------------:||
-| 0.0.1 | iOS 8.1 |
+| 0.0.x | iOS 8.1 |
 
 ## Usage
 
@@ -63,6 +63,10 @@ This class manages the mention interaction.
 `mentionsManager` : **required** The class that will be handling the mention interaction.
 
 `mentions` : **readonly** Array of all mentions currently applied to the text view.
+
+`cooldownInterval` : **optional** The amount of time to wait between calling showMentionsList. Default is `0.5`
+
+`spaceAfterMention` : **optional** Whether or not you would like a space to be added to the end of your mentions. Default is `NO`
 
 `- (void)addMention:(NSObject<SZCreateMentionProtocol> *)mention;` : Call this method while adding a mention to apply the mention to the current text.
 
