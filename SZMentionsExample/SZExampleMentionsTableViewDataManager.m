@@ -24,13 +24,13 @@
                  mentionsListener:(SZMentionsListener *)mentionsListener
 {
     self = [super init];
-    
+
     if (self) {
         _tableView = tableView;
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
         _mentionsListener = mentionsListener;
     }
-    
+
     return self;
 }
 
@@ -38,28 +38,29 @@
 {
     if (!_mentionsList) {
         NSArray *names = @[
-                           @"Steven Zweier",
-                           @"Professor Belly Button",
-                           @"Turtle Paper"];
-        
+            @"Steven Zweier",
+            @"Professor Belly Button",
+            @"Turtle Paper"
+        ];
+
         NSMutableArray *tempMentions = @[].mutableCopy;
-        
+
         for (NSString *name in names) {
             SZExampleMention *mention = [[SZExampleMention alloc] init];
             [mention setSzMentionName:name];
             [tempMentions addObject:mention];
         }
-        
+
         _mentionsList = tempMentions.copy;
     }
-    
+
     if (self.filterString.length) {
         return [_mentionsList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SZExampleMention *mention,
-                                                                                                         NSDictionary<NSString *,id> * _Nullable bindings) {
-            return [[mention.szMentionName lowercaseString] rangeOfString:[self.filterString lowercaseString]].location != NSNotFound;
-        }]];
+                                                                                                NSDictionary<NSString *, id> *_Nullable bindings) {
+                                  return [[mention.szMentionName lowercaseString] rangeOfString:[self.filterString lowercaseString]].location != NSNotFound;
+                              }]];
     }
-    
+
     return _mentionsList;
 }
 
@@ -77,13 +78,13 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     [cell.textLabel setText:[self.mentionsList[indexPath.row] szMentionName]];
-    
+
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self.mentionsListener addMention:self.mentionsList[indexPath.row]];
+    [self.mentionsListener addMention:self.mentionsList[indexPath.row]];
 }
 
 - (void)filterWithString:(NSString *)filterString
