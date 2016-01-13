@@ -18,7 +18,6 @@
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UITableView *mentionsTableView;
 @property (nonatomic, strong) NSArray *verticalConstraints;
-@property (nonatomic, assign) CGRect originalFrame;
 
 /**
  @brief Example data manager showing mentions and adding them to the textview
@@ -34,12 +33,11 @@
 - (instancetype)initWithFrame:(CGRect)frame delegate:(id)delegate
 {
     self = [super initWithFrame:frame];
-    
+
     if (self) {
-        self.originalFrame = frame;
         [self setupViewWithDelegate:delegate];
     }
-    
+
     return self;
 }
 
@@ -57,52 +55,52 @@
 - (NSArray *)defaultAttributes
 {
     NSMutableArray *defaultAttributes = @[].mutableCopy;
-    
+
     SZAttribute *attribute = [[SZAttribute alloc] init];
     [attribute setAttributeName:NSForegroundColorAttributeName];
     [attribute setAttributeValue:[UIColor grayColor]];
-    
+
     [defaultAttributes addObject:attribute];
-    
+
     attribute = [[SZAttribute alloc] init];
     [attribute setAttributeName:NSBackgroundColorAttributeName];
     [attribute setAttributeValue:[UIColor whiteColor]];
-    
+
     [defaultAttributes addObject:attribute];
-    
+
     attribute = [[SZAttribute alloc] init];
     [attribute setAttributeName:NSFontAttributeName];
     [attribute setAttributeValue:[UIFont fontWithName:@"ArialMT"
                                                  size:12]];
-    
+
     [defaultAttributes addObject:attribute];
-    
+
     return defaultAttributes.copy;
 }
 
 - (NSArray *)mentionAttributes
 {
     NSMutableArray *mentionAttributes = @[].mutableCopy;
-    
+
     SZAttribute *attribute = [[SZAttribute alloc] init];
     [attribute setAttributeName:NSForegroundColorAttributeName];
     [attribute setAttributeValue:[UIColor blackColor]];
-    
+
     [mentionAttributes addObject:attribute];
-    
+
     attribute = [[SZAttribute alloc] init];
     [attribute setAttributeName:NSFontAttributeName];
     [attribute setAttributeValue:[UIFont fontWithName:@"ChalkboardSE-Bold"
                                                  size:12]];
 
     [mentionAttributes addObject:attribute];
-    
+
     attribute = [[SZAttribute alloc] init];
     [attribute setAttributeName:NSBackgroundColorAttributeName];
     [attribute setAttributeValue:[UIColor lightGrayColor]];
-    
+
     [mentionAttributes addObject:attribute];
-    
+
     return mentionAttributes.copy;
 }
 
@@ -113,11 +111,11 @@
     if (!_mentionsListener) {
         _mentionsListener = [[SZMentionsListener alloc] init];
         [_mentionsListener setMentionsManager:self];
-        
+
         [_mentionsListener setDefaultTextAttributes:[self defaultAttributes]];
         [_mentionsListener setMentionTextAttributes:[self mentionAttributes]];
     }
-    
+
     return _mentionsListener;
 }
 
@@ -132,22 +130,22 @@
         [self addSubview:self.textView];
         [self removeConstraints:self.constraints];
         [self addConstraints:
-         [NSLayoutConstraint constraintsWithVisualFormat:@"|-5-[textview]-5-|"
-                                                 options:0
-                                                 metrics:nil
-                                                   views:@{
-                                                           @"textview": self.textView
-                                                           }]];
+                  [NSLayoutConstraint constraintsWithVisualFormat:@"|-5-[textview]-5-|"
+                                                          options:0
+                                                          metrics:nil
+                                                            views:@{
+                                                                @"textview": self.textView
+                                                            }]];
         self.verticalConstraints =
-        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[textview(30)]-5-|"
-                                                options:0
-                                                metrics:nil
-                                                  views:@{
+            [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[textview(30)]-5-|"
+                                                    options:0
+                                                    metrics:nil
+                                                      views:@{
                                                           @"textview": self.textView
-                                                          }];
+                                                      }];
         [self addConstraints:self.verticalConstraints];
     }
-    
+
     return _textView;
 }
 
@@ -158,13 +156,13 @@
     if (!_mentionsTableView) {
         _mentionsTableView = [[UITableView alloc] init];
         [_mentionsTableView setBackgroundColor:[UIColor blueColor]];
-        
+
         self.dataManager = [[SZExampleMentionsTableViewDataManager alloc] initWithTableView:_mentionsTableView
                                                                            mentionsListener:self.mentionsListener];
         [_mentionsTableView setDelegate:self.dataManager];
         [_mentionsTableView setDataSource:self.dataManager];
     }
-    
+
     return _mentionsTableView;
 }
 
@@ -186,30 +184,30 @@
         [self removeConstraints:self.constraints];
         [self.mentionsTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self addConstraints:
-         [NSLayoutConstraint constraintsWithVisualFormat:@"|-5-[tableview]-5-|"
-                                                 options:0
-                                                 metrics:nil
-                                                   views:@{
-                                                           @"tableview": self.mentionsTableView
-                                                           }]];
+                  [NSLayoutConstraint constraintsWithVisualFormat:@"|-5-[tableview]-5-|"
+                                                          options:0
+                                                          metrics:nil
+                                                            views:@{
+                                                                @"tableview": self.mentionsTableView
+                                                            }]];
         [self addConstraints:
-         [NSLayoutConstraint constraintsWithVisualFormat:@"|-5-[textview]-5-|"
-                                                 options:0
-                                                 metrics:nil
-                                                   views:@{
-                                                           @"textview": self.textView
-                                                           }]];
+                  [NSLayoutConstraint constraintsWithVisualFormat:@"|-5-[textview]-5-|"
+                                                          options:0
+                                                          metrics:nil
+                                                            views:@{
+                                                                @"textview": self.textView
+                                                            }]];
         self.verticalConstraints =
-        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[tableview(100)][textview(30)]-5-|"
-                                                options:0
-                                                metrics:nil
-                                                  views:@{
+            [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[tableview(100)][textview(30)]-5-|"
+                                                    options:0
+                                                    metrics:nil
+                                                      views:@{
                                                           @"tableview": self.mentionsTableView,
                                                           @"textview": self.textView
-                                                          }];
+                                                      }];
         [self addConstraints:self.verticalConstraints];
     }
-    
+
     [self.dataManager filterWithString:mentionString];
 }
 
@@ -217,14 +215,14 @@
 {
     [self.mentionsTableView removeFromSuperview];
     self.verticalConstraints =
-    [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[textview(30)]-5-|"
-                                            options:0
-                                            metrics:nil
-                                              views:@{
+        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[textview(30)]-5-|"
+                                                options:0
+                                                metrics:nil
+                                                  views:@{
                                                       @"textview": self.textView
-                                                      }];
+                                                  }];
     [self addConstraints:self.verticalConstraints];
-    
+
     [self.dataManager filterWithString:nil];
 }
 
