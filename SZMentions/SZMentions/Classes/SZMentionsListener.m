@@ -238,7 +238,7 @@
 {
     if ([self.delegate
             respondsToSelector:@selector(textViewShouldBeginEditing:)]) {
-        [self.delegate textViewShouldBeginEditing:textView];
+        return [self.delegate textViewShouldBeginEditing:textView];
     }
 
     return YES;

@@ -29,18 +29,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AA7B42D41C26F37600CEC7B1 /* SZMentionsFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZMentionsFramework.h; sourceTree = "<group>"; };
-		AA7B42D61C26F37600CEC7B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA7B42E01C26F37600CEC7B1 /* SZMentionsFrameworkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZMentionsFrameworkTests.m; sourceTree = "<group>"; };
-		AA7B42E21C26F37600CEC7B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA7B43091C26F94B00CEC7B1 /* SZMentions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SZMentions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA7B430B1C26F94B00CEC7B1 /* SZMentions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZMentions.h; sourceTree = "<group>"; };
-		AA7B430D1C26F94B00CEC7B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA7B43121C26F94B00CEC7B1 /* SZMentionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SZMentionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA7B43171C26F94B00CEC7B1 /* SZMentionsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZMentionsTests.m; sourceTree = "<group>"; };
 		AA7B43191C26F94B00CEC7B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA8BA27F1C26EE0400490E25 /* SZMentionsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZMentionsTests.m; sourceTree = "<group>"; };
-		AA8BA2811C26EE0400490E25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA8BA2AC1C26EEF500490E25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA8BA2AF1C26EEF500490E25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA8BA2B11C26EEF500490E25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
@@ -50,7 +43,7 @@
 		AA8BA2B61C26EEF500490E25 /* SZMention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZMention.m; sourceTree = "<group>"; };
 		AA8BA2B71C26EEF500490E25 /* SZMentionsListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZMentionsListener.h; sourceTree = "<group>"; };
 		AA8BA2B81C26EEF500490E25 /* SZMentionsListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZMentionsListener.m; sourceTree = "<group>"; };
-		AA8BA2B91C26EEF500490E25 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA8BA2B91C26EEF500490E25 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,33 +65,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AA7B42D31C26F37600CEC7B1 /* SZMentionsFramework */ = {
-			isa = PBXGroup;
-			children = (
-				AA7B42D41C26F37600CEC7B1 /* SZMentionsFramework.h */,
-				AA7B42D61C26F37600CEC7B1 /* Info.plist */,
-			);
-			path = SZMentionsFramework;
-			sourceTree = "<group>";
-		};
-		AA7B42DF1C26F37600CEC7B1 /* SZMentionsFrameworkTests */ = {
-			isa = PBXGroup;
-			children = (
-				AA7B42E01C26F37600CEC7B1 /* SZMentionsFrameworkTests.m */,
-				AA7B42E21C26F37600CEC7B1 /* Info.plist */,
-			);
-			path = SZMentionsFrameworkTests;
-			sourceTree = "<group>";
-		};
-		AA7B430A1C26F94B00CEC7B1 /* SZMentions */ = {
-			isa = PBXGroup;
-			children = (
-				AA7B430B1C26F94B00CEC7B1 /* SZMentions.h */,
-				AA7B430D1C26F94B00CEC7B1 /* Info.plist */,
-			);
-			path = SZMentions;
-			sourceTree = "<group>";
-		};
 		AA7B43161C26F94B00CEC7B1 /* SZMentionsTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,10 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				AA8BA2641C26EE0400490E25 /* SZMentions */,
-				AA8BA27E1C26EE0400490E25 /* SZMentionsTests */,
-				AA7B42D31C26F37600CEC7B1 /* SZMentionsFramework */,
-				AA7B42DF1C26F37600CEC7B1 /* SZMentionsFrameworkTests */,
-				AA7B430A1C26F94B00CEC7B1 /* SZMentions */,
 				AA7B43161C26F94B00CEC7B1 /* SZMentionsTests */,
 				AA8BA2631C26EE0400490E25 /* Products */,
 			);
@@ -136,18 +98,9 @@
 				AA8BA2AC1C26EEF500490E25 /* Assets.xcassets */,
 				AA8BA2AD1C26EEF500490E25 /* Base.lproj */,
 				AA8BA2B21C26EEF500490E25 /* Classes */,
-				AA8BA2B91C26EEF500490E25 /* Info.plist */,
+				AA7B430B1C26F94B00CEC7B1 /* SZMentions.h */,
 			);
 			path = SZMentions;
-			sourceTree = "<group>";
-		};
-		AA8BA27E1C26EE0400490E25 /* SZMentionsTests */ = {
-			isa = PBXGroup;
-			children = (
-				AA8BA27F1C26EE0400490E25 /* SZMentionsTests.m */,
-				AA8BA2811C26EE0400490E25 /* Info.plist */,
-			);
-			path = SZMentionsTests;
 			sourceTree = "<group>";
 		};
 		AA8BA2AD1C26EEF500490E25 /* Base.lproj */ = {
@@ -162,6 +115,7 @@
 		AA8BA2B21C26EEF500490E25 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				AA8BA2B91C26EEF500490E25 /* Info.plist */,
 				AA8BA2B31C26EEF500490E25 /* SZAttribute.h */,
 				AA8BA2B41C26EEF500490E25 /* SZAttribute.m */,
 				AA8BA2B51C26EEF500490E25 /* SZMention.h */,

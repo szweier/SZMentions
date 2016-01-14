@@ -39,8 +39,8 @@
     if (!_mentionsList) {
         NSArray *names = @[
             @"Steven Zweier",
-            @"Professor Belly Button",
-            @"Turtle Paper"
+            @"John Smith",
+            @"Joe Tesla"
         ];
 
         NSMutableArray *tempMentions = @[].mutableCopy;
@@ -53,12 +53,14 @@
 
         _mentionsList = tempMentions.copy;
     }
-
+    
     if (self.filterString.length) {
-        return [_mentionsList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SZExampleMention *mention,
-                                                                                                NSDictionary<NSString *, id> *_Nullable bindings) {
-                                  return [[mention.szMentionName lowercaseString] rangeOfString:[self.filterString lowercaseString]].location != NSNotFound;
-                              }]];
+        return [_mentionsList filteredArrayUsingPredicate:
+                [NSPredicate predicateWithBlock:^BOOL(SZExampleMention *mention,
+                                                      NSDictionary<NSString *, id> *_Nullable bindings) {
+            return [[mention.szMentionName lowercaseString]
+                    rangeOfString:[self.filterString lowercaseString]].location != NSNotFound;
+        }]];
     }
 
     return _mentionsList;

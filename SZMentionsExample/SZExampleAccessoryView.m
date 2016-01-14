@@ -111,7 +111,6 @@
     if (!_mentionsListener) {
         _mentionsListener = [[SZMentionsListener alloc] init];
         [_mentionsListener setMentionsManager:self];
-
         [_mentionsListener setDefaultTextAttributes:[self defaultAttributes]];
         [_mentionsListener setMentionTextAttributes:[self mentionAttributes]];
     }
@@ -164,15 +163,6 @@
     }
 
     return _mentionsTableView;
-}
-
-#pragma mark - SZMentionsListener Method
-
-- (void)addMention
-{
-    SZExampleMention *exampleMention = [[SZExampleMention alloc] init];
-    [exampleMention setSzMentionName:@"Tiffany Zweier"];
-    [self.mentionsListener addMention:exampleMention];
 }
 
 #pragma mark - SZMentionsManagerProtocol
