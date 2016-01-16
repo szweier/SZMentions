@@ -15,6 +15,8 @@
 		AA7B43261C26F9E000CEC7B1 /* SZMention.h in Headers */ = {isa = PBXBuildFile; fileRef = AA8BA2B51C26EEF500490E25 /* SZMention.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA7B43271C26F9E000CEC7B1 /* SZMentionsListener.h in Headers */ = {isa = PBXBuildFile; fileRef = AA8BA2B71C26EEF500490E25 /* SZMentionsListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA7B43281C27651100CEC7B1 /* SZMentions.h in Headers */ = {isa = PBXBuildFile; fileRef = AA7B430B1C26F94B00CEC7B1 /* SZMentions.h */; };
+		DBF2DF561C4B0FE4001B9788 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DBF2DF541C4B0FE4001B9788 /* Info.plist */; };
+		DBF2DF571C4B0FE4001B9788 /* SZMentionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBF2DF551C4B0FE4001B9788 /* SZMentionsTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +43,8 @@
 		AA8BA2B71C26EEF500490E25 /* SZMentionsListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZMentionsListener.h; sourceTree = "<group>"; };
 		AA8BA2B81C26EEF500490E25 /* SZMentionsListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZMentionsListener.m; sourceTree = "<group>"; };
 		AA8BA2B91C26EEF500490E25 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
+		DBF2DF541C4B0FE4001B9788 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBF2DF551C4B0FE4001B9788 /* SZMentionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZMentionsTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				AA8BA2641C26EE0400490E25 /* SZMentions */,
+				DBF2DF531C4B0FE4001B9788 /* SZMentionsTests */,
 				AA8BA2631C26EE0400490E25 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -111,6 +116,15 @@
 				AA8BA2B81C26EEF500490E25 /* SZMentionsListener.m */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		DBF2DF531C4B0FE4001B9788 /* SZMentionsTests */ = {
+			isa = PBXGroup;
+			children = (
+				DBF2DF541C4B0FE4001B9788 /* Info.plist */,
+				DBF2DF551C4B0FE4001B9788 /* SZMentionsTests.m */,
+			);
+			path = SZMentionsTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +228,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBF2DF561C4B0FE4001B9788 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBF2DF571C4B0FE4001B9788 /* SZMentionsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
