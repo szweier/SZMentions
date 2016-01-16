@@ -15,18 +15,18 @@
 		AA89382D1C25A5DD009BE6A7 /* SZExampleAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8938251C25A5DD009BE6A7 /* SZExampleAccessoryView.m */; };
 		AA89382E1C25A5DD009BE6A7 /* SZExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8938271C25A5DD009BE6A7 /* SZExampleViewController.m */; };
 		AA8938311C26010D009BE6A7 /* SZExampleMention.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8938301C26010D009BE6A7 /* SZExampleMention.m */; };
-		DBF2DF3F1C4B06EC001B9788 /* SZMentions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBF2DF3E1C4B06EC001B9788 /* SZMentions.framework */; };
-		DBF2DF401C4B06EC001B9788 /* SZMentions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DBF2DF3E1C4B06EC001B9788 /* SZMentions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DBF2DF4D1C4B0B77001B9788 /* SZMentions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBF2DF4C1C4B0B77001B9788 /* SZMentions.framework */; };
+		DBF2DF4E1C4B0B77001B9788 /* SZMentions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DBF2DF4C1C4B0B77001B9788 /* SZMentions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		DBF2DF411C4B06ED001B9788 /* Embed Frameworks */ = {
+		DBF2DF4F1C4B0B77001B9788 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DBF2DF401C4B06EC001B9788 /* SZMentions.framework in Embed Frameworks */,
+				DBF2DF4E1C4B0B77001B9788 /* SZMentions.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -34,11 +34,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AA37D91C1C4A10110024A5DF /* SZMentions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SZMentions.framework; path = "../../../Library/Developer/Xcode/DerivedData/SZMentions-cidmqnqwfapjwzagrmkjpqxngkan/Build/Products/Debug-iphoneos/SZMentions.framework"; sourceTree = "<group>"; };
 		AA57D9261C222C47004ABC4E /* SZMentionsExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SZMentionsExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA5C5D5D1C276ED6000F3B14 /* SZExampleMentionsTableViewDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZExampleMentionsTableViewDataManager.h; sourceTree = "<group>"; };
 		AA5C5D5E1C276ED6000F3B14 /* SZExampleMentionsTableViewDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZExampleMentionsTableViewDataManager.m; sourceTree = "<group>"; };
-		AA7B43201C26F99100CEC7B1 /* SZMentions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SZMentions.framework; path = "SZMentions/build/Debug-iphoneos/SZMentions.framework"; sourceTree = "<group>"; };
 		AA89381E1C25A5DD009BE6A7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AA89381F1C25A5DD009BE6A7 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		AA8938201C25A5DD009BE6A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,7 +49,7 @@
 		AA8938271C25A5DD009BE6A7 /* SZExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZExampleViewController.m; sourceTree = "<group>"; };
 		AA89382F1C26010D009BE6A7 /* SZExampleMention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZExampleMention.h; sourceTree = "<group>"; };
 		AA8938301C26010D009BE6A7 /* SZExampleMention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZExampleMention.m; sourceTree = "<group>"; };
-		DBF2DF3E1C4B06EC001B9788 /* SZMentions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SZMentions.framework; path = "/Users/stevenzweier/Library/Developer/Xcode/DerivedData/SZMentions-fyrlwrtlzgguqbfqgttosasinfth/Build/Products/Debug-iphoneos/SZMentions.framework"; sourceTree = "<absolute>"; };
+		DBF2DF4C1C4B0B77001B9788 /* SZMentions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SZMentions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBF2DF3F1C4B06EC001B9788 /* SZMentions.framework in Frameworks */,
+				DBF2DF4D1C4B0B77001B9788 /* SZMentions.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,7 +67,7 @@
 		AA57D91D1C222C47004ABC4E = {
 			isa = PBXGroup;
 			children = (
-				DBF2DF3E1C4B06EC001B9788 /* SZMentions.framework */,
+				DBF2DF4C1C4B0B77001B9788 /* SZMentions.framework */,
 				AA89381D1C25A5DD009BE6A7 /* SZMentionsExample */,
 				AA57D9271C222C47004ABC4E /* Products */,
 				BFC60D62AC84522B99845B05 /* Frameworks */,
@@ -108,8 +106,6 @@
 		BFC60D62AC84522B99845B05 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AA37D91C1C4A10110024A5DF /* SZMentions.framework */,
-				AA7B43201C26F99100CEC7B1 /* SZMentions.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -124,7 +120,7 @@
 				AA57D9221C222C47004ABC4E /* Sources */,
 				AA57D9231C222C47004ABC4E /* Frameworks */,
 				AA57D9241C222C47004ABC4E /* Resources */,
-				DBF2DF411C4B06ED001B9788 /* Embed Frameworks */,
+				DBF2DF4F1C4B0B77001B9788 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
