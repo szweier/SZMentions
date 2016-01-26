@@ -275,7 +275,7 @@
                       withString:displayName];
 
     [self _adjustMentionsInRange:self.currentMentionRange
-                            text:mention.szMentionName];
+                            text:displayName];
 
     self.currentMentionRange = NSMakeRange(self.currentMentionRange.location,
                                            mention.szMentionName.length);
