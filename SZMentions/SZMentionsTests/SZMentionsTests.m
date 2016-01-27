@@ -168,6 +168,57 @@
     XCTAssertTrue([[self.mentionsListener mentions][0] range].location == 0);
 }
 
+- (void)testMentionLocationIsAdjustedProperlyWhenAMentionIsInsertsBehindAMentionSpaceAfterMentionIsFalse
+{
+    [self.textView insertText:@"@t"];
+    SZExampleMention *mention = [[SZExampleMention alloc] init];
+    [mention setSzMentionName:@"Steven"];
+
+    [self.mentionsListener addMention:mention];
+
+    XCTAssertTrue([self.mentionsListener.mentions[0] range].location == 0);
+    XCTAssertTrue([self.mentionsListener.mentions[0] range].length == 6);
+
+    self.textView.selectedRange = NSMakeRange(0, 0);
+
+    if ([self.mentionsListener textView:self.textView shouldChangeTextInRange:NSMakeRange(0, 0) replacementText:@"@t"]) {
+        [self.textView insertText:@"@t"];
+    }
+    mention = [[SZExampleMention alloc] init];
+    [mention setSzMentionName:@"Steven Zweier"];
+    [self.mentionsListener addMention:mention];
+
+    XCTAssertTrue([self.mentionsListener.mentions[1] range].location == 0);
+    XCTAssertTrue([self.mentionsListener.mentions[1] range].length == 13);
+    XCTAssertTrue([self.mentionsListener.mentions[0] range].location == 13);
+}
+
+- (void)testMentionLocationIsAdjustedProperlyWhenAMentionIsInsertsBehindAMentionSpaceAfterMentionIsTrue
+{
+    self.mentionsListener.spaceAfterMention = YES;
+    [self.textView insertText:@"@t"];
+    SZExampleMention *mention = [[SZExampleMention alloc] init];
+    [mention setSzMentionName:@"Steven"];
+
+    [self.mentionsListener addMention:mention];
+
+    XCTAssertTrue([self.mentionsListener.mentions[0] range].location == 0);
+    XCTAssertTrue([self.mentionsListener.mentions[0] range].length == 6);
+
+    self.textView.selectedRange = NSMakeRange(0, 0);
+
+    if ([self.mentionsListener textView:self.textView shouldChangeTextInRange:NSMakeRange(0, 0) replacementText:@"@t"]) {
+        [self.textView insertText:@"@t"];
+    }
+    mention = [[SZExampleMention alloc] init];
+    [mention setSzMentionName:@"Steven Zweier"];
+    [self.mentionsListener addMention:mention];
+
+    XCTAssertTrue([self.mentionsListener.mentions[1] range].location == 0);
+    XCTAssertTrue([self.mentionsListener.mentions[1] range].length == 13);
+    XCTAssertTrue([self.mentionsListener.mentions[0] range].location == 14);
+}
+
 - (void)testEditingTheMiddleOfTheMentionRemovesTheMention
 {
     [self.textView insertText:@"Testing @t"];
