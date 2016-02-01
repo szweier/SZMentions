@@ -98,7 +98,7 @@ Example:
 
 ## Unit Tests
 
-SZMentions includes unit tests which can be run on the SZMentions example project.
+SZMentions includes unit tests which can be run on the SZMentions framework
 
 ## Credits
 
