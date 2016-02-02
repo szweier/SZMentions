@@ -41,7 +41,7 @@
 {
     return [mentions filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SZMention *mention, NSDictionary<NSString *,id> * _Nullable bindings) {
         return index >= mention.range.location && index < mention.range.location + mention.range.length;
-    }]];
+    }]].count > 0;
 }
 
 + (BOOL)_needsToChangeToDefaultColorForRange:(NSRange)range textView:(UITextView *)textView mentions:(NSArray *)mentions
