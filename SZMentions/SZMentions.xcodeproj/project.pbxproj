@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA04013B1C602294003A95A6 /* SZAttributedStringHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = AA0401391C602294003A95A6 /* SZAttributedStringHelper.h */; };
+		AA04013C1C602294003A95A6 /* SZAttributedStringHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AA04013A1C602294003A95A6 /* SZAttributedStringHelper.m */; };
+		AA04013F1C602327003A95A6 /* SZDefaultAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = AA04013D1C602327003A95A6 /* SZDefaultAttributes.h */; };
+		AA0401401C602327003A95A6 /* SZDefaultAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = AA04013E1C602327003A95A6 /* SZDefaultAttributes.m */; };
+		AA0401431C6023F7003A95A6 /* SZMentionHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = AA0401411C6023F7003A95A6 /* SZMentionHelper.h */; };
+		AA0401441C6023F7003A95A6 /* SZMentionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0401421C6023F7003A95A6 /* SZMentionHelper.m */; };
 		AA7B43131C26F94B00CEC7B1 /* SZMentions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA7B43091C26F94B00CEC7B1 /* SZMentions.framework */; };
 		AA7B43221C26F9D400CEC7B1 /* SZAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA2B41C26EEF500490E25 /* SZAttribute.m */; };
 		AA7B43231C26F9D400CEC7B1 /* SZMention.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA2B61C26EEF500490E25 /* SZMention.m */; };
@@ -29,6 +35,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA0401391C602294003A95A6 /* SZAttributedStringHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZAttributedStringHelper.h; sourceTree = "<group>"; };
+		AA04013A1C602294003A95A6 /* SZAttributedStringHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZAttributedStringHelper.m; sourceTree = "<group>"; };
+		AA04013D1C602327003A95A6 /* SZDefaultAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZDefaultAttributes.h; sourceTree = "<group>"; };
+		AA04013E1C602327003A95A6 /* SZDefaultAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZDefaultAttributes.m; sourceTree = "<group>"; };
+		AA0401411C6023F7003A95A6 /* SZMentionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZMentionHelper.h; sourceTree = "<group>"; };
+		AA0401421C6023F7003A95A6 /* SZMentionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZMentionHelper.m; sourceTree = "<group>"; };
 		AA7B43091C26F94B00CEC7B1 /* SZMentions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SZMentions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA7B430B1C26F94B00CEC7B1 /* SZMentions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZMentions.h; sourceTree = "<group>"; };
 		AA7B43121C26F94B00CEC7B1 /* SZMentionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SZMentionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +125,12 @@
 				AA8BA2B61C26EEF500490E25 /* SZMention.m */,
 				AA8BA2B71C26EEF500490E25 /* SZMentionsListener.h */,
 				AA8BA2B81C26EEF500490E25 /* SZMentionsListener.m */,
+				AA0401391C602294003A95A6 /* SZAttributedStringHelper.h */,
+				AA04013A1C602294003A95A6 /* SZAttributedStringHelper.m */,
+				AA04013D1C602327003A95A6 /* SZDefaultAttributes.h */,
+				AA04013E1C602327003A95A6 /* SZDefaultAttributes.m */,
+				AA0401411C6023F7003A95A6 /* SZMentionHelper.h */,
+				AA0401421C6023F7003A95A6 /* SZMentionHelper.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -135,8 +153,11 @@
 			files = (
 				AA7B43251C26F9E000CEC7B1 /* SZAttribute.h in Headers */,
 				AA7B43271C26F9E000CEC7B1 /* SZMentionsListener.h in Headers */,
+				AA04013F1C602327003A95A6 /* SZDefaultAttributes.h in Headers */,
+				AA0401431C6023F7003A95A6 /* SZMentionHelper.h in Headers */,
 				AA7B43261C26F9E000CEC7B1 /* SZMention.h in Headers */,
 				AA7B43281C27651100CEC7B1 /* SZMentions.h in Headers */,
+				AA04013B1C602294003A95A6 /* SZAttributedStringHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,8 +259,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA7B43221C26F9D400CEC7B1 /* SZAttribute.m in Sources */,
+				AA04013C1C602294003A95A6 /* SZAttributedStringHelper.m in Sources */,
+				AA0401401C602327003A95A6 /* SZDefaultAttributes.m in Sources */,
 				AA7B43231C26F9D400CEC7B1 /* SZMention.m in Sources */,
 				AA7B43241C26F9D400CEC7B1 /* SZMentionsListener.m in Sources */,
+				AA0401441C6023F7003A95A6 /* SZMentionHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
