@@ -73,7 +73,7 @@
     [_textView setDelegate:self];
 }
 
-- (BOOL)resetEmptyTextView:(UITextView *)textView
+- (void)resetEmptyTextView:(UITextView *)textView
                       text:(NSString *)text
                      range:(NSRange)range
 {
@@ -86,25 +86,6 @@
     [SZAttributedStringHelper _applyAttributes:self.defaultTextAttributes
                                          range:NSMakeRange(range.location, text.length)
                        mutableAttributedString:mutableAttributedString];
-    
-    self.settingText = YES;
-    [textView setAttributedText:mutableAttributedString];
-    self.settingText = NO;
-    
-    if ([self.delegate respondsToSelector:@selector(textView:
-                                                    shouldChangeTextInRange:
-                                                    replacementText:)]) {
-        [self.delegate textView:textView
-        shouldChangeTextInRange:range
-                replacementText:text];
-    }
-    
-    [self textViewDidChange:textView];
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:UITextViewTextDidChangeNotification
-     object:textView];
-    
-    return NO;
 }
 
 #pragma mark - Textview delegate
@@ -136,7 +117,7 @@ shouldChangeTextInRange:(NSRange)range
                          text:(NSString *)text
 {
     if (textView.text.length == 0) {
-        return [self resetEmptyTextView:textView text:text range:range];
+        [self resetEmptyTextView:textView text:text range:range];
     }
     
     if ([SZMentionHelper _shouldHideMentionsForText:text]) {
