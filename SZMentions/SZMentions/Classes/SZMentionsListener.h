@@ -39,20 +39,6 @@
 @interface SZMentionsListener : NSObject <UITextViewDelegate>
 
 /**
- @brief Trigger to start a mention. Default: @
- */
-@property (nonatomic, strong) NSString *trigger;
-/**
- @brief Text attributes to be applied to all text excluding mentions.
- */
-@property (nonatomic, strong) NSArray *defaultTextAttributes;
-
-/**
- @brief Text attributes to be applied to mentions.
- */
-@property (nonatomic, strong) NSArray *mentionTextAttributes;
-
-/**
  @brief The UITextView being handled by the SZMentionsListener
  */
 @property (nonatomic, weak) UITextView *textView;
@@ -75,11 +61,6 @@
 @property (nonatomic, readonly) NSArray *mentions;
 
 /**
- @brief Amount of time to delay between showMentions calls default:0.5
- */
-@property (nonatomic, assign) CGFloat cooldownInterval;
-
-/**
  @brief Whether or not we should add a space after the mention, default: NO
  */
 @property (nonatomic, assign) BOOL spaceAfterMention;
@@ -92,5 +73,40 @@
  is returned in the mentions array in the object parameter of the SZMention object.
  */
 - (void)addMention:(NSObject<SZCreateMentionProtocol> *)mention;
+
+/**
+ @brief Default initialize (uses default mention attributes)
+ */
+- (instancetype)init;
+
+/**
+ @brief Initializer that allows for customization of text attributes for default text and mentions
+ @param defaultTextAttributes - text style to show for default text
+ @param mentionTextAttributes - text style to show for mentions
+ */
+- (instancetype)initWithDefaultTextAttributes:(NSArray *)defaultTextAttributes
+                        mentionTextAttributes:(NSArray *)mentionTextAttributes;
+
+/**
+ @brief Initializer that allows for customization of text attributes for default text and mentions
+ @param defaultTextAttributes - text style to show for default text
+ @param mentionTextAttributes - text style to show for mentions
+ @param mentionTrigger - what text triggers showing the mentions list
+ */
+- (instancetype)initWithDefaultTextAttributes:(NSArray *)defaultTextAttributes
+                        mentionTextAttributes:(NSArray *)mentionTextAttributes
+                               mentionTrigger:(NSString *)mentionTrigger;
+
+/**
+ @brief Initializer that allows for customization of text attributes for default text and mentions
+ @param defaultTextAttributes - text style to show for default text
+ @param mentionTextAttributes - text style to show for mentions
+ @param mentionTrigger - what text triggers showing the mentions list
+ @param cooldownInterval - amount of time between show / hide mentions calls
+ */
+- (instancetype)initWithDefaultTextAttributes:(NSArray *)defaultTextAttributes
+                        mentionTextAttributes:(NSArray *)mentionTextAttributes
+                               mentionTrigger:(NSString *)mentionTrigger
+                             cooldownInterval:(CGFloat)cooldownInterval;
 
 @end

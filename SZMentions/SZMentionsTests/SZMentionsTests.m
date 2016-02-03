@@ -64,17 +64,31 @@
     SZAttribute *attribute = [[SZAttribute alloc] init];
     [attribute setAttributeName:NSForegroundColorAttributeName];
     [attribute setAttributeValue:[UIColor redColor]];
-    
+
     SZAttribute *attribute2 = [[SZAttribute alloc] init];
     [attribute2 setAttributeName:NSBackgroundColorAttributeName];
     [attribute2 setAttributeValue:[UIColor blackColor]];
-    
-    [self.mentionsListener setDefaultTextAttributes:@[attribute]];
-    [self.mentionsListener setMentionTextAttributes:@[attribute, attribute2]];
-    
-    
-    
-    XCTAssertThrowsSpecificNamed([self.mentionsListener textViewDidBeginEditing:self.textView], NSException, @"UHOH");
+
+    NSArray *defaultAttributes = @[attribute];
+    NSArray *mentionAttributes = @[attribute, attribute2];
+
+    XCTAssertThrowsSpecificNamed([[SZMentionsListener alloc] initWithDefaultTextAttributes:defaultAttributes mentionTextAttributes:mentionAttributes],NSException,NSInternalInconsistencyException, @"Default and mention attributes must contain the same attribute names: If default attributes specify NSForegroundColorAttributeName mention attributes must specify that same name as well. (Values do not need to match)");
+}
+
+- (void)testThatAddingAttributesThatDoMatchDoesNotThrowsAnError
+{
+    SZAttribute *attribute = [[SZAttribute alloc] init];
+    [attribute setAttributeName:NSForegroundColorAttributeName];
+    [attribute setAttributeValue:[UIColor redColor]];
+
+    SZAttribute *attribute2 = [[SZAttribute alloc] init];
+    [attribute2 setAttributeName:NSBackgroundColorAttributeName];
+    [attribute2 setAttributeValue:[UIColor blackColor]];
+
+    NSArray *defaultAttributes = @[attribute, attribute2];
+    NSArray *mentionAttributes = @[attribute2, attribute];
+
+    XCTAssertNoThrowSpecificNamed([[SZMentionsListener alloc] initWithDefaultTextAttributes:defaultAttributes mentionTextAttributes:mentionAttributes],NSException,NSInternalInconsistencyException, @"Default and mention attributes must contain the same attribute names: If default attributes specify NSForegroundColorAttributeName mention attributes must specify that same name as well. (Values do not need to match)");
 }
 
 - (void)testMentionListIsDisplayed

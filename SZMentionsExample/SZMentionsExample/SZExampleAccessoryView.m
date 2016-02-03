@@ -109,10 +109,9 @@
 - (SZMentionsListener *)mentionsListener
 {
     if (!_mentionsListener) {
-        _mentionsListener = [[SZMentionsListener alloc] init];
+        _mentionsListener = [[SZMentionsListener alloc] initWithDefaultTextAttributes:[self defaultAttributes]
+                                                                mentionTextAttributes:[self mentionAttributes]];
         [_mentionsListener setMentionsManager:self];
-        [_mentionsListener setDefaultTextAttributes:[self defaultAttributes]];
-        [_mentionsListener setMentionTextAttributes:[self mentionAttributes]];
     }
 
     return _mentionsListener;
