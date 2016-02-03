@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "SZMentionsListener.h"
+#import "SZAttribute.h"
 
 @interface SZExampleMention : NSObject<SZCreateMentionProtocol>
 
@@ -56,6 +57,24 @@
 {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+}
+
+- (void)testThatAddingAttributesThatDoNotMatchThrowsAnError
+{
+    SZAttribute *attribute = [[SZAttribute alloc] init];
+    [attribute setAttributeName:NSForegroundColorAttributeName];
+    [attribute setAttributeValue:[UIColor redColor]];
+    
+    SZAttribute *attribute2 = [[SZAttribute alloc] init];
+    [attribute2 setAttributeName:NSBackgroundColorAttributeName];
+    [attribute2 setAttributeValue:[UIColor blackColor]];
+    
+    [self.mentionsListener setDefaultTextAttributes:@[attribute]];
+    [self.mentionsListener setMentionTextAttributes:@[attribute, attribute2]];
+    
+    
+    
+    XCTAssertThrowsSpecificNamed([self.mentionsListener textViewDidBeginEditing:self.textView], NSException, @"UHOH");
 }
 
 - (void)testMentionListIsDisplayed

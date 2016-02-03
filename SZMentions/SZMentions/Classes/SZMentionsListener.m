@@ -217,6 +217,7 @@ shouldInteractWithURL:(NSURL *)URL
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
+    NSAssert(YES, @"UHOH");
     if ([self.delegate respondsToSelector:@selector(textViewDidEndEditing:)]) {
         [self.delegate textViewDidEndEditing:textView];
     }
