@@ -11,7 +11,7 @@
 
 @implementation SZMentionHelper
 
-+ (NSArray *)_mentionsAfterTextEntryForRange:(NSRange)range inMentions:(NSArray *)mentionsList
++ (NSArray<SZMention *> *)_mentionsAfterTextEntryForRange:(NSRange)range inMentions:(NSArray *)mentionsList
 {
     NSMutableArray *mentionsAfterTextEntry = @[].mutableCopy;
     

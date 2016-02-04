@@ -10,7 +10,14 @@
 
 @interface SZDefaultAttributes : NSObject
 
+/**
+ @brief the text attributes to be applied to default text (can be overridden using inits on SZMentionsListener)
+ */
 + (NSArray *)defaultTextAttributes;
+
+/**
+ @brief the text attributes to be applied to mention text (can be overridden using inits on SZMentionsListener)
+ */
 + (NSArray *)defaultMentionAttributes;
 
 @end
