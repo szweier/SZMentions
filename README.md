@@ -53,11 +53,17 @@ This class manages the mention interaction.
 Use one of the many initializers to setup your mentions listener.  Parameters explained below:
 
 `textView` : **required** The text view we are applying the mentions listener to. Note: it's delegate **must** be the mentions manager.
+
 `mentionsManager` : **required** The class that will be handling the mention interaction.
+
 `delegate` : **optional** If you would like to receive UITextView delegate methods set this and it will be passed through after processing view the mentions listener.
+
 `defaultTextAttributes` : Attributes (see: `SZAttribute`) to apply to the textview for all text that is not a mention.
+
 `mentionTextAttributes` : Attributes (see: `SZAttribute`) to apply to the textview for all mentions
+
 `trigger` : The string used to start a mention. Default is `@`
+
 `spaceAfterMention` : **optional** Whether or not you would like a space to be added to the end of your mentions. Default is `NO`
 
 ##### Properties
