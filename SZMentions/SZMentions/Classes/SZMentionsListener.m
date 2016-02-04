@@ -144,16 +144,16 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
         _trigger = mentionTrigger;
         _mutableMentions = @[].mutableCopy;
 
-        NSArray *attributesToLoop = defaultTextAttributes.count >= mentionTextAttributes.count ?
-        defaultTextAttributes :
-        mentionTextAttributes;
+        NSArray *attributeNamesToLoop = (defaultTextAttributes.count >= mentionTextAttributes.count) ?
+        [defaultTextAttributes valueForKey:@"attributeName"] :
+        [mentionTextAttributes valueForKey:@"attributeName"];
 
-        NSArray *attributesToCompare = defaultTextAttributes.count < mentionTextAttributes.count ?
-        defaultTextAttributes :
-        mentionTextAttributes;
+        NSArray *attributeNamesToCompare = (defaultTextAttributes.count < mentionTextAttributes.count) ?
+        [defaultTextAttributes valueForKey:@"attributeName"] :
+        [mentionTextAttributes valueForKey:@"attributeName"];
 
-        for (NSString *attributeName in [attributesToLoop valueForKey:@"attributeName"]) {
-            BOOL attributeHasMatch = [[attributesToCompare valueForKey:@"attributeName"] containsObject:attributeName];
+        for (NSString *attributeName in attributeNamesToLoop) {
+            BOOL attributeHasMatch = [attributeNamesToCompare containsObject:attributeName];
             NSAssert(attributeHasMatch, attributeConsistencyError);
         }
 
