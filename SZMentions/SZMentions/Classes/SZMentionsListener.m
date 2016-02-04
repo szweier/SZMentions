@@ -118,7 +118,7 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
                  textViewDelegate:textViewDelegate
             defaultTextAttributes:defaultTextAttributes
             mentionTextAttributes:mentionTextAttributes
-            spaceAfterMention:NO];
+                spaceAfterMention:NO];
 }
 
 - (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray *)defaultTextAttributes mentionTextAttributes:(NSArray *)mentionTextAttributes spaceAfterMention:(BOOL)spaceAfterMention
