@@ -62,15 +62,15 @@ Use one of the many initializers to setup your mentions listener.  Parameters ex
 
 `mentionTextAttributes` : Attributes (see: `SZAttribute`) to apply to the textview for all mentions
 
+`spaceAfterMention` : **optional** Whether or not you would like a space to be added to the end of your mentions. Default is `NO`
+
 `trigger` : The string used to start a mention. Default is `@`
 
-`spaceAfterMention` : **optional** Whether or not you would like a space to be added to the end of your mentions. Default is `NO`
+`cooldownInterval` : **optional** The amount of time to wait between calling showMentionsList. Default is `0.5`
 
 ##### Properties
 
 `mentions` : **readonly** Array of all mentions currently applied to the text view.
-
-`cooldownInterval` : **optional** The amount of time to wait between calling showMentionsList. Default is `0.5`
 
 ##### Methods
 
