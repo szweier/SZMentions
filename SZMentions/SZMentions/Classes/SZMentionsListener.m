@@ -93,7 +93,7 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
 
 @implementation SZMentionsListener
 
-#pragma mark - Initialization
+#pragma mark - initialization
 
 - (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
 {
@@ -176,14 +176,21 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
         _defaultTextAttributes = defaultTextAttributes;
         _mentionTextAttributes = mentionTextAttributes;
         _cooldownInterval = cooldownInterval;
-        [self setDefaultAttributesForTextView:_textView];
+        [self resetEmptyTextView:_textView];
     }
 
     return self;
 }
 
-- (void)setDefaultAttributesForTextView:(UITextView *)textView
+#pragma mark - text view adjustments
+
+/**
+ @brief Resets the empty text view
+ @param textView: the text view to reset
+ */
+- (void)resetEmptyTextView:(UITextView *)textView
 {
+    self.mutableMentions = @[].mutableCopy;
     [textView setText:@" "];
     NSMutableAttributedString *mutableAttributedString = textView.attributedText.mutableCopy;
     for (SZAttribute *attribute in _defaultTextAttributes) {
@@ -195,44 +202,71 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
     [textView setText:@""];
 }
 
-- (void)resetEmptyTextView:(UITextView *)textView
-                      text:(NSString *)text
-                     range:(NSRange)range
+/**
+ @brief Uses the text view to determine the current mention being adjusted based on
+ the currently selected range and the nearest trigger when doing a backward search.  It also
+ sets the currentMentionRange to be used as the range to replace when adding a mention.
+ @param textView: the mentions text view
+ @param range: the selected range
+ @param text: the replacement text
+ */
+- (void)adjustTextView:(UITextView *)textView
+                    text:(NSString *)text
+                   range:(NSRange)range
 {
-    self.mutableMentions = @[].mutableCopy;
-    [self setDefaultAttributesForTextView:textView];
-}
+    NSString *substring = [textView.text substringToIndex:range.location];
+    BOOL mentionEnabled = NO;
+    NSUInteger location =
+    [substring rangeOfString:self.trigger
+                     options:NSBackwardsSearch].location;
+    if (location != NSNotFound) {
+        mentionEnabled = location == 0;
 
-#pragma mark - Textview delegate
-
-- (BOOL)textView:(UITextView *)textView
-shouldChangeTextInRange:(NSRange)range
- replacementText:(NSString *)text
-{
-    NSAssert([textView.delegate isEqual:self],
-             @"Textview delegate must be set equal to %@", self);
-
-    if ([self.delegate respondsToSelector:@selector(textView:
-                                                    shouldChangeTextInRange:
-                                                    replacementText:)]) {
-        [self.delegate textView:textView
-        shouldChangeTextInRange:range
-                replacementText:text];
+        if (location > 0) {
+            NSRange substringRange = NSMakeRange(location - 1, 1);
+            mentionEnabled =
+            [[substring substringWithRange:substringRange] isEqualToString:@" "];
+        }
     }
 
-    if (self.settingText) {
-        return NO;
-    }
+    NSArray *strings = [substring componentsSeparatedByString:@" "];
 
-    return [self _shouldAdjustTextView:textView range:range text:text];
+    if ([[strings lastObject] rangeOfString:self.trigger].location !=
+        NSNotFound) {
+        if (mentionEnabled) {
+            self.currentMentionRange =
+            [textView.text rangeOfString:[strings lastObject]
+                                 options:NSBackwardsSearch];
+            NSString *mentionString =
+            [[strings lastObject] stringByAppendingString:text];
+            self.filterString =
+            [mentionString stringByReplacingOccurrencesOfString:self.trigger
+                                                     withString:@""];
+
+            if (self.filterString.length && !self.cooldownTimer.isValid) {
+                [self.mentionsManager showMentionsListWithString:self.filterString];
+            }
+            [self activateCooldownTimer];
+
+            return;
+        }
+    }
+    [self.mentionsManager hideMentionsList];
 }
 
-- (BOOL)_shouldAdjustTextView:(UITextView *)textView
+/**
+ @brief Determines whether or not we should allow the textView to adjust its own text
+ @param textView: the mentions text view
+ @param range: the range of what text will change
+ @param text: the text to replace the range with
+ @return BOOL: whether or not the textView should adjust the text itself
+ */
+- (BOOL)shouldAdjustTextView:(UITextView *)textView
                         range:(NSRange)range
                          text:(NSString *)text
 {
     if (textView.text.length == 0) {
-        [self resetEmptyTextView:textView text:text range:range];
+        [self resetEmptyTextView:textView];
     }
 
     if ([SZMentionHelper _shouldHideMentionsForText:text]) {
@@ -240,7 +274,7 @@ shouldChangeTextInRange:(NSRange)range
     }
 
     self.editingMention = NO;
-    SZMention *editedMention = [self _mentionBeingEditedForRange:range];
+    SZMention *editedMention = [self mentionBeingEditedForRange:range];
 
     if (editedMention) {
         self.editingMention = YES;
@@ -258,7 +292,7 @@ shouldChangeTextInRange:(NSRange)range
     }
 
     if (self.editingMention) {
-        return [self _handleEditingMention:editedMention
+        return [self handleEditingMention:editedMention
                                   textView:textView
                                      range:range
                                       text:text];
@@ -267,102 +301,55 @@ shouldChangeTextInRange:(NSRange)range
     if ([SZMentionHelper _needsToChangeToDefaultColorForRange:range
                                                      textView:textView
                                                      mentions:self.mentions]) {
-        return [self _forceDefaultColorForTextView:textView range:range text:text];
+        return [self forceDefaultAttributesForTextView:textView range:range text:text];
     }
-
+    
     return YES;
 }
 
-- (BOOL)textView:(UITextView *)textView
-shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment
-         inRange:(NSRange)characterRange
-{
-    if ([self.delegate
-         respondsToSelector:@selector(textView:
-                                      shouldInteractWithTextAttachment:
-                                      inRange:)]) {
-             return [self.delegate textView:textView
-           shouldInteractWithTextAttachment:textAttachment
-                                    inRange:characterRange];
-         }
+#pragma mark - attribute management
 
-    return YES;
-}
-
-- (BOOL)textView:(UITextView *)textView
-shouldInteractWithURL:(NSURL *)URL
-         inRange:(NSRange)characterRange
+/**
+ @brief Forces default attributes on a string of text
+ @param textView: the mentions text view
+ @param range: the range of text being replaced
+ @param text: the text to replace the range with
+ @return BOOL: false (we do not want the text view handling text input in this case)
+ */
+- (BOOL)forceDefaultAttributesForTextView:(UITextView *)textView
+                                     range:(NSRange)range
+                                      text:(NSString *)text
 {
-    if ([self.delegate respondsToSelector:@selector(textView:
-                                                    shouldInteractWithURL:
-                                                    inRange:)]) {
-        return [self.delegate textView:textView
-                 shouldInteractWithURL:URL
-                               inRange:characterRange];
+    NSMutableAttributedString *mutableAttributedString =
+    [textView.attributedText mutableCopy];
+    [[mutableAttributedString mutableString] replaceCharactersInRange:range
+                                                           withString:text];
+
+    [SZAttributedStringHelper _applyAttributes:self.defaultTextAttributes
+                                         range:NSMakeRange(range.location, text.length)
+                       mutableAttributedString:mutableAttributedString];
+
+    self.settingText = YES;
+    [textView setAttributedText:mutableAttributedString];
+    self.settingText = NO;
+
+    NSRange newRange = NSMakeRange(range.location, 0);
+
+    if (newRange.length <= 0) {
+        newRange.location = range.location + text.length;
     }
 
-    return YES;
+    [textView setSelectedRange:newRange];
+    
+    return NO;
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    if ([self.delegate respondsToSelector:@selector(textViewDidBeginEditing:)]) {
-        [self.delegate textViewDidBeginEditing:textView];
-    }
-}
+#pragma mark - mention management
 
-- (void)textViewDidChange:(UITextView *)textView
-{
-    if ([self.delegate respondsToSelector:@selector(textViewDidChange:)]) {
-        [self.delegate textViewDidChange:textView];
-    }
-}
-
-- (void)textViewDidChangeSelection:(UITextView *)textView
-{
-    if (!self.editingMention) {
-        [self _adjustTextView:textView text:@"" range:textView.selectedRange];
-
-        if ([self.delegate
-             respondsToSelector:@selector(textViewDidChangeSelection:)]) {
-            [self.delegate textViewDidChangeSelection:textView];
-        }
-    }
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    if ([self.delegate respondsToSelector:@selector(textViewDidEndEditing:)]) {
-        [self.delegate textViewDidEndEditing:textView];
-    }
-}
-
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
-{
-    if ([self.delegate
-         respondsToSelector:@selector(textViewShouldBeginEditing:)]) {
-        return [self.delegate textViewShouldBeginEditing:textView];
-    }
-
-    return YES;
-}
-
-- (BOOL)textViewShouldEndEditing:(UITextView *)textView
-{
-    if ([self.delegate respondsToSelector:@selector(textViewShouldEndEditing:)]) {
-        return [self.delegate textViewShouldEndEditing:textView];
-    }
-
-    return YES;
-}
-
-#pragma mark - Public methods
-
-- (NSArray *)mentions
-{
-    return self.mutableMentions.copy;
-}
-
+/**
+ @brief Adds a mention to the current mention range (determined by trigger + characters typed up to space or end of line)
+ @param mention: the mention object to apply
+ */
 - (void)addMention:(NSObject<SZCreateMentionProtocol> *)mention
 {
     self.filterString = nil;
@@ -416,72 +403,14 @@ shouldInteractWithURL:(NSURL *)URL
     [self.mutableMentions addObject:szmention];
 }
 
-#pragma mark - Private helpers
-
-- (void)_adjustTextView:(UITextView *)textView
-                   text:(NSString *)text
-                  range:(NSRange)range
-{
-    NSString *substring = [textView.text substringToIndex:range.location];
-    BOOL mentionEnabled = NO;
-    NSUInteger location =
-    [substring rangeOfString:self.trigger
-                     options:NSBackwardsSearch].location;
-    if (location != NSNotFound) {
-        mentionEnabled = location == 0;
-
-        if (location > 0) {
-            NSRange substringRange = NSMakeRange(location - 1, 1);
-            mentionEnabled =
-            [[substring substringWithRange:substringRange] isEqualToString:@" "];
-        }
-    }
-
-    NSArray *strings = [substring componentsSeparatedByString:@" "];
-
-    if ([[strings lastObject] rangeOfString:self.trigger].location !=
-        NSNotFound) {
-        if (mentionEnabled) {
-            self.currentMentionRange =
-            [textView.text rangeOfString:[strings lastObject]
-                                 options:NSBackwardsSearch];
-            NSString *mentionString =
-            [[strings lastObject] stringByAppendingString:text];
-            self.filterString =
-            [mentionString stringByReplacingOccurrencesOfString:self.trigger
-                                                     withString:@""];
-
-            if (self.filterString.length && !self.cooldownTimer.isValid) {
-                [self.mentionsManager showMentionsListWithString:self.filterString];
-            }
-            [self activateCooldownTimer];
-
-            return;
-        }
-    }
-    [self.mentionsManager hideMentionsList];
-}
-
-- (SZMention *)_mentionBeingEditedForRange:(NSRange)range
-{
-    SZMention *editedMention;
-
-    for (SZMention *mention in self.mentions) {
-        NSRange currentMentionRange = mention.range;
-
-        if (NSIntersectionRange(range, currentMentionRange).length > 0 ||
-            (range.length == 0 && range.location > currentMentionRange.location &&
-             range.location <
-             currentMentionRange.length + currentMentionRange.location)) {
-                editedMention = mention;
-                break;
-            }
-    }
-
-    return editedMention;
-}
-
-- (BOOL)_handleEditingMention:(SZMention *)mention
+/**
+ @brief Resets the attributes of the mention to default attributes
+ @param mention: the mention being edited
+ @param textView: the mention text view
+ @param range: the current range selected
+ @param text: text to replace range
+ */
+- (BOOL)handleEditingMention:(SZMention *)mention
                      textView:(UITextView *)textView
                         range:(NSRange)range
                          text:(NSString *)text
@@ -511,34 +440,36 @@ shouldInteractWithURL:(NSURL *)URL
     return NO;
 }
 
-- (BOOL)_forceDefaultColorForTextView:(UITextView *)textView
-                                range:(NSRange)range
-                                 text:(NSString *)text
+/**
+ @brief returns the mention being edited (if a mention is being edited)
+ @param range: the range to look for a mention
+ @return SZMention: the mention being edited (if one exists)
+ */
+- (SZMention *)mentionBeingEditedForRange:(NSRange)range
 {
-    NSMutableAttributedString *mutableAttributedString =
-    [textView.attributedText mutableCopy];
-    [[mutableAttributedString mutableString] replaceCharactersInRange:range
-                                                           withString:text];
+    SZMention *editedMention;
 
-    [SZAttributedStringHelper _applyAttributes:self.defaultTextAttributes
-                                         range:NSMakeRange(range.location, text.length)
-                       mutableAttributedString:mutableAttributedString];
+    for (SZMention *mention in self.mentions) {
+        NSRange currentMentionRange = mention.range;
 
-    self.settingText = YES;
-    [textView setAttributedText:mutableAttributedString];
-    self.settingText = NO;
-
-    NSRange newRange = NSMakeRange(range.location, 0);
-
-    if (newRange.length <= 0) {
-        newRange.location = range.location + text.length;
+        if (NSIntersectionRange(range, currentMentionRange).length > 0 ||
+            (range.length == 0 && range.location > currentMentionRange.location &&
+             range.location <
+             currentMentionRange.length + currentMentionRange.location)) {
+                editedMention = mention;
+                break;
+            }
     }
 
-    [textView setSelectedRange:newRange];
-
-    return NO;
+    return editedMention;
 }
 
+#pragma mark - timer
+
+/**
+ @brief Calls show mentions if necessary when the timer fires
+ @param timer: the timer that called the method
+ */
 - (void)cooldownTimerFired:(NSTimer *)timer
 {
     if (self.filterString.length) {
@@ -546,6 +477,9 @@ shouldInteractWithURL:(NSURL *)URL
     }
 }
 
+/**
+ @brief Activates a cooldown timer
+ */
 - (void)activateCooldownTimer
 {
     [self.cooldownTimer invalidate];
@@ -558,6 +492,125 @@ shouldInteractWithURL:(NSURL *)URL
                                             repeats:NO];
     self.cooldownTimer = timer;
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+}
+
+#pragma mark - Public methods
+
+/**
+ @brief returns the current mentions on the text view
+ @return NSArray<SZMention *> mentions
+ */
+- (NSArray<SZMention *> *)mentions
+{
+    return self.mutableMentions.copy;
+}
+
+
+#pragma mark - text view delegate
+
+- (BOOL)textView:(UITextView *)textView
+shouldChangeTextInRange:(NSRange)range
+ replacementText:(NSString *)text
+{
+    NSAssert([textView.delegate isEqual:self],
+             @"Textview delegate must be set equal to %@", self);
+
+    if ([self.delegate respondsToSelector:@selector(textView:
+                                                    shouldChangeTextInRange:
+                                                    replacementText:)]) {
+        [self.delegate textView:textView
+        shouldChangeTextInRange:range
+                replacementText:text];
+    }
+
+    if (self.settingText) {
+        return NO;
+    }
+
+    return [self shouldAdjustTextView:textView range:range text:text];
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    if ([self.delegate respondsToSelector:@selector(textViewDidChange:)]) {
+        [self.delegate textViewDidChange:textView];
+    }
+}
+
+- (BOOL)textView:(UITextView *)textView
+shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment
+         inRange:(NSRange)characterRange
+{
+    if ([self.delegate
+         respondsToSelector:@selector(textView:
+                                      shouldInteractWithTextAttachment:
+                                      inRange:)]) {
+             return [self.delegate textView:textView
+           shouldInteractWithTextAttachment:textAttachment
+                                    inRange:characterRange];
+         }
+
+    return YES;
+}
+
+- (BOOL)textView:(UITextView *)textView
+shouldInteractWithURL:(NSURL *)URL
+         inRange:(NSRange)characterRange
+{
+    if ([self.delegate respondsToSelector:@selector(textView:
+                                                    shouldInteractWithURL:
+                                                    inRange:)]) {
+        return [self.delegate textView:textView
+                 shouldInteractWithURL:URL
+                               inRange:characterRange];
+    }
+
+    return YES;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ([self.delegate respondsToSelector:@selector(textViewDidBeginEditing:)]) {
+        [self.delegate textViewDidBeginEditing:textView];
+    }
+}
+
+- (void)textViewDidChangeSelection:(UITextView *)textView
+{
+    if (!self.editingMention) {
+        [self adjustTextView:textView text:@"" range:textView.selectedRange];
+
+        if ([self.delegate
+             respondsToSelector:@selector(textViewDidChangeSelection:)]) {
+            [self.delegate textViewDidChangeSelection:textView];
+        }
+    }
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([self.delegate respondsToSelector:@selector(textViewDidEndEditing:)]) {
+        [self.delegate textViewDidEndEditing:textView];
+    }
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    if ([self.delegate
+         respondsToSelector:@selector(textViewShouldBeginEditing:)]) {
+        return [self.delegate textViewShouldBeginEditing:textView];
+    }
+
+    return YES;
+}
+
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView
+{
+    if ([self.delegate respondsToSelector:@selector(textViewShouldEndEditing:)]) {
+        return [self.delegate textViewShouldEndEditing:textView];
+    }
+    
+    return YES;
 }
 
 @end
