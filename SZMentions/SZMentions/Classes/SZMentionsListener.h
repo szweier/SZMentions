@@ -39,51 +39,9 @@
 @interface SZMentionsListener : NSObject <UITextViewDelegate>
 
 /**
- @brief Trigger to start a mention. Default: @
- */
-@property (nonatomic, strong) NSString *trigger;
-/**
- @brief Text attributes to be applied to all text excluding mentions.
- */
-@property (nonatomic, strong) NSArray *defaultTextAttributes;
-
-/**
- @brief Text attributes to be applied to mentions.
- */
-@property (nonatomic, strong) NSArray *mentionTextAttributes;
-
-/**
- @brief The UITextView being handled by the SZMentionsListener
- */
-@property (nonatomic, weak) UITextView *textView;
-
-/**
- @brief An optional delegate that can be used to handle all UITextView delegate
- methods after they've been handled by the SZMentionsListener
- */
-@property (nonatomic, weak) id<UITextViewDelegate> delegate;
-
-/**
- @brief Manager in charge of handling the creation and dismissal of the mentions
- list.
- */
-@property (nonatomic, weak) id<SZMentionsManagerProtocol> mentionsManager;
-
-/**
  @brief Array of mentions currently added to the textview
  */
 @property (nonatomic, readonly) NSArray *mentions;
-
-/**
- @brief Amount of time to delay between showMentions calls default:0.5
- */
-@property (nonatomic, assign) CGFloat cooldownInterval;
-
-/**
- @brief Whether or not we should add a space after the mention, default: NO
- */
-@property (nonatomic, assign) BOOL spaceAfterMention;
-
 /**
  @brief Add mention object to current string being edited
 
@@ -92,5 +50,71 @@
  is returned in the mentions array in the object parameter of the SZMention object.
  */
 - (void)addMention:(NSObject<SZCreateMentionProtocol> *)mention;
+
+/**
+ @brief Initializer that allows you to set textview and mentions manager
+ @param textView: - the text view to manage mentions for
+ @param mentionsManager: - the object that will handle showing and hiding of the mentions picker
+ */
+- (instancetype)initWithTextView:(UITextView *)textView
+                 mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager;
+
+/**
+ @brief Initializer that allows you to set textview and mentions manager
+ @param textView: - the text view to manage mentions for
+ @param mentionsManager: - the object that will handle showing and hiding of the mentions picker
+ @param textViewDelegate: - the object that will handle textview delegate methods
+ */
+- (instancetype)initWithTextView:(UITextView *)textView
+                 mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
+                textViewDelegate:(id<UITextViewDelegate>)textViewDelegate;
+
+/**
+ @brief Initializer that allows for customization of text attributes for default text and mentions
+ @param textView: - the text view to manage mentions for
+ @param mentionsManager: - the object that will handle showing and hiding of the mentions picker
+ @param textViewDelegate: - the object that will handle textview delegate methods
+ @param defaultTextAttributes - text style to show for default text
+ @param mentionTextAttributes - text style to show for mentions
+ */
+- (instancetype)initWithTextView:(UITextView *)textView
+                 mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
+                textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
+           defaultTextAttributes:(NSArray *)defaultTextAttributes
+           mentionTextAttributes:(NSArray *)mentionTextAttributes;
+
+/**
+ @brief Initializer that allows for customization of text attributes for default text and mentions
+ @param textView: - the text view to manage mentions for
+ @param mentionsManager: - the object that will handle showing and hiding of the mentions picker
+ @param textViewDelegate: - the object that will handle textview delegate methods
+ @param defaultTextAttributes - text style to show for default text
+ @param mentionTextAttributes - text style to show for mentions
+ @param mentionTrigger - what text triggers showing the mentions list
+ */
+- (instancetype)initWithTextView:(UITextView *)textView
+                 mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
+                textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
+           defaultTextAttributes:(NSArray *)defaultTextAttributes
+           mentionTextAttributes:(NSArray *)mentionTextAttributes
+                  mentionTrigger:(NSString *)mentionTrigger;
+
+/**
+ @brief Initializer that allows for customization of text attributes for default text and mentions
+ @param textView: - the text view to manage mentions for
+ @param mentionsManager: - the object that will handle showing and hiding of the mentions picker
+ @param textViewDelegate: - the object that will handle textview delegate methods
+ @param defaultTextAttributes - text style to show for default text
+ @param mentionTextAttributes - text style to show for mentions
+ @param mentionTrigger - what text triggers showing the mentions list
+ @param cooldownInterval - amount of time between show / hide mentions calls
+ */
+- (instancetype)initWithTextView:(UITextView *)textView
+                 mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
+                textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
+           defaultTextAttributes:(NSArray *)defaultTextAttributes
+           mentionTextAttributes:(NSArray *)mentionTextAttributes
+                  mentionTrigger:(NSString *)mentionTrigger
+                cooldownInterval:(CGFloat)cooldownInterval;
 
 @end
