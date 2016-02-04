@@ -118,21 +118,33 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
                  textViewDelegate:textViewDelegate
             defaultTextAttributes:defaultTextAttributes
             mentionTextAttributes:mentionTextAttributes
-                   mentionTrigger:@"@"];
+            spaceAfterMention:NO];
 }
 
-- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray *)defaultTextAttributes mentionTextAttributes:(NSArray *)mentionTextAttributes mentionTrigger:(NSString *)mentionTrigger
+- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray *)defaultTextAttributes mentionTextAttributes:(NSArray *)mentionTextAttributes spaceAfterMention:(BOOL)spaceAfterMention
 {
     return [self initWithTextView:textView
                   mentionsManager:mentionsManager
                  textViewDelegate:textViewDelegate
             defaultTextAttributes:defaultTextAttributes
             mentionTextAttributes:mentionTextAttributes
+                spaceAfterMention:spaceAfterMention
+                   mentionTrigger:@"@"];
+}
+
+- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray *)defaultTextAttributes mentionTextAttributes:(NSArray *)mentionTextAttributes spaceAfterMention:(BOOL)spaceAfterMention mentionTrigger:(NSString *)mentionTrigger
+{
+    return [self initWithTextView:textView
+                  mentionsManager:mentionsManager
+                 textViewDelegate:textViewDelegate
+            defaultTextAttributes:defaultTextAttributes
+            mentionTextAttributes:mentionTextAttributes
+                spaceAfterMention:spaceAfterMention
                    mentionTrigger:mentionTrigger
                  cooldownInterval:0.5];
 }
 
-- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray *)defaultTextAttributes mentionTextAttributes:(NSArray *)mentionTextAttributes mentionTrigger:(NSString *)mentionTrigger cooldownInterval:(CGFloat)cooldownInterval
+- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray *)defaultTextAttributes mentionTextAttributes:(NSArray *)mentionTextAttributes spaceAfterMention:(BOOL)spaceAfterMention mentionTrigger:(NSString *)mentionTrigger cooldownInterval:(CGFloat)cooldownInterval
 {
     self = [super init];
 
@@ -143,6 +155,7 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
         [_textView setDelegate:self];
         _trigger = mentionTrigger;
         _mutableMentions = @[].mutableCopy;
+        _spaceAfterMention = spaceAfterMention;
 
         NSArray *attributeNamesToLoop = (defaultTextAttributes.count >= mentionTextAttributes.count) ?
         [defaultTextAttributes valueForKey:@"attributeName"] :

@@ -90,6 +90,23 @@
  @param textViewDelegate: - the object that will handle textview delegate methods
  @param defaultTextAttributes - text style to show for default text
  @param mentionTextAttributes - text style to show for mentions
+ @param spaceAfterMention - whether or not to add a space after adding a mention
+ */
+- (instancetype)initWithTextView:(UITextView *)textView
+                 mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
+                textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
+           defaultTextAttributes:(NSArray *)defaultTextAttributes
+           mentionTextAttributes:(NSArray *)mentionTextAttributes
+               spaceAfterMention:(BOOL)spaceAfterMention;
+
+/**
+ @brief Initializer that allows for customization of text attributes for default text and mentions
+ @param textView: - the text view to manage mentions for
+ @param mentionsManager: - the object that will handle showing and hiding of the mentions picker
+ @param textViewDelegate: - the object that will handle textview delegate methods
+ @param defaultTextAttributes - text style to show for default text
+ @param mentionTextAttributes - text style to show for mentions
+ @param spaceAfterMention - whether or not to add a space after adding a mention
  @param mentionTrigger - what text triggers showing the mentions list
  */
 - (instancetype)initWithTextView:(UITextView *)textView
@@ -97,6 +114,7 @@
                 textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
            defaultTextAttributes:(NSArray *)defaultTextAttributes
            mentionTextAttributes:(NSArray *)mentionTextAttributes
+               spaceAfterMention:(BOOL)spaceAfterMention
                   mentionTrigger:(NSString *)mentionTrigger;
 
 /**
@@ -106,6 +124,7 @@
  @param textViewDelegate: - the object that will handle textview delegate methods
  @param defaultTextAttributes - text style to show for default text
  @param mentionTextAttributes - text style to show for mentions
+ @param spaceAfterMention - whether or not to add a space after adding a mention
  @param mentionTrigger - what text triggers showing the mentions list
  @param cooldownInterval - amount of time between show / hide mentions calls
  */
@@ -114,6 +133,7 @@
                 textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
            defaultTextAttributes:(NSArray *)defaultTextAttributes
            mentionTextAttributes:(NSArray *)mentionTextAttributes
+               spaceAfterMention:(BOOL)spaceAfterMention
                   mentionTrigger:(NSString *)mentionTrigger
                 cooldownInterval:(CGFloat)cooldownInterval;
 
