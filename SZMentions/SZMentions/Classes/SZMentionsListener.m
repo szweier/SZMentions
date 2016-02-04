@@ -153,7 +153,8 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
         mentionTextAttributes;
 
         for (NSString *attributeName in [attributesToLoop valueForKey:@"attributeName"]) {
-            NSAssert([[attributesToCompare valueForKey:@"attributeName"] containsObject:attributeName], attributeConsistencyError);
+            BOOL attributeHasMatch = [[attributesToCompare valueForKey:@"attributeName"] containsObject:attributeName];
+            NSAssert(attributeHasMatch, attributeConsistencyError);
         }
 
         _defaultTextAttributes = defaultTextAttributes;
