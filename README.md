@@ -85,6 +85,7 @@ This required properties for a mention being sent to the mentions listener
 The require methods for handling mention interaction.
 
 `- (void)showMentionsListWithString:(NSString *)mentionString;` lets the delegate know to show a mentions list as well as provides the current string typed into the textview, allowing for filtering of the mentions list.
+
 `- (void)hideMentionsList;` lets the delegate know we are no longer typing in a mention. 
 
 #### SZMention
