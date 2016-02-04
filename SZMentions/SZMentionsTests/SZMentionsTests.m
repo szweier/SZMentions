@@ -36,10 +36,9 @@
     self.hidingMentionsList = YES;
     self.mentionString = @"";
     self.textView = [[UITextView alloc] init];
-    self.mentionsListener = [[SZMentionsListener alloc] init];
-    [self.mentionsListener setDelegate:self];
-    [self.mentionsListener setTextView:self.textView];
-    [self.mentionsListener setMentionsManager:self];
+    self.mentionsListener = [[SZMentionsListener alloc] initWithTextView:self.textView
+                                                         mentionsManager:self
+                                                        textViewDelegate:self];
 }
 
 - (void)hideMentionsList
@@ -72,7 +71,14 @@
     NSArray *defaultAttributes = @[attribute];
     NSArray *mentionAttributes = @[attribute, attribute2];
 
-    XCTAssertThrowsSpecificNamed([[SZMentionsListener alloc] initWithDefaultTextAttributes:defaultAttributes mentionTextAttributes:mentionAttributes],NSException,NSInternalInconsistencyException, @"Default and mention attributes must contain the same attribute names: If default attributes specify NSForegroundColorAttributeName mention attributes must specify that same name as well. (Values do not need to match)");
+    XCTAssertThrowsSpecificNamed([[SZMentionsListener alloc] initWithTextView:self.textView
+                                                              mentionsManager:self
+                                                             textViewDelegate:nil
+                                                        defaultTextAttributes:defaultAttributes
+                                                        mentionTextAttributes:mentionAttributes],
+                                 NSException,
+                                 NSInternalInconsistencyException,
+                                 @"Default and mention attributes must contain the same attribute names: If default attributes specify NSForegroundColorAttributeName mention attributes must specify that same name as well. (Values do not need to match)");
 }
 
 - (void)testThatAddingAttributesThatDoMatchDoesNotThrowsAnError
@@ -88,36 +94,43 @@
     NSArray *defaultAttributes = @[attribute, attribute2];
     NSArray *mentionAttributes = @[attribute2, attribute];
 
-    XCTAssertNoThrowSpecificNamed([[SZMentionsListener alloc] initWithDefaultTextAttributes:defaultAttributes mentionTextAttributes:mentionAttributes],NSException,NSInternalInconsistencyException, @"Default and mention attributes must contain the same attribute names: If default attributes specify NSForegroundColorAttributeName mention attributes must specify that same name as well. (Values do not need to match)");
+    XCTAssertNoThrowSpecificNamed([[SZMentionsListener alloc] initWithTextView:self.textView
+                                                              mentionsManager:self
+                                                             textViewDelegate:nil
+                                                        defaultTextAttributes:defaultAttributes
+                                                        mentionTextAttributes:mentionAttributes],
+                                 NSException,
+                                 NSInternalInconsistencyException,
+                                 @"Default and mention attributes must contain the same attribute names: If default attributes specify NSForegroundColorAttributeName mention attributes must specify that same name as well. (Values do not need to match)");
 }
 
 - (void)testMentionListIsDisplayed
 {
     [self.textView insertText:@"@t"];
-    
+
     XCTAssertEqual(self.hidingMentionsList, NO);
 }
 
 - (void)testMentionListIsHidden
 {
     [self.textView insertText:@"@t"];
-    
+
     XCTAssertEqual(self.hidingMentionsList, NO);
-    
+
     [self.textView insertText:@" "];
-    
+
     XCTAssertEqual(self.hidingMentionsList, YES);
 }
 
 - (void)testMentionIsAdded
 {
     [self.textView insertText:@"@t"];
-    
+
     SZExampleMention *mention = [[SZExampleMention alloc] init];
     [mention setSzMentionName:@"Steven"];
-    
+
     [self.mentionsListener addMention:mention];
-    
+
     XCTAssertTrue([self.mentionsListener mentions].count == 1);
 }
 
@@ -126,9 +139,9 @@
     [self.textView insertText:@"@t"];
     SZExampleMention *mention = [[SZExampleMention alloc] init];
     [mention setSzMentionName:@"Steven"];
-    
+
     [self.mentionsListener addMention:mention];
-    
+
     XCTAssertTrue([[self.mentionsListener mentions][0] range].location == 0);
 }
 
@@ -137,9 +150,9 @@
     [self.textView insertText:@"Testing @t"];
     SZExampleMention *mention = [[SZExampleMention alloc] init];
     [mention setSzMentionName:@"Steven Zweier"];
-    
+
     [self.mentionsListener addMention:mention];
-    
+
     XCTAssertTrue([[self.mentionsListener mentions][0] range].location == 8);
 }
 
@@ -148,17 +161,17 @@
     [self.textView insertText:@"@t"];
     SZExampleMention *mention = [[SZExampleMention alloc] init];
     [mention setSzMentionName:@"Steven"];
-    
+
     [self.mentionsListener addMention:mention];
-    
+
     XCTAssertTrue([[self.mentionsListener mentions][0] range].length == 6);
-    
+
     [self.textView insertText:@"Testing @t"];
     mention = [[SZExampleMention alloc] init];
     [mention setSzMentionName:@"Steven Zweier"];
-    
+
     [self.mentionsListener addMention:mention];
-    
+
     XCTAssertTrue([[self.mentionsListener mentions][1] range].length == 13);
 }
 
@@ -167,37 +180,37 @@
     [self.textView insertText:@"Testing @t"];
     SZExampleMention *mention = [[SZExampleMention alloc] init];
     [mention setSzMentionName:@"Steven"];
-    
+
     [self.mentionsListener addMention:mention];
-    
+
     XCTAssertTrue([[self.mentionsListener mentions][0] range].location == 8);
-    
+
     UITextPosition *beginning = self.textView.beginningOfDocument;
     UITextPosition *start = [self.textView positionFromPosition:beginning offset:0];
     UITextPosition *end = [self.textView positionFromPosition:start offset:3];
-    
+
     UITextRange *textRange = [self.textView textRangeFromPosition:start toPosition:end];
-    
+
     if ([self.mentionsListener textView:self.textView
                 shouldChangeTextInRange:NSMakeRange(0, 3)
                         replacementText:@""]) {
         [self.textView replaceRange:textRange withText:@""];
     }
-    
+
     XCTAssertTrue([[self.mentionsListener mentions][0] range].location == 5);
-    
+
     beginning = self.textView.beginningOfDocument;
     start = [self.textView positionFromPosition:beginning offset:0];
     end = [self.textView positionFromPosition:start offset:5];
-    
+
     textRange = [self.textView textRangeFromPosition:start toPosition:end];
-    
+
     if ([self.mentionsListener textView:self.textView
                 shouldChangeTextInRange:NSMakeRange(0, 5)
                         replacementText:@""]) {
         [self.textView replaceRange:textRange withText:@""];
     }
-    
+
     XCTAssertTrue([[self.mentionsListener mentions][0] range].location == 0);
 }
 
@@ -228,7 +241,7 @@
 
 - (void)testMentionLocationIsAdjustedProperlyWhenAMentionIsInsertsBehindAMentionSpaceAfterMentionIsTrue
 {
-    self.mentionsListener.spaceAfterMention = YES;
+    [self.mentionsListener setValue:@YES forKey:@"spaceAfterMention"];
     [self.textView insertText:@"@t"];
     SZExampleMention *mention = [[SZExampleMention alloc] init];
     [mention setSzMentionName:@"Steven"];
@@ -257,19 +270,19 @@
     [self.textView insertText:@"Testing @t"];
     SZExampleMention *mention = [[SZExampleMention alloc] init];
     [mention setSzMentionName:@"Steven"];
-    
+
     [self.mentionsListener addMention:mention];
-    
+
     XCTAssertTrue([self.mentionsListener mentions].count == 1);
-    
+
     [self.textView setSelectedRange:NSMakeRange(11, 1)];
-    
+
     if ([self.mentionsListener textView:self.textView
                 shouldChangeTextInRange:self.textView.selectedRange
                         replacementText:@""]) {
         [self.textView deleteBackward];
     }
-    
+
     XCTAssertTrue([self.mentionsListener mentions].count == 0);
 }
 
@@ -278,19 +291,19 @@
     [self.textView insertText:@"Testing @t"];
     SZExampleMention *mention = [[SZExampleMention alloc] init];
     [mention setSzMentionName:@"Steven"];
-    
+
     [self.mentionsListener addMention:mention];
-    
+
     XCTAssertTrue([self.mentionsListener mentions].count == 1);
-    
+
     [self.textView setSelectedRange:NSMakeRange(13, 1)];
-    
+
     if ([self.mentionsListener textView:self.textView
                 shouldChangeTextInRange:self.textView.selectedRange
                         replacementText:@""]) {
         [self.textView deleteBackward];
     }
-    
+
     XCTAssertTrue([self.mentionsListener mentions].count == 0);
 }
 
@@ -299,15 +312,15 @@
     [self.textView insertText:@"Testing @t"];
     SZExampleMention *mention = [[SZExampleMention alloc] init];
     [mention setSzMentionName:@"Steven"];
-    
+
     [self.mentionsListener addMention:mention];
-    
+
     [self.textView insertText:@" "];
-    
+
     XCTAssertTrue([self.mentionsListener mentions].count == 1);
-    
+
     [self.textView setSelectedRange:NSMakeRange(14, 1)];
-    
+
     if ([self.mentionsListener textView:self.textView
                 shouldChangeTextInRange:self.textView.selectedRange
                         replacementText:@""]) {

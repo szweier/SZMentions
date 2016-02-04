@@ -67,44 +67,80 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
  */
 @property (nonatomic, assign) CGFloat cooldownInterval;
 
+/**
+ @brief The UITextView being handled by the SZMentionsListener
+ */
+@property (nonatomic, weak) UITextView *textView;
+
+/**
+ @brief An optional delegate that can be used to handle all UITextView delegate
+ methods after they've been handled by the SZMentionsListener
+ */
+@property (nonatomic, weak) id<UITextViewDelegate> delegate;
+
+/**
+ @brief Manager in charge of handling the creation and dismissal of the mentions
+ list.
+ */
+@property (nonatomic, weak) id<SZMentionsManagerProtocol> mentionsManager;
+
+/**
+ @brief Whether or not we should add a space after the mention, default: NO
+ */
+@property (nonatomic, assign) BOOL spaceAfterMention;
+
 @end
 
 @implementation SZMentionsListener
 
 #pragma mark - Initialization
 
-- (instancetype)init
+- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
 {
-    return [self initWithDefaultTextAttributes:[SZDefaultAttributes defaultTextAttributes]
-                         mentionTextAttributes:[SZDefaultAttributes defaultMentionAttributes]];
+    return [self initWithTextView:textView
+                  mentionsManager:mentionsManager
+                 textViewDelegate:nil];
 }
 
-- (instancetype)initWithDefaultTextAttributes:(NSArray *)defaultTextAttributes
-                        mentionTextAttributes:(NSArray *)mentionTextAttributes
+- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
 {
-    return [self initWithDefaultTextAttributes:defaultTextAttributes
-                         mentionTextAttributes:mentionTextAttributes
-                                mentionTrigger:@"@"];
+    return [self initWithTextView:textView
+                  mentionsManager:mentionsManager
+                 textViewDelegate:textViewDelegate
+            defaultTextAttributes:[SZDefaultAttributes defaultTextAttributes]
+            mentionTextAttributes:[SZDefaultAttributes defaultMentionAttributes]];
 }
 
-- (instancetype)initWithDefaultTextAttributes:(NSArray *)defaultTextAttributes
-                        mentionTextAttributes:(NSArray *)mentionTextAttributes
-                               mentionTrigger:(NSString *)mentionTrigger
+- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray *)defaultTextAttributes mentionTextAttributes:(NSArray *)mentionTextAttributes
 {
-    return [self initWithDefaultTextAttributes:defaultTextAttributes
-                         mentionTextAttributes:mentionTextAttributes
-                                mentionTrigger:mentionTrigger
-                              cooldownInterval:0.5];
+    return [self initWithTextView:textView
+                  mentionsManager:mentionsManager
+                 textViewDelegate:textViewDelegate
+            defaultTextAttributes:defaultTextAttributes
+            mentionTextAttributes:mentionTextAttributes
+                   mentionTrigger:@"@"];
 }
 
-- (instancetype)initWithDefaultTextAttributes:(NSArray *)defaultTextAttributes
-                        mentionTextAttributes:(NSArray *)mentionTextAttributes
-                               mentionTrigger:(NSString *)mentionTrigger
-                             cooldownInterval:(CGFloat)cooldownInterval
+- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray *)defaultTextAttributes mentionTextAttributes:(NSArray *)mentionTextAttributes mentionTrigger:(NSString *)mentionTrigger
+{
+    return [self initWithTextView:textView
+                  mentionsManager:mentionsManager
+                 textViewDelegate:textViewDelegate
+            defaultTextAttributes:defaultTextAttributes
+            mentionTextAttributes:mentionTextAttributes
+                   mentionTrigger:mentionTrigger
+                 cooldownInterval:0.5];
+}
+
+- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray *)defaultTextAttributes mentionTextAttributes:(NSArray *)mentionTextAttributes mentionTrigger:(NSString *)mentionTrigger cooldownInterval:(CGFloat)cooldownInterval
 {
     self = [super init];
 
     if (self) {
+        _delegate = textViewDelegate;
+        _mentionsManager = mentionsManager;
+        _textView = textView;
+        [_textView setDelegate:self];
         _trigger = mentionTrigger;
         _mutableMentions = @[].mutableCopy;
 
@@ -123,15 +159,23 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
         _defaultTextAttributes = defaultTextAttributes;
         _mentionTextAttributes = mentionTextAttributes;
         _cooldownInterval = cooldownInterval;
+        [self setDefaultAttributesForTextView:_textView];
     }
 
     return self;
 }
 
-- (void)setTextView:(UITextView *)textView
+- (void)setDefaultAttributesForTextView:(UITextView *)textView
 {
-    _textView = textView;
-    [_textView setDelegate:self];
+    [textView setText:@" "];
+    NSMutableAttributedString *mutableAttributedString = textView.attributedText.mutableCopy;
+    for (SZAttribute *attribute in _defaultTextAttributes) {
+        [mutableAttributedString addAttribute:attribute.attributeName
+                                        value:attribute.attributeValue
+                                        range:NSMakeRange(0, 1)];
+    }
+    [textView setAttributedText:mutableAttributedString];
+    [textView setText:@""];
 }
 
 - (void)resetEmptyTextView:(UITextView *)textView
@@ -139,14 +183,7 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
                      range:(NSRange)range
 {
     self.mutableMentions = @[].mutableCopy;
-    NSMutableAttributedString *mutableAttributedString =
-    [textView.attributedText mutableCopy];
-    [[mutableAttributedString mutableString] replaceCharactersInRange:range
-                                                           withString:text];
-
-    [SZAttributedStringHelper _applyAttributes:self.defaultTextAttributes
-                                         range:NSMakeRange(range.location, text.length)
-                       mutableAttributedString:mutableAttributedString];
+    [self setDefaultAttributesForTextView:textView];
 }
 
 #pragma mark - Textview delegate
