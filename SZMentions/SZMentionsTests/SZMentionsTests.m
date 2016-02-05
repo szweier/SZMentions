@@ -330,4 +330,17 @@
     XCTAssertTrue([self.mentionsListener mentions].count == 1);
 }
 
+- (void)testPastingTextBeforeLeadingMentionResetsAttributes
+{
+    [self.textView insertText:@"@s"];
+    SZExampleMention *mention = [[SZExampleMention alloc] init];
+    [mention setSzMentionName:@"Steven"];
+    [self.mentionsListener addMention:mention];
+    self.textView.selectedRange = NSMakeRange(0, 0);
+    if ([self.mentionsListener textView:self.textView shouldChangeTextInRange:self.textView.selectedRange replacementText:@"test"]) {
+        [self.textView insertText:@"test"];
+    }
+    XCTAssert([[self.textView.attributedText attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:nil] isEqual:UIColor.blackColor]);
+}
+
 @end
