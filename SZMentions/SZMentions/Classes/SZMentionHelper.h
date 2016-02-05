@@ -18,7 +18,7 @@
  @param mentionsList: the list of current mentions
  @return NSArray <SZMention *>: list of mentions that exist after the provided range
  */
-+ (NSArray<SZMention *> *)_mentionsAfterTextEntryForRange:(NSRange)range inMentions:(NSArray *)mentionsList;
++ (NSArray<SZMention *> *)mentionsAfterTextEntryForRange:(NSRange)range inMentions:(NSArray<SZMention *> *)mentionsList;
 
 /**
  @brief adjusts the positioning of mentions that exist after the range where text was edited
@@ -26,7 +26,7 @@
  @param text: the text that was changed
  @param mentions: the list of current mentions
  */
-+ (void)_adjustMentionsInRange:(NSRange)range text:(NSString *)text mentions:(NSArray *)mentions;
++ (void)adjustMentionsInRange:(NSRange)range text:(NSString *)text mentions:(NSArray<SZMention *> *)mentions;
 
 /**
  @brief Determines whether or not a mention exists at a specific location
@@ -34,7 +34,7 @@
  @param mentions: the list of current mentions
  @return BOOL: Whether or not a mention exists at a specific location
  */
-+ (BOOL)_mentionExistsAtIndex:(NSInteger)index mentions:(NSArray *)mentions;
++ (BOOL)mentionExistsAtIndex:(NSInteger)index mentions:(NSArray<SZMention *> *)mentions;
 
 /**
  @brief Determine whether or not we need to change the color back to default attributes
@@ -43,13 +43,13 @@
  @param mentions: the list of current mentions
  @return BOOL: whether or not we need to change back to default attributes
  */
-+ (BOOL)_needsToChangeToDefaultColorForRange:(NSRange)range textView:(UITextView *)textView mentions:(NSArray *)mentions;
++ (BOOL)needsToChangeToDefaultColorForRange:(NSRange)range textView:(UITextView *)textView mentions:(NSArray<SZMention *> *)mentions;
 
 /**
  @brief Uses the text being entered into the view to determine whether or not we should hide the mentions list
  @param text: the text being entered
  @return BOOL: whether or not we should hide the mentions list.
  */
-+ (BOOL)_shouldHideMentionsForText:(NSString *)text;
++ (BOOL)shouldHideMentionsForText:(NSString *)text;
 
 @end

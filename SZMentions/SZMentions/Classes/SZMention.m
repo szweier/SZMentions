@@ -8,6 +8,15 @@
 
 #import "SZMention.h"
 
+@interface SZMention ()
+
+/**
+ @brief Contains a reference to the object sent to the addMention: method
+ */
+@property (nonatomic, strong) NSObject *object;
+
+@end
+
 @implementation SZMention
 
 - (instancetype)initWithRange:(NSRange)range object:(NSObject *)object
