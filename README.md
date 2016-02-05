@@ -98,9 +98,8 @@ This class is used to pass attributes to apply mentions text as well as regular 
 
 Example:
     
-    SZAttribute *attribute = [[SZAttribute alloc] init];
-    [attribute setAttributeName:NSForegroundColorAttributeName];
-    [attribute setAttributeValue:[UIColor redColor]];
+    SZAttribute *attribute = [[SZAttribute alloc] initWithAttributeName:NSForegroundColorAttributeName
+    attributeValue:[UIColor redColor]];
     
 
 ## Unit Tests
