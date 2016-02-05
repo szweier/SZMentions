@@ -2,6 +2,12 @@
 
 --- 
 
+## [0.0.18](https://github.com/szweier/SZMentions/releases/tag/0.0.18) (2/4/2016)
+
+#### Added
+* Types to collection objects
+* Changelog
+
 ## [0.0.17](https://github.com/szweier/SZMentions/releases/tag/0.0.17) (2/4/2016)
 
 #### Fixed
