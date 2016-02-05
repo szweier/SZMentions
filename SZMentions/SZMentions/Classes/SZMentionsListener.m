@@ -265,6 +265,8 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
                         range:(NSRange)range
                          text:(NSString *)text
 {
+    BOOL shouldAdjust = YES;
+
     if (textView.text.length == 0) {
         [self resetEmptyTextView:textView];
     }
@@ -281,6 +283,19 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
         [self.mutableMentions removeObject:editedMention];
     }
 
+    if (self.editingMention) {
+        shouldAdjust = [self handleEditingMention:editedMention
+                                  textView:textView
+                                     range:range
+                                      text:text];
+    }
+
+    if ([SZMentionHelper _needsToChangeToDefaultColorForRange:range
+                                                     textView:textView
+                                                     mentions:self.mentions]) {
+        shouldAdjust = [self forceDefaultAttributesForTextView:textView range:range text:text];
+    }
+
     [SZMentionHelper _adjustMentionsInRange:range text:text mentions:self.mentions];
 
     if ([self.delegate respondsToSelector:@selector(textView:
@@ -290,21 +305,8 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
         shouldChangeTextInRange:range
                 replacementText:text];
     }
-
-    if (self.editingMention) {
-        return [self handleEditingMention:editedMention
-                                  textView:textView
-                                     range:range
-                                      text:text];
-    }
-
-    if ([SZMentionHelper _needsToChangeToDefaultColorForRange:range
-                                                     textView:textView
-                                                     mentions:self.mentions]) {
-        return [self forceDefaultAttributesForTextView:textView range:range text:text];
-    }
     
-    return YES;
+    return shouldAdjust;
 }
 
 #pragma mark - attribute management
