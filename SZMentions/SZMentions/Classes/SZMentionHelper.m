@@ -11,18 +11,18 @@
 
 @implementation SZMentionHelper
 
-+ (NSArray *)_mentionsAfterTextEntryForRange:(NSRange)range inMentions:(NSArray *)mentionsList
++ (NSArray<SZMention *> *)_mentionsAfterTextEntryForRange:(NSRange)range inMentions:(NSArray *)mentionsList
 {
     NSMutableArray *mentionsAfterTextEntry = @[].mutableCopy;
-    
+
     for (SZMention *mention in mentionsList) {
         NSRange currentMentionRange = mention.range;
-        
+
         if (range.location + range.length <= currentMentionRange.location) {
             [mentionsAfterTextEntry addObject:mention];
         }
     }
-    
+
     return mentionsAfterTextEntry.copy;
 }
 
@@ -54,7 +54,7 @@
     (range.location == 0 && textView.text.length > 0 &&
      [SZMentionHelper _mentionExistsAtIndex:range.location + 1
                                    mentions:mentions]);
-    
+
     return (isAheadOfMention || isAtStartOfTextViewAndIsTouchingMention);
 }
 

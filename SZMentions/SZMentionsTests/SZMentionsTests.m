@@ -36,9 +36,19 @@
     self.hidingMentionsList = YES;
     self.mentionString = @"";
     self.textView = [[UITextView alloc] init];
+    SZAttribute *attribute = [[SZAttribute alloc] init];
+    [attribute setAttributeName:NSForegroundColorAttributeName];
+    [attribute setAttributeValue:[UIColor blackColor]];
+
+    SZAttribute *attribute2 = [[SZAttribute alloc] init];
+    [attribute2 setAttributeName:NSForegroundColorAttributeName];
+    [attribute2 setAttributeValue:[UIColor redColor]];
+
     self.mentionsListener = [[SZMentionsListener alloc] initWithTextView:self.textView
                                                          mentionsManager:self
-                                                        textViewDelegate:self];
+                                                        textViewDelegate:self
+                                                   defaultTextAttributes:@[attribute]
+                                                   mentionTextAttributes:@[attribute2]];
 }
 
 - (void)hideMentionsList
@@ -95,13 +105,13 @@
     NSArray *mentionAttributes = @[attribute2, attribute];
 
     XCTAssertNoThrowSpecificNamed([[SZMentionsListener alloc] initWithTextView:self.textView
-                                                              mentionsManager:self
-                                                             textViewDelegate:nil
-                                                        defaultTextAttributes:defaultAttributes
-                                                        mentionTextAttributes:mentionAttributes],
-                                 NSException,
-                                 NSInternalInconsistencyException,
-                                 @"Default and mention attributes must contain the same attribute names: If default attributes specify NSForegroundColorAttributeName mention attributes must specify that same name as well. (Values do not need to match)");
+                                                               mentionsManager:self
+                                                              textViewDelegate:nil
+                                                         defaultTextAttributes:defaultAttributes
+                                                         mentionTextAttributes:mentionAttributes],
+                                  NSException,
+                                  NSInternalInconsistencyException,
+                                  @"Default and mention attributes must contain the same attribute names: If default attributes specify NSForegroundColorAttributeName mention attributes must specify that same name as well. (Values do not need to match)");
 }
 
 - (void)testMentionListIsDisplayed
@@ -326,8 +336,21 @@
                         replacementText:@""]) {
         [self.textView deleteBackward];
     }
-    
+
     XCTAssertTrue([self.mentionsListener mentions].count == 1);
+}
+
+- (void)testPastingTextBeforeLeadingMentionResetsAttributes
+{
+    [self.textView insertText:@"@s"];
+    SZExampleMention *mention = [[SZExampleMention alloc] init];
+    [mention setSzMentionName:@"Steven"];
+    [self.mentionsListener addMention:mention];
+    self.textView.selectedRange = NSMakeRange(0, 0);
+    if ([self.mentionsListener textView:self.textView shouldChangeTextInRange:self.textView.selectedRange replacementText:@"test"]) {
+        [self.textView insertText:@"test"];
+    }
+    XCTAssert([[self.textView.attributedText attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:nil] isEqual:UIColor.blackColor]);
 }
 
 @end

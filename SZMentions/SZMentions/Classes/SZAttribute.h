@@ -20,4 +20,11 @@
  */
 @property (nonatomic, strong) NSObject *attributeValue;
 
+/**
+ @brief initializer for creating an attribute
+ @param attributeName: the name of the attribute (example: NSForegroundColorAttributeName)
+ @param attributeValue: the value for the given attribute (example: [UIColor redColor])
+ */
+- (instancetype)initWithAttributeName:(NSString *)attributeName attributeValue:(NSObject *)attributeValue;
+
 @end

@@ -26,7 +26,7 @@
     SZAttribute *defaultColor = [[SZAttribute alloc] init];
     [defaultColor setAttributeName:NSForegroundColorAttributeName];
     [defaultColor setAttributeValue:[UIColor greenColor]];
-    
+
     return defaultColor;
 }
 
@@ -35,7 +35,7 @@
     SZAttribute *mentionColor = [[SZAttribute alloc] init];
     [mentionColor setAttributeName:NSForegroundColorAttributeName];
     [mentionColor setAttributeValue:[UIColor blueColor]];
-    
+
     return mentionColor;
 }
 

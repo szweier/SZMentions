@@ -10,4 +10,16 @@
 
 @implementation SZAttribute
 
+- (instancetype)initWithAttributeName:(NSString *)attributeName attributeValue:(NSObject *)attributeValue
+{
+    self = [super init];
+
+    if (self) {
+        self.attributeName = attributeName;
+        self.attributeValue = attributeValue;
+    }
+
+    return self;
+}
+
 @end
