@@ -45,6 +45,7 @@
  @brief Array of mentions currently added to the textview
  */
 @property (nonatomic, readonly) NSArray<SZMention *> *mentions;
+
 /**
  @brief Add mention object to current string being edited
 
