@@ -20,7 +20,7 @@
 		AA7B43251C26F9E000CEC7B1 /* SZAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = AA8BA2B31C26EEF500490E25 /* SZAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA7B43261C26F9E000CEC7B1 /* SZMention.h in Headers */ = {isa = PBXBuildFile; fileRef = AA8BA2B51C26EEF500490E25 /* SZMention.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA7B43271C26F9E000CEC7B1 /* SZMentionsListener.h in Headers */ = {isa = PBXBuildFile; fileRef = AA8BA2B71C26EEF500490E25 /* SZMentionsListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AA7B43281C27651100CEC7B1 /* SZMentions.h in Headers */ = {isa = PBXBuildFile; fileRef = AA7B430B1C26F94B00CEC7B1 /* SZMentions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA7B43281C27651100CEC7B1 /* SZMentions.h in Headers */ = {isa = PBXBuildFile; fileRef = AA7B430B1C26F94B00CEC7B1 /* SZMentions.h */; };
 		DBF2DF571C4B0FE4001B9788 /* SZMentionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBF2DF551C4B0FE4001B9788 /* SZMentionsTests.m */; };
 /* End PBXBuildFile section */
 
@@ -151,10 +151,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA7B43281C27651100CEC7B1 /* SZMentions.h in Headers */,
 				AA7B43251C26F9E000CEC7B1 /* SZAttribute.h in Headers */,
 				AA7B43271C26F9E000CEC7B1 /* SZMentionsListener.h in Headers */,
 				AA04013F1C602327003A95A6 /* SZDefaultAttributes.h in Headers */,
+				AA7B43281C27651100CEC7B1 /* SZMentions.h in Headers */,
 				AA0401431C6023F7003A95A6 /* SZMentionHelper.h in Headers */,
 				AA7B43261C26F9E000CEC7B1 /* SZMention.h in Headers */,
 				AA04013B1C602294003A95A6 /* SZAttributedStringHelper.h in Headers */,
