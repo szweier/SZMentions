@@ -18,7 +18,7 @@
 /**
  @brief Contains a reference to the object sent to the addMention: method
  */
-@property (nonatomic, strong) NSObject *object;
+@property (nonatomic, readonly) NSObject *object;
 
 /**
  @brief initializer for creating a mention object

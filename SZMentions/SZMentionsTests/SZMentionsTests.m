@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "SZMentionsListener.h"
 #import "SZAttribute.h"
+#import "SZMention.h"
 
 @interface SZExampleMention : NSObject<SZCreateMentionProtocol>
 
@@ -36,13 +37,11 @@
     self.hidingMentionsList = YES;
     self.mentionString = @"";
     self.textView = [[UITextView alloc] init];
-    SZAttribute *attribute = [[SZAttribute alloc] init];
-    [attribute setAttributeName:NSForegroundColorAttributeName];
-    [attribute setAttributeValue:[UIColor blackColor]];
 
-    SZAttribute *attribute2 = [[SZAttribute alloc] init];
-    [attribute2 setAttributeName:NSForegroundColorAttributeName];
-    [attribute2 setAttributeValue:[UIColor redColor]];
+    SZAttribute *attribute = [[SZAttribute alloc] initWithAttributeName:NSForegroundColorAttributeName
+                                                         attributeValue:[UIColor blackColor]];
+    SZAttribute *attribute2 = [[SZAttribute alloc] initWithAttributeName:NSForegroundColorAttributeName
+                                                          attributeValue:[UIColor redColor]];
 
     self.mentionsListener = [[SZMentionsListener alloc] initWithTextView:self.textView
                                                          mentionsManager:self
@@ -70,14 +69,10 @@
 
 - (void)testThatAddingAttributesThatDoNotMatchThrowsAnError
 {
-    SZAttribute *attribute = [[SZAttribute alloc] init];
-    [attribute setAttributeName:NSForegroundColorAttributeName];
-    [attribute setAttributeValue:[UIColor redColor]];
-
-    SZAttribute *attribute2 = [[SZAttribute alloc] init];
-    [attribute2 setAttributeName:NSBackgroundColorAttributeName];
-    [attribute2 setAttributeValue:[UIColor blackColor]];
-
+    SZAttribute *attribute = [[SZAttribute alloc] initWithAttributeName:NSForegroundColorAttributeName
+                                                         attributeValue:[UIColor redColor]];
+    SZAttribute *attribute2 = [[SZAttribute alloc] initWithAttributeName:NSBackgroundColorAttributeName
+                                                          attributeValue:[UIColor blackColor]];
     NSArray *defaultAttributes = @[attribute];
     NSArray *mentionAttributes = @[attribute, attribute2];
 
@@ -93,13 +88,11 @@
 
 - (void)testThatAddingAttributesThatDoMatchDoesNotThrowsAnError
 {
-    SZAttribute *attribute = [[SZAttribute alloc] init];
-    [attribute setAttributeName:NSForegroundColorAttributeName];
-    [attribute setAttributeValue:[UIColor redColor]];
+    SZAttribute *attribute = [[SZAttribute alloc] initWithAttributeName:NSForegroundColorAttributeName
+                                                         attributeValue:[UIColor redColor]];
 
-    SZAttribute *attribute2 = [[SZAttribute alloc] init];
-    [attribute2 setAttributeName:NSBackgroundColorAttributeName];
-    [attribute2 setAttributeValue:[UIColor blackColor]];
+    SZAttribute *attribute2 = [[SZAttribute alloc] initWithAttributeName:NSBackgroundColorAttributeName
+                                                          attributeValue:[UIColor blackColor]];
 
     NSArray *defaultAttributes = @[attribute, attribute2];
     NSArray *mentionAttributes = @[attribute2, attribute];

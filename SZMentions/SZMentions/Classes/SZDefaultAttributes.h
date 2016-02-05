@@ -8,16 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class SZAttribute;
+
 @interface SZDefaultAttributes : NSObject
 
 /**
  @brief the text attributes to be applied to default text (can be overridden using inits on SZMentionsListener)
  */
-+ (NSArray *)defaultTextAttributes;
++ (NSArray<SZAttribute *> *)defaultTextAttributes;
 
 /**
  @brief the text attributes to be applied to mention text (can be overridden using inits on SZMentionsListener)
  */
-+ (NSArray *)defaultMentionAttributes;
++ (NSArray<SZAttribute *> *)defaultMentionAttributes;
 
 @end

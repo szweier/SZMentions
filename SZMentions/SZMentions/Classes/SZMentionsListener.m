@@ -21,7 +21,7 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
  @brief Mutable array list of mentions managed by listener, accessible via the
  public mentions property.
  */
-@property (nonatomic, strong) NSMutableArray *mutableMentions;
+@property (nonatomic, strong) NSMutableArray<SZMention *> *mutableMentions;
 
 /**
  @brief Range of mention currently being edited.
@@ -55,12 +55,12 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
 /**
  @brief Text attributes to be applied to all text excluding mentions.
  */
-@property (nonatomic, strong) NSArray *defaultTextAttributes;
+@property (nonatomic, strong) NSArray<SZAttribute *> *defaultTextAttributes;
 
 /**
  @brief Text attributes to be applied to mentions.
  */
-@property (nonatomic, strong) NSArray *mentionTextAttributes;
+@property (nonatomic, strong) NSArray<SZAttribute *> *mentionTextAttributes;
 
 /**
  @brief Amount of time to delay between showMentions calls default:0.5
@@ -111,7 +111,7 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
             mentionTextAttributes:[SZDefaultAttributes defaultMentionAttributes]];
 }
 
-- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray *)defaultTextAttributes mentionTextAttributes:(NSArray *)mentionTextAttributes
+- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes
 {
     return [self initWithTextView:textView
                   mentionsManager:mentionsManager
@@ -121,7 +121,7 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
                 spaceAfterMention:NO];
 }
 
-- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray *)defaultTextAttributes mentionTextAttributes:(NSArray *)mentionTextAttributes spaceAfterMention:(BOOL)spaceAfterMention
+- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes spaceAfterMention:(BOOL)spaceAfterMention
 {
     return [self initWithTextView:textView
                   mentionsManager:mentionsManager
@@ -132,7 +132,7 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
                    mentionTrigger:@"@"];
 }
 
-- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray *)defaultTextAttributes mentionTextAttributes:(NSArray *)mentionTextAttributes spaceAfterMention:(BOOL)spaceAfterMention mentionTrigger:(NSString *)mentionTrigger
+- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes spaceAfterMention:(BOOL)spaceAfterMention mentionTrigger:(NSString *)mentionTrigger
 {
     return [self initWithTextView:textView
                   mentionsManager:mentionsManager
@@ -144,7 +144,7 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
                  cooldownInterval:0.5];
 }
 
-- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray *)defaultTextAttributes mentionTextAttributes:(NSArray *)mentionTextAttributes spaceAfterMention:(BOOL)spaceAfterMention mentionTrigger:(NSString *)mentionTrigger cooldownInterval:(CGFloat)cooldownInterval
+- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes spaceAfterMention:(BOOL)spaceAfterMention mentionTrigger:(NSString *)mentionTrigger cooldownInterval:(CGFloat)cooldownInterval
 {
     self = [super init];
 
@@ -211,8 +211,8 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
  @param text: the replacement text
  */
 - (void)adjustTextView:(UITextView *)textView
-                    text:(NSString *)text
-                   range:(NSRange)range
+                  text:(NSString *)text
+                 range:(NSRange)range
 {
     NSString *substring = [textView.text substringToIndex:range.location];
     BOOL mentionEnabled = NO;
@@ -262,8 +262,8 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
  @return BOOL: whether or not the textView should adjust the text itself
  */
 - (BOOL)shouldAdjustTextView:(UITextView *)textView
-                        range:(NSRange)range
-                         text:(NSString *)text
+                       range:(NSRange)range
+                        text:(NSString *)text
 {
     BOOL shouldAdjust = YES;
 
@@ -271,7 +271,7 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
         [self resetEmptyTextView:textView];
     }
 
-    if ([SZMentionHelper _shouldHideMentionsForText:text]) {
+    if ([SZMentionHelper shouldHideMentionsForText:text]) {
         [self.mentionsManager hideMentionsList];
     }
 
@@ -285,18 +285,18 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
 
     if (self.editingMention) {
         shouldAdjust = [self handleEditingMention:editedMention
-                                  textView:textView
-                                     range:range
-                                      text:text];
+                                         textView:textView
+                                            range:range
+                                             text:text];
     }
 
-    if ([SZMentionHelper _needsToChangeToDefaultColorForRange:range
-                                                     textView:textView
-                                                     mentions:self.mentions]) {
+    if ([SZMentionHelper needsToChangeToDefaultColorForRange:range
+                                                    textView:textView
+                                                    mentions:self.mentions]) {
         shouldAdjust = [self forceDefaultAttributesForTextView:textView range:range text:text];
     }
 
-    [SZMentionHelper _adjustMentionsInRange:range text:text mentions:self.mentions];
+    [SZMentionHelper adjustMentionsInRange:range text:text mentions:self.mentions];
 
     if ([self.delegate respondsToSelector:@selector(textView:
                                                     shouldChangeTextInRange:
@@ -305,7 +305,7 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
         shouldChangeTextInRange:range
                 replacementText:text];
     }
-    
+
     return shouldAdjust;
 }
 
@@ -319,17 +319,17 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
  @return BOOL: false (we do not want the text view handling text input in this case)
  */
 - (BOOL)forceDefaultAttributesForTextView:(UITextView *)textView
-                                     range:(NSRange)range
-                                      text:(NSString *)text
+                                    range:(NSRange)range
+                                     text:(NSString *)text
 {
     NSMutableAttributedString *mutableAttributedString =
     [textView.attributedText mutableCopy];
     [[mutableAttributedString mutableString] replaceCharactersInRange:range
                                                            withString:text];
 
-    [SZAttributedStringHelper _applyAttributes:self.defaultTextAttributes
-                                         range:NSMakeRange(range.location, text.length)
-                       mutableAttributedString:mutableAttributedString];
+    [SZAttributedStringHelper applyAttributes:self.defaultTextAttributes
+                                        range:NSMakeRange(range.location, text.length)
+                      mutableAttributedString:mutableAttributedString];
 
     self.settingText = YES;
     [textView setAttributedText:mutableAttributedString];
@@ -342,7 +342,7 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
     }
 
     [textView setSelectedRange:newRange];
-    
+
     return NO;
 }
 
@@ -366,24 +366,24 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
      replaceCharactersInRange:self.currentMentionRange
      withString:displayName];
 
-    [SZMentionHelper _adjustMentionsInRange:self.currentMentionRange
-                                       text:displayName
-                                   mentions:self.mentions];
+    [SZMentionHelper adjustMentionsInRange:self.currentMentionRange
+                                      text:displayName
+                                  mentions:self.mentions];
 
     self.currentMentionRange = NSMakeRange(self.currentMentionRange.location,
                                            mention.szMentionName.length);
 
-    [SZAttributedStringHelper _applyAttributes:self.mentionTextAttributes
-                                         range:NSMakeRange(self.currentMentionRange.location,
-                                                           self.currentMentionRange.length)
-                       mutableAttributedString:mutableAttributedString];
+    [SZAttributedStringHelper applyAttributes:self.mentionTextAttributes
+                                        range:NSMakeRange(self.currentMentionRange.location,
+                                                          self.currentMentionRange.length)
+                      mutableAttributedString:mutableAttributedString];
 
-    [SZAttributedStringHelper _applyAttributes:self.defaultTextAttributes
-                                         range:NSMakeRange(self.currentMentionRange.location +
-                                                           self.currentMentionRange.length -
-                                                           1,
-                                                           0)
-                       mutableAttributedString:mutableAttributedString];
+    [SZAttributedStringHelper applyAttributes:self.defaultTextAttributes
+                                        range:NSMakeRange(self.currentMentionRange.location +
+                                                          self.currentMentionRange.length -
+                                                          1,
+                                                          0)
+                      mutableAttributedString:mutableAttributedString];
 
     self.settingText = YES;
     [self.textView setAttributedText:mutableAttributedString];
@@ -397,9 +397,8 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
     [self.textView setSelectedRange:selectedRange];
     self.settingText = NO;
 
-    SZMention *szmention = [[SZMention alloc] init];
-    [szmention setRange:self.currentMentionRange];
-    [szmention setObject:mention];
+    SZMention *szmention = [[SZMention alloc] initWithRange:self.currentMentionRange
+                                                     object:mention];
 
     [self.mentionsManager hideMentionsList];
     [self.mutableMentions addObject:szmention];
@@ -413,16 +412,16 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
  @param text: text to replace range
  */
 - (BOOL)handleEditingMention:(SZMention *)mention
-                     textView:(UITextView *)textView
-                        range:(NSRange)range
-                         text:(NSString *)text
+                    textView:(UITextView *)textView
+                       range:(NSRange)range
+                        text:(NSString *)text
 {
     NSMutableAttributedString *mutableAttributedString =
     [textView.attributedText mutableCopy];
 
-    [SZAttributedStringHelper _applyAttributes:self.defaultTextAttributes
-                                         range:mention.range
-                       mutableAttributedString:mutableAttributedString];
+    [SZAttributedStringHelper applyAttributes:self.defaultTextAttributes
+                                        range:mention.range
+                      mutableAttributedString:mutableAttributedString];
 
     [[mutableAttributedString mutableString] replaceCharactersInRange:range
                                                            withString:text];
@@ -602,7 +601,7 @@ shouldInteractWithURL:(NSURL *)URL
          respondsToSelector:@selector(textViewShouldBeginEditing:)]) {
         return [self.delegate textViewShouldBeginEditing:textView];
     }
-
+    
     return YES;
 }
 

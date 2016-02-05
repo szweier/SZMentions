@@ -11,7 +11,7 @@
 
 @implementation SZAttributedStringHelper
 
-+ (void)_applyAttributes:(NSArray *)attributes
++ (void)applyAttributes:(NSArray<SZAttribute *> *)attributes
                    range:(NSRange)range
  mutableAttributedString:(NSMutableAttributedString *)mutableAttributedString
 {

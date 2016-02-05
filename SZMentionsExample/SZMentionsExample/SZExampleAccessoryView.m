@@ -56,23 +56,17 @@
 {
     NSMutableArray *defaultAttributes = @[].mutableCopy;
 
-    SZAttribute *attribute = [[SZAttribute alloc] init];
-    [attribute setAttributeName:NSForegroundColorAttributeName];
-    [attribute setAttributeValue:[UIColor grayColor]];
-
+    SZAttribute *attribute = [[SZAttribute alloc] initWithAttributeName:NSForegroundColorAttributeName
+                                                         attributeValue:[UIColor grayColor]];
     [defaultAttributes addObject:attribute];
 
-    attribute = [[SZAttribute alloc] init];
-    [attribute setAttributeName:NSBackgroundColorAttributeName];
-    [attribute setAttributeValue:[UIColor whiteColor]];
-
+    attribute = [[SZAttribute alloc] initWithAttributeName:NSBackgroundColorAttributeName
+                                            attributeValue:[UIColor whiteColor]];
     [defaultAttributes addObject:attribute];
 
-    attribute = [[SZAttribute alloc] init];
-    [attribute setAttributeName:NSFontAttributeName];
-    [attribute setAttributeValue:[UIFont fontWithName:@"ArialMT"
-                                                 size:12]];
-
+    attribute = [[SZAttribute alloc] initWithAttributeName:NSFontAttributeName
+                                            attributeValue:[UIFont fontWithName:@"ArialMT"
+                                                                           size:12]];
     [defaultAttributes addObject:attribute];
 
     return defaultAttributes.copy;
@@ -82,23 +76,17 @@
 {
     NSMutableArray *mentionAttributes = @[].mutableCopy;
 
-    SZAttribute *attribute = [[SZAttribute alloc] init];
-    [attribute setAttributeName:NSForegroundColorAttributeName];
-    [attribute setAttributeValue:[UIColor blackColor]];
-
+    SZAttribute *attribute = [[SZAttribute alloc] initWithAttributeName:NSForegroundColorAttributeName
+                                                         attributeValue:[UIColor blackColor]];
     [mentionAttributes addObject:attribute];
 
-    attribute = [[SZAttribute alloc] init];
-    [attribute setAttributeName:NSFontAttributeName];
-    [attribute setAttributeValue:[UIFont fontWithName:@"ChalkboardSE-Bold"
-                                                 size:12]];
-
+    attribute = [[SZAttribute alloc] initWithAttributeName:NSFontAttributeName
+                                            attributeValue:[UIFont fontWithName:@"ChalkboardSE-Bold"
+                                                                           size:12]];
     [mentionAttributes addObject:attribute];
 
-    attribute = [[SZAttribute alloc] init];
-    [attribute setAttributeName:NSBackgroundColorAttributeName];
-    [attribute setAttributeValue:[UIColor lightGrayColor]];
-
+    attribute = [[SZAttribute alloc] initWithAttributeName:NSBackgroundColorAttributeName
+                                            attributeValue:[UIColor lightGrayColor]];
     [mentionAttributes addObject:attribute];
 
     return mentionAttributes.copy;

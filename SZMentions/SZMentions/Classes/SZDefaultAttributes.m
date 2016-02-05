@@ -11,31 +11,27 @@
 
 @implementation SZDefaultAttributes
 
-+ (NSArray *)defaultTextAttributes
++ (NSArray<SZAttribute *> *)defaultTextAttributes
 {
-    return @[[self _defaultColor]];
+    return @[[self defaultColor]];
 }
 
-+ (NSArray *)defaultMentionAttributes
++ (NSArray<SZAttribute *> *)defaultMentionAttributes
 {
-    return @[[self _mentionColor]];
+    return @[[self mentionColor]];
 }
 
-+ (SZAttribute *)_defaultColor
++ (SZAttribute *)defaultColor
 {
-    SZAttribute *defaultColor = [[SZAttribute alloc] init];
-    [defaultColor setAttributeName:NSForegroundColorAttributeName];
-    [defaultColor setAttributeValue:[UIColor greenColor]];
-
+    SZAttribute *defaultColor = [[SZAttribute alloc] initWithAttributeName:NSForegroundColorAttributeName
+                                                            attributeValue:[UIColor greenColor]];
     return defaultColor;
 }
 
-+ (SZAttribute *)_mentionColor
++ (SZAttribute *)mentionColor
 {
-    SZAttribute *mentionColor = [[SZAttribute alloc] init];
-    [mentionColor setAttributeName:NSForegroundColorAttributeName];
-    [mentionColor setAttributeValue:[UIColor blueColor]];
-
+    SZAttribute *mentionColor = [[SZAttribute alloc] initWithAttributeName:NSForegroundColorAttributeName
+                                                            attributeValue:[UIColor blueColor]];
     return mentionColor;
 }
 

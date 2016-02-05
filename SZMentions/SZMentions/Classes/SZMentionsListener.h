@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@class SZAttribute;
+@class SZMention;
+
 @protocol SZMentionsManagerProtocol <NSObject>
 @required
 
@@ -41,7 +44,7 @@
 /**
  @brief Array of mentions currently added to the textview
  */
-@property (nonatomic, readonly) NSArray *mentions;
+@property (nonatomic, readonly) NSArray<SZMention *> *mentions;
 /**
  @brief Add mention object to current string being edited
 
@@ -80,8 +83,8 @@
 - (instancetype)initWithTextView:(UITextView *)textView
                  mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
                 textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
-           defaultTextAttributes:(NSArray *)defaultTextAttributes
-           mentionTextAttributes:(NSArray *)mentionTextAttributes;
+           defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes
+           mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes;
 
 /**
  @brief Initializer that allows for customization of text attributes for default text and mentions
@@ -95,8 +98,8 @@
 - (instancetype)initWithTextView:(UITextView *)textView
                  mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
                 textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
-           defaultTextAttributes:(NSArray *)defaultTextAttributes
-           mentionTextAttributes:(NSArray *)mentionTextAttributes
+           defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes
+           mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes
                spaceAfterMention:(BOOL)spaceAfterMention;
 
 /**
@@ -112,8 +115,8 @@
 - (instancetype)initWithTextView:(UITextView *)textView
                  mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
                 textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
-           defaultTextAttributes:(NSArray *)defaultTextAttributes
-           mentionTextAttributes:(NSArray *)mentionTextAttributes
+           defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes
+           mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes
                spaceAfterMention:(BOOL)spaceAfterMention
                   mentionTrigger:(NSString *)mentionTrigger;
 
@@ -131,8 +134,8 @@
 - (instancetype)initWithTextView:(UITextView *)textView
                  mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
                 textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
-           defaultTextAttributes:(NSArray *)defaultTextAttributes
-           mentionTextAttributes:(NSArray *)mentionTextAttributes
+           defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes
+           mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes
                spaceAfterMention:(BOOL)spaceAfterMention
                   mentionTrigger:(NSString *)mentionTrigger
                 cooldownInterval:(CGFloat)cooldownInterval;

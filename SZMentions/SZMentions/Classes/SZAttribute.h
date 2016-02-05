@@ -13,12 +13,12 @@
 /**
  @brief Name of the attribute to set on a string
  */
-@property (nonatomic, strong) NSString *attributeName;
+@property (nonatomic, readonly) NSString *attributeName;
 
 /**
  @brief Value of the attribute to set on a string
  */
-@property (nonatomic, strong) NSObject *attributeValue;
+@property (nonatomic, readonly) NSObject *attributeValue;
 
 /**
  @brief initializer for creating an attribute
