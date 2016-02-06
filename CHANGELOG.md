@@ -1,7 +1,7 @@
 #Change Log
 
 --- 
-## [0.0.19](https://github.com/szweier/SZMentions/releases/tag/0.0.18) (2/5/2016)
+## [0.0.19](https://github.com/szweier/SZMentions/releases/tag/0.0.19) (2/5/2016)
 
 #### Fixed
 * Cleaned up project
