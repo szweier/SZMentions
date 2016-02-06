@@ -1,6 +1,11 @@
 #Change Log
 
 --- 
+## [0.0.19](https://github.com/szweier/SZMentions/releases/tag/0.0.18) (2/5/2016)
+
+#### Fixed
+* Cleaned up project
+* Made private classes private
 
 ## [0.0.18](https://github.com/szweier/SZMentions/releases/tag/0.0.18) (2/4/2016)
 
