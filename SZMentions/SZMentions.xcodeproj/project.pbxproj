@@ -7,20 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA04013B1C602294003A95A6 /* SZAttributedStringHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = AA0401391C602294003A95A6 /* SZAttributedStringHelper.h */; };
-		AA04013C1C602294003A95A6 /* SZAttributedStringHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AA04013A1C602294003A95A6 /* SZAttributedStringHelper.m */; };
-		AA04013F1C602327003A95A6 /* SZDefaultAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = AA04013D1C602327003A95A6 /* SZDefaultAttributes.h */; };
-		AA0401401C602327003A95A6 /* SZDefaultAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = AA04013E1C602327003A95A6 /* SZDefaultAttributes.m */; };
-		AA0401431C6023F7003A95A6 /* SZMentionHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = AA0401411C6023F7003A95A6 /* SZMentionHelper.h */; };
-		AA0401441C6023F7003A95A6 /* SZMentionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0401421C6023F7003A95A6 /* SZMentionHelper.m */; };
 		AA7B43131C26F94B00CEC7B1 /* SZMentions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA7B43091C26F94B00CEC7B1 /* SZMentions.framework */; };
-		AA7B43221C26F9D400CEC7B1 /* SZAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA2B41C26EEF500490E25 /* SZAttribute.m */; };
-		AA7B43231C26F9D400CEC7B1 /* SZMention.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA2B61C26EEF500490E25 /* SZMention.m */; };
-		AA7B43241C26F9D400CEC7B1 /* SZMentionsListener.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA2B81C26EEF500490E25 /* SZMentionsListener.m */; };
-		AA7B43251C26F9E000CEC7B1 /* SZAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = AA8BA2B31C26EEF500490E25 /* SZAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AA7B43261C26F9E000CEC7B1 /* SZMention.h in Headers */ = {isa = PBXBuildFile; fileRef = AA8BA2B51C26EEF500490E25 /* SZMention.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AA7B43271C26F9E000CEC7B1 /* SZMentionsListener.h in Headers */ = {isa = PBXBuildFile; fileRef = AA8BA2B71C26EEF500490E25 /* SZMentionsListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AA7B43281C27651100CEC7B1 /* SZMentions.h in Headers */ = {isa = PBXBuildFile; fileRef = AA7B430B1C26F94B00CEC7B1 /* SZMentions.h */; };
+		DBE8B46B1C6573980090EF32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBE8B4571C6573980090EF32 /* Assets.xcassets */; };
+		DBE8B46C1C6573980090EF32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBE8B4591C6573980090EF32 /* LaunchScreen.storyboard */; };
+		DBE8B46D1C6573980090EF32 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBE8B45B1C6573980090EF32 /* Main.storyboard */; };
+		DBE8B46E1C6573980090EF32 /* SZAttributedStringHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = DBE8B45F1C6573980090EF32 /* SZAttributedStringHelper.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		DBE8B46F1C6573980090EF32 /* SZAttributedStringHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8B4601C6573980090EF32 /* SZAttributedStringHelper.m */; };
+		DBE8B4701C6573980090EF32 /* SZDefaultAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = DBE8B4611C6573980090EF32 /* SZDefaultAttributes.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		DBE8B4711C6573980090EF32 /* SZDefaultAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8B4621C6573980090EF32 /* SZDefaultAttributes.m */; };
+		DBE8B4721C6573980090EF32 /* SZMentionHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = DBE8B4631C6573980090EF32 /* SZMentionHelper.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		DBE8B4731C6573980090EF32 /* SZMentionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8B4641C6573980090EF32 /* SZMentionHelper.m */; };
+		DBE8B4741C6573980090EF32 /* SZAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = DBE8B4651C6573980090EF32 /* SZAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DBE8B4751C6573980090EF32 /* SZAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8B4661C6573980090EF32 /* SZAttribute.m */; };
+		DBE8B4761C6573980090EF32 /* SZMention.h in Headers */ = {isa = PBXBuildFile; fileRef = DBE8B4671C6573980090EF32 /* SZMention.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DBE8B4771C6573980090EF32 /* SZMention.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8B4681C6573980090EF32 /* SZMention.m */; };
+		DBE8B4781C6573980090EF32 /* SZMentionsListener.h in Headers */ = {isa = PBXBuildFile; fileRef = DBE8B4691C6573980090EF32 /* SZMentionsListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DBE8B4791C6573980090EF32 /* SZMentionsListener.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8B46A1C6573980090EF32 /* SZMentionsListener.m */; };
+		DBE8B47B1C6573A40090EF32 /* SZMentions.h in Headers */ = {isa = PBXBuildFile; fileRef = DBE8B47A1C6573A40090EF32 /* SZMentions.h */; };
 		DBF2DF571C4B0FE4001B9788 /* SZMentionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBF2DF551C4B0FE4001B9788 /* SZMentionsTests.m */; };
 /* End PBXBuildFile section */
 
@@ -35,25 +38,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AA0401391C602294003A95A6 /* SZAttributedStringHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZAttributedStringHelper.h; sourceTree = "<group>"; };
-		AA04013A1C602294003A95A6 /* SZAttributedStringHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZAttributedStringHelper.m; sourceTree = "<group>"; };
-		AA04013D1C602327003A95A6 /* SZDefaultAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZDefaultAttributes.h; sourceTree = "<group>"; };
-		AA04013E1C602327003A95A6 /* SZDefaultAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZDefaultAttributes.m; sourceTree = "<group>"; };
-		AA0401411C6023F7003A95A6 /* SZMentionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZMentionHelper.h; sourceTree = "<group>"; };
-		AA0401421C6023F7003A95A6 /* SZMentionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZMentionHelper.m; sourceTree = "<group>"; };
 		AA7B43091C26F94B00CEC7B1 /* SZMentions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SZMentions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA7B430B1C26F94B00CEC7B1 /* SZMentions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZMentions.h; sourceTree = "<group>"; };
 		AA7B43121C26F94B00CEC7B1 /* SZMentionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SZMentionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA8BA2AC1C26EEF500490E25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AA8BA2AF1C26EEF500490E25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		AA8BA2B11C26EEF500490E25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
-		AA8BA2B31C26EEF500490E25 /* SZAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZAttribute.h; sourceTree = "<group>"; };
-		AA8BA2B41C26EEF500490E25 /* SZAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZAttribute.m; sourceTree = "<group>"; };
-		AA8BA2B51C26EEF500490E25 /* SZMention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZMention.h; sourceTree = "<group>"; };
-		AA8BA2B61C26EEF500490E25 /* SZMention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZMention.m; sourceTree = "<group>"; };
-		AA8BA2B71C26EEF500490E25 /* SZMentionsListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZMentionsListener.h; sourceTree = "<group>"; };
-		AA8BA2B81C26EEF500490E25 /* SZMentionsListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZMentionsListener.m; sourceTree = "<group>"; };
-		AA8BA2B91C26EEF500490E25 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
+		DBE8B4571C6573980090EF32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		DBE8B45A1C6573980090EF32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DBE8B45C1C6573980090EF32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		DBE8B45F1C6573980090EF32 /* SZAttributedStringHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZAttributedStringHelper.h; sourceTree = "<group>"; };
+		DBE8B4601C6573980090EF32 /* SZAttributedStringHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZAttributedStringHelper.m; sourceTree = "<group>"; };
+		DBE8B4611C6573980090EF32 /* SZDefaultAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZDefaultAttributes.h; sourceTree = "<group>"; };
+		DBE8B4621C6573980090EF32 /* SZDefaultAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZDefaultAttributes.m; sourceTree = "<group>"; };
+		DBE8B4631C6573980090EF32 /* SZMentionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZMentionHelper.h; sourceTree = "<group>"; };
+		DBE8B4641C6573980090EF32 /* SZMentionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZMentionHelper.m; sourceTree = "<group>"; };
+		DBE8B4651C6573980090EF32 /* SZAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZAttribute.h; sourceTree = "<group>"; };
+		DBE8B4661C6573980090EF32 /* SZAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZAttribute.m; sourceTree = "<group>"; };
+		DBE8B4671C6573980090EF32 /* SZMention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZMention.h; sourceTree = "<group>"; };
+		DBE8B4681C6573980090EF32 /* SZMention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZMention.m; sourceTree = "<group>"; };
+		DBE8B4691C6573980090EF32 /* SZMentionsListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZMentionsListener.h; sourceTree = "<group>"; };
+		DBE8B46A1C6573980090EF32 /* SZMentionsListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZMentionsListener.m; sourceTree = "<group>"; };
+		DBE8B47A1C6573A40090EF32 /* SZMentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZMentions.h; sourceTree = SOURCE_ROOT; };
+		DBE8B47C1C6573B30090EF32 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		DBF2DF541C4B0FE4001B9788 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBF2DF551C4B0FE4001B9788 /* SZMentionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZMentionsTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,41 +101,49 @@
 		AA8BA2641C26EE0400490E25 /* SZMentions */ = {
 			isa = PBXGroup;
 			children = (
-				AA8BA2AC1C26EEF500490E25 /* Assets.xcassets */,
-				AA8BA2AD1C26EEF500490E25 /* Base.lproj */,
-				AA8BA2B21C26EEF500490E25 /* Classes */,
-				AA7B430B1C26F94B00CEC7B1 /* SZMentions.h */,
+				DBE8B47C1C6573B30090EF32 /* Info.plist */,
+				DBE8B4571C6573980090EF32 /* Assets.xcassets */,
+				DBE8B4581C6573980090EF32 /* Base.lproj */,
+				DBE8B45D1C6573980090EF32 /* Classes */,
+				DBE8B47A1C6573A40090EF32 /* SZMentions.h */,
 			);
 			path = SZMentions;
 			sourceTree = "<group>";
 		};
-		AA8BA2AD1C26EEF500490E25 /* Base.lproj */ = {
+		DBE8B4581C6573980090EF32 /* Base.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				AA8BA2AE1C26EEF500490E25 /* LaunchScreen.storyboard */,
-				AA8BA2B01C26EEF500490E25 /* Main.storyboard */,
+				DBE8B4591C6573980090EF32 /* LaunchScreen.storyboard */,
+				DBE8B45B1C6573980090EF32 /* Main.storyboard */,
 			);
 			path = Base.lproj;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
-		AA8BA2B21C26EEF500490E25 /* Classes */ = {
+		DBE8B45D1C6573980090EF32 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				AA8BA2B91C26EEF500490E25 /* Info.plist */,
-				AA8BA2B31C26EEF500490E25 /* SZAttribute.h */,
-				AA8BA2B41C26EEF500490E25 /* SZAttribute.m */,
-				AA8BA2B51C26EEF500490E25 /* SZMention.h */,
-				AA8BA2B61C26EEF500490E25 /* SZMention.m */,
-				AA8BA2B71C26EEF500490E25 /* SZMentionsListener.h */,
-				AA8BA2B81C26EEF500490E25 /* SZMentionsListener.m */,
-				AA0401391C602294003A95A6 /* SZAttributedStringHelper.h */,
-				AA04013A1C602294003A95A6 /* SZAttributedStringHelper.m */,
-				AA04013D1C602327003A95A6 /* SZDefaultAttributes.h */,
-				AA04013E1C602327003A95A6 /* SZDefaultAttributes.m */,
-				AA0401411C6023F7003A95A6 /* SZMentionHelper.h */,
-				AA0401421C6023F7003A95A6 /* SZMentionHelper.m */,
+				DBE8B45E1C6573980090EF32 /* Private */,
+				DBE8B4651C6573980090EF32 /* SZAttribute.h */,
+				DBE8B4661C6573980090EF32 /* SZAttribute.m */,
+				DBE8B4671C6573980090EF32 /* SZMention.h */,
+				DBE8B4681C6573980090EF32 /* SZMention.m */,
+				DBE8B4691C6573980090EF32 /* SZMentionsListener.h */,
+				DBE8B46A1C6573980090EF32 /* SZMentionsListener.m */,
 			);
 			path = Classes;
+			sourceTree = SOURCE_ROOT;
+		};
+		DBE8B45E1C6573980090EF32 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				DBE8B45F1C6573980090EF32 /* SZAttributedStringHelper.h */,
+				DBE8B4601C6573980090EF32 /* SZAttributedStringHelper.m */,
+				DBE8B4611C6573980090EF32 /* SZDefaultAttributes.h */,
+				DBE8B4621C6573980090EF32 /* SZDefaultAttributes.m */,
+				DBE8B4631C6573980090EF32 /* SZMentionHelper.h */,
+				DBE8B4641C6573980090EF32 /* SZMentionHelper.m */,
+			);
+			path = Private;
 			sourceTree = "<group>";
 		};
 		DBF2DF531C4B0FE4001B9788 /* SZMentionsTests */ = {
@@ -151,13 +162,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA7B43251C26F9E000CEC7B1 /* SZAttribute.h in Headers */,
-				AA7B43271C26F9E000CEC7B1 /* SZMentionsListener.h in Headers */,
-				AA04013F1C602327003A95A6 /* SZDefaultAttributes.h in Headers */,
-				AA7B43281C27651100CEC7B1 /* SZMentions.h in Headers */,
-				AA0401431C6023F7003A95A6 /* SZMentionHelper.h in Headers */,
-				AA7B43261C26F9E000CEC7B1 /* SZMention.h in Headers */,
-				AA04013B1C602294003A95A6 /* SZAttributedStringHelper.h in Headers */,
+				DBE8B4761C6573980090EF32 /* SZMention.h in Headers */,
+				DBE8B4781C6573980090EF32 /* SZMentionsListener.h in Headers */,
+				DBE8B4741C6573980090EF32 /* SZAttribute.h in Headers */,
+				DBE8B46E1C6573980090EF32 /* SZAttributedStringHelper.h in Headers */,
+				DBE8B4721C6573980090EF32 /* SZMentionHelper.h in Headers */,
+				DBE8B4701C6573980090EF32 /* SZDefaultAttributes.h in Headers */,
+				DBE8B47B1C6573A40090EF32 /* SZMentions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +252,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBE8B46D1C6573980090EF32 /* Main.storyboard in Resources */,
+				DBE8B46B1C6573980090EF32 /* Assets.xcassets in Resources */,
+				DBE8B46C1C6573980090EF32 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,12 +272,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA7B43221C26F9D400CEC7B1 /* SZAttribute.m in Sources */,
-				AA04013C1C602294003A95A6 /* SZAttributedStringHelper.m in Sources */,
-				AA0401401C602327003A95A6 /* SZDefaultAttributes.m in Sources */,
-				AA7B43231C26F9D400CEC7B1 /* SZMention.m in Sources */,
-				AA7B43241C26F9D400CEC7B1 /* SZMentionsListener.m in Sources */,
-				AA0401441C6023F7003A95A6 /* SZMentionHelper.m in Sources */,
+				DBE8B4711C6573980090EF32 /* SZDefaultAttributes.m in Sources */,
+				DBE8B4771C6573980090EF32 /* SZMention.m in Sources */,
+				DBE8B4751C6573980090EF32 /* SZAttribute.m in Sources */,
+				DBE8B4791C6573980090EF32 /* SZMentionsListener.m in Sources */,
+				DBE8B4731C6573980090EF32 /* SZMentionHelper.m in Sources */,
+				DBE8B46F1C6573980090EF32 /* SZAttributedStringHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,18 +300,18 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		AA8BA2AE1C26EEF500490E25 /* LaunchScreen.storyboard */ = {
+		DBE8B4591C6573980090EF32 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA8BA2AF1C26EEF500490E25 /* Base */,
+				DBE8B45A1C6573980090EF32 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		AA8BA2B01C26EEF500490E25 /* Main.storyboard */ = {
+		DBE8B45B1C6573980090EF32 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA8BA2B11C26EEF500490E25 /* Base */,
+				DBE8B45C1C6573980090EF32 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -313,7 +327,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SZMentions/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.StevenZweier.SZMentions;
@@ -333,7 +347,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SZMentions/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.StevenZweier.SZMentions;

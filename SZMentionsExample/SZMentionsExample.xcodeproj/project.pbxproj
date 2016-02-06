@@ -7,26 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA5C5D5F1C276ED6000F3B14 /* SZExampleMentionsTableViewDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5C5D5E1C276ED6000F3B14 /* SZExampleMentionsTableViewDataManager.m */; };
-		AA8938281C25A5DD009BE6A7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AA89381F1C25A5DD009BE6A7 /* AppDelegate.m */; };
 		AA8938291C25A5DD009BE6A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8938201C25A5DD009BE6A7 /* Assets.xcassets */; };
-		AA89382B1C25A5DD009BE6A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA8938221C25A5DD009BE6A7 /* LaunchScreen.storyboard */; };
-		AA89382C1C25A5DD009BE6A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8938231C25A5DD009BE6A7 /* main.m */; };
-		AA89382D1C25A5DD009BE6A7 /* SZExampleAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8938251C25A5DD009BE6A7 /* SZExampleAccessoryView.m */; };
-		AA89382E1C25A5DD009BE6A7 /* SZExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8938271C25A5DD009BE6A7 /* SZExampleViewController.m */; };
-		AA8938311C26010D009BE6A7 /* SZExampleMention.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8938301C26010D009BE6A7 /* SZExampleMention.m */; };
-		DBF2DF4D1C4B0B77001B9788 /* SZMentions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBF2DF4C1C4B0B77001B9788 /* SZMentions.framework */; };
-		DBF2DF4E1C4B0B77001B9788 /* SZMentions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DBF2DF4C1C4B0B77001B9788 /* SZMentions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DBE8B4811C6576BE0090EF32 /* SZMentions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBE8B4801C6576BE0090EF32 /* SZMentions.framework */; };
+		DBE8B48D1C6577EA0090EF32 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8B4841C6577EA0090EF32 /* AppDelegate.m */; };
+		DBE8B48E1C6577EA0090EF32 /* SZExampleAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8B4861C6577EA0090EF32 /* SZExampleAccessoryView.m */; };
+		DBE8B48F1C6577EA0090EF32 /* SZExampleMention.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8B4881C6577EA0090EF32 /* SZExampleMention.m */; };
+		DBE8B4901C6577EA0090EF32 /* SZExampleMentionsTableViewDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8B48A1C6577EA0090EF32 /* SZExampleMentionsTableViewDataManager.m */; };
+		DBE8B4911C6577EA0090EF32 /* SZExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8B48C1C6577EA0090EF32 /* SZExampleViewController.m */; };
+		DBE8B4961C6578170090EF32 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DBE8B4931C6578170090EF32 /* Info.plist */; };
+		DBE8B4971C6578170090EF32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBE8B4941C6578170090EF32 /* LaunchScreen.storyboard */; };
+		DBE8B4981C6578170090EF32 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8B4951C6578170090EF32 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		DBF2DF4F1C4B0B77001B9788 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DBF2DF4E1C4B0B77001B9788 /* SZMentions.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -35,21 +34,21 @@
 
 /* Begin PBXFileReference section */
 		AA57D9261C222C47004ABC4E /* SZMentionsExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SZMentionsExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA5C5D5D1C276ED6000F3B14 /* SZExampleMentionsTableViewDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZExampleMentionsTableViewDataManager.h; sourceTree = "<group>"; };
-		AA5C5D5E1C276ED6000F3B14 /* SZExampleMentionsTableViewDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZExampleMentionsTableViewDataManager.m; sourceTree = "<group>"; };
-		AA89381E1C25A5DD009BE6A7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		AA89381F1C25A5DD009BE6A7 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		AA8938201C25A5DD009BE6A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AA8938211C25A5DD009BE6A7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA8938221C25A5DD009BE6A7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		AA8938231C25A5DD009BE6A7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		AA8938241C25A5DD009BE6A7 /* SZExampleAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZExampleAccessoryView.h; sourceTree = "<group>"; };
-		AA8938251C25A5DD009BE6A7 /* SZExampleAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZExampleAccessoryView.m; sourceTree = "<group>"; };
-		AA8938261C25A5DD009BE6A7 /* SZExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZExampleViewController.h; sourceTree = "<group>"; };
-		AA8938271C25A5DD009BE6A7 /* SZExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZExampleViewController.m; sourceTree = "<group>"; };
-		AA89382F1C26010D009BE6A7 /* SZExampleMention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZExampleMention.h; sourceTree = "<group>"; };
-		AA8938301C26010D009BE6A7 /* SZExampleMention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZExampleMention.m; sourceTree = "<group>"; };
-		DBF2DF4C1C4B0B77001B9788 /* SZMentions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SZMentions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBE8B4801C6576BE0090EF32 /* SZMentions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SZMentions.framework; path = "../SZMentions/build/Debug-iphoneos/SZMentions.framework"; sourceTree = "<group>"; };
+		DBE8B4831C6577EA0090EF32 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DBE8B4841C6577EA0090EF32 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DBE8B4851C6577EA0090EF32 /* SZExampleAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZExampleAccessoryView.h; sourceTree = "<group>"; };
+		DBE8B4861C6577EA0090EF32 /* SZExampleAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZExampleAccessoryView.m; sourceTree = "<group>"; };
+		DBE8B4871C6577EA0090EF32 /* SZExampleMention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZExampleMention.h; sourceTree = "<group>"; };
+		DBE8B4881C6577EA0090EF32 /* SZExampleMention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZExampleMention.m; sourceTree = "<group>"; };
+		DBE8B4891C6577EA0090EF32 /* SZExampleMentionsTableViewDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZExampleMentionsTableViewDataManager.h; sourceTree = "<group>"; };
+		DBE8B48A1C6577EA0090EF32 /* SZExampleMentionsTableViewDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZExampleMentionsTableViewDataManager.m; sourceTree = "<group>"; };
+		DBE8B48B1C6577EA0090EF32 /* SZExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZExampleViewController.h; sourceTree = "<group>"; };
+		DBE8B48C1C6577EA0090EF32 /* SZExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZExampleViewController.m; sourceTree = "<group>"; };
+		DBE8B4931C6578170090EF32 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBE8B4941C6578170090EF32 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DBE8B4951C6578170090EF32 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBF2DF4D1C4B0B77001B9788 /* SZMentions.framework in Frameworks */,
+				DBE8B4811C6576BE0090EF32 /* SZMentions.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,20 +83,9 @@
 		AA89381D1C25A5DD009BE6A7 /* SZMentionsExample */ = {
 			isa = PBXGroup;
 			children = (
-				AA89381E1C25A5DD009BE6A7 /* AppDelegate.h */,
-				AA89381F1C25A5DD009BE6A7 /* AppDelegate.m */,
+				DBE8B4821C6577EA0090EF32 /* Classes */,
 				AA8938201C25A5DD009BE6A7 /* Assets.xcassets */,
-				AA8938211C25A5DD009BE6A7 /* Info.plist */,
-				AA8938221C25A5DD009BE6A7 /* LaunchScreen.storyboard */,
-				AA8938231C25A5DD009BE6A7 /* main.m */,
-				AA8938241C25A5DD009BE6A7 /* SZExampleAccessoryView.h */,
-				AA8938251C25A5DD009BE6A7 /* SZExampleAccessoryView.m */,
-				AA5C5D5D1C276ED6000F3B14 /* SZExampleMentionsTableViewDataManager.h */,
-				AA5C5D5E1C276ED6000F3B14 /* SZExampleMentionsTableViewDataManager.m */,
-				AA89382F1C26010D009BE6A7 /* SZExampleMention.h */,
-				AA8938301C26010D009BE6A7 /* SZExampleMention.m */,
-				AA8938261C25A5DD009BE6A7 /* SZExampleViewController.h */,
-				AA8938271C25A5DD009BE6A7 /* SZExampleViewController.m */,
+				DBE8B4921C6578170090EF32 /* Supporting Files */,
 			);
 			path = SZMentionsExample;
 			sourceTree = "<group>";
@@ -105,9 +93,36 @@
 		BFC60D62AC84522B99845B05 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DBF2DF4C1C4B0B77001B9788 /* SZMentions.framework */,
+				DBE8B4801C6576BE0090EF32 /* SZMentions.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DBE8B4821C6577EA0090EF32 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DBE8B4831C6577EA0090EF32 /* AppDelegate.h */,
+				DBE8B4841C6577EA0090EF32 /* AppDelegate.m */,
+				DBE8B4851C6577EA0090EF32 /* SZExampleAccessoryView.h */,
+				DBE8B4861C6577EA0090EF32 /* SZExampleAccessoryView.m */,
+				DBE8B4871C6577EA0090EF32 /* SZExampleMention.h */,
+				DBE8B4881C6577EA0090EF32 /* SZExampleMention.m */,
+				DBE8B4891C6577EA0090EF32 /* SZExampleMentionsTableViewDataManager.h */,
+				DBE8B48A1C6577EA0090EF32 /* SZExampleMentionsTableViewDataManager.m */,
+				DBE8B48B1C6577EA0090EF32 /* SZExampleViewController.h */,
+				DBE8B48C1C6577EA0090EF32 /* SZExampleViewController.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		DBE8B4921C6578170090EF32 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DBE8B4931C6578170090EF32 /* Info.plist */,
+				DBE8B4941C6578170090EF32 /* LaunchScreen.storyboard */,
+				DBE8B4951C6578170090EF32 /* main.m */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,7 +183,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA89382B1C25A5DD009BE6A7 /* LaunchScreen.storyboard in Resources */,
+				DBE8B4971C6578170090EF32 /* LaunchScreen.storyboard in Resources */,
+				DBE8B4961C6578170090EF32 /* Info.plist in Resources */,
 				AA8938291C25A5DD009BE6A7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,12 +196,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA8938311C26010D009BE6A7 /* SZExampleMention.m in Sources */,
-				AA89382C1C25A5DD009BE6A7 /* main.m in Sources */,
-				AA5C5D5F1C276ED6000F3B14 /* SZExampleMentionsTableViewDataManager.m in Sources */,
-				AA8938281C25A5DD009BE6A7 /* AppDelegate.m in Sources */,
-				AA89382E1C25A5DD009BE6A7 /* SZExampleViewController.m in Sources */,
-				AA89382D1C25A5DD009BE6A7 /* SZExampleAccessoryView.m in Sources */,
+				DBE8B4911C6577EA0090EF32 /* SZExampleViewController.m in Sources */,
+				DBE8B4901C6577EA0090EF32 /* SZExampleMentionsTableViewDataManager.m in Sources */,
+				DBE8B48F1C6577EA0090EF32 /* SZExampleMention.m in Sources */,
+				DBE8B48D1C6577EA0090EF32 /* AppDelegate.m in Sources */,
+				DBE8B4981C6578170090EF32 /* main.m in Sources */,
+				DBE8B48E1C6577EA0090EF32 /* SZExampleAccessoryView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,7 +293,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = SZMentionsExample/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SZMentionsExample/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.StevenZweier.SZMentionsExample;
 				PRODUCT_NAME = SZMentionsExample;
@@ -289,7 +305,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = SZMentionsExample/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SZMentionsExample/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.StevenZweier.SZMentionsExample;
 				PRODUCT_NAME = SZMentionsExample;

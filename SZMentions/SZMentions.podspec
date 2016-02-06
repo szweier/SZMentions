@@ -9,11 +9,8 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/szweier/SZMentions.git", :tag => s.version.to_s }
   s.platform     = :ios, '7.1'
   s.requires_arc = true
-  s.source_files = 'SZMentions/SZMentions/Classes/**/*'
-
-  s.resource_bundles = {
-    'SZMentions' => ['SZMentions/SZMentions/Assets/*']
-    }
+  s.source_files = 'Classes/**/*'
+  s.private_header_files = "Classes/Private/*.h"
 
 end
 

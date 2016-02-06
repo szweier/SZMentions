@@ -15,5 +15,8 @@ FOUNDATION_EXPORT double SZMentionsVersionNumber;
 FOUNDATION_EXPORT const unsigned char SZMentionsVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <SZMentions/PublicHeader.h>
+#import <SZMentions/SZAttribute.h>
+#import <SZMentions/SZMentions.h>
+#import <SZMentions/SZMentionsListener.h>
 
 
