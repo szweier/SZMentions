@@ -18,6 +18,13 @@
 /**
  @brief Contains a reference to the object sent to the addMention: method
  */
-@property (nonatomic, strong) NSObject *object;
+@property (nonatomic, readonly) NSObject *object;
+
+/**
+ @brief initializer for creating a mention object
+ @param mentionRange: the range of the mention
+ @param mentionObject: the object of your mention (assuming you get extra data you need to store and retrieve later)
+ */
+- (instancetype)initWithRange:(NSRange)range object:(NSObject *)object;
 
 @end

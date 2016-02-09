@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "SZMentions"
-  s.version          = "0.0.13"
+  s.version          = "0.0.19"
   s.summary          = "Highly customizable mentions library"
   s.description      = "Mentions library used to help manage mentions in a UITextView"
   s.homepage         = "http://www.stevenzweier.com"
@@ -9,11 +9,8 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/szweier/SZMentions.git", :tag => s.version.to_s }
   s.platform     = :ios, '7.1'
   s.requires_arc = true
-  s.source_files = 'SZMentions/SZMentions/Classes/**/*'
-
-  s.resource_bundles = {
-    'SZMentions' => ['SZMentions/SZMentions/Assets/*']
-    }
+  s.source_files = 'SZMentions/Classes/**/*'
+  s.private_header_files = "SZMentions/Classes/Private/*.h"
 
 end
 

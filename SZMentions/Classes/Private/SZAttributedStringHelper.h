@@ -8,9 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+@class SZAttribute;
+
 @interface SZAttributedStringHelper : NSObject
 
-+ (void)_applyAttributes:(NSArray *)attributes
+/**
+ @brief Applies attributes to a given string and range
+ @param attributes: the attributes to apply
+ @param range: the range to apply the attributes to
+ @param mutableAttributedString: the string to apply the attributes to
+ */
++ (void)applyAttributes:(NSArray<SZAttribute *> *)attributes
                    range:(NSRange)range
  mutableAttributedString:(NSMutableAttributedString *)mutableAttributedString;
 

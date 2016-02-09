@@ -11,24 +11,24 @@
 
 @implementation SZMentionHelper
 
-+ (NSArray *)_mentionsAfterTextEntryForRange:(NSRange)range inMentions:(NSArray *)mentionsList
++ (NSArray<SZMention *> *)mentionsAfterTextEntryForRange:(NSRange)range inMentions:(NSArray<SZMention *> *)mentionsList
 {
     NSMutableArray *mentionsAfterTextEntry = @[].mutableCopy;
-    
+
     for (SZMention *mention in mentionsList) {
         NSRange currentMentionRange = mention.range;
-        
+
         if (range.location + range.length <= currentMentionRange.location) {
             [mentionsAfterTextEntry addObject:mention];
         }
     }
-    
+
     return mentionsAfterTextEntry.copy;
 }
 
-+ (void)_adjustMentionsInRange:(NSRange)range text:(NSString *)text mentions:(NSArray *)mentions
++ (void)adjustMentionsInRange:(NSRange)range text:(NSString *)text mentions:(NSArray<SZMention *> *)mentions
 {
-    for (SZMention *mention in [SZMentionHelper _mentionsAfterTextEntryForRange:range inMentions:mentions]) {
+    for (SZMention *mention in [SZMentionHelper mentionsAfterTextEntryForRange:range inMentions:mentions]) {
         NSInteger rangeAdjustment =
         (text.length ? text.length - (range.length > 0 ? range.length : 0)
          : -(range.length > 0 ? range.length : 0));
@@ -37,28 +37,28 @@
     }
 }
 
-+ (BOOL)_mentionExistsAtIndex:(NSInteger)index mentions:(NSArray *)mentions
++ (BOOL)mentionExistsAtIndex:(NSInteger)index mentions:(NSArray<SZMention *> *)mentions
 {
     return [mentions filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SZMention *mention, NSDictionary<NSString *,id> * _Nullable bindings) {
         return index >= mention.range.location && index < mention.range.location + mention.range.length;
     }]].count > 0;
 }
 
-+ (BOOL)_needsToChangeToDefaultColorForRange:(NSRange)range textView:(UITextView *)textView mentions:(NSArray *)mentions
++ (BOOL)needsToChangeToDefaultColorForRange:(NSRange)range textView:(UITextView *)textView mentions:(NSArray<SZMention *> *)mentions
 {
     BOOL isAheadOfMention =
     (range.location > 0 &&
-     [SZMentionHelper _mentionExistsAtIndex:range.location - 1
+     [SZMentionHelper mentionExistsAtIndex:range.location - 1
                                    mentions:mentions]);
     BOOL isAtStartOfTextViewAndIsTouchingMention =
     (range.location == 0 && textView.text.length > 0 &&
-     [SZMentionHelper _mentionExistsAtIndex:range.location + 1
+     [SZMentionHelper mentionExistsAtIndex:range.location + 1
                                    mentions:mentions]);
-    
+
     return (isAheadOfMention || isAtStartOfTextViewAndIsTouchingMention);
 }
 
-+ (BOOL)_shouldHideMentionsForText:(NSString *)text
++ (BOOL)shouldHideMentionsForText:(NSString *)text
 {
     return ([text isEqualToString:@" "] ||
             (text.length &&
