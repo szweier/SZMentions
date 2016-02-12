@@ -177,18 +177,25 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
         _delegate = textViewDelegate;
         _mentionsManager = mentionsManager;
         _textView = textView;
-        [_textView setDelegate:self];
+        _textView.delegate = self;
         _trigger = mentionTrigger;
         _mutableMentions = @[].mutableCopy;
         _spaceAfterMention = spaceAfterMention;
+        _cooldownInterval = cooldownInterval;
 
-        NSArray *attributeNamesToLoop = (defaultTextAttributes.count >= mentionTextAttributes.count) ?
-        [defaultTextAttributes valueForKey:@"attributeName"] :
-        [mentionTextAttributes valueForKey:@"attributeName"];
+        NSArray *attributeNamesToLoop;
+        NSArray *attributeNamesToCompare;
 
-        NSArray *attributeNamesToCompare = (defaultTextAttributes.count < mentionTextAttributes.count) ?
-        [defaultTextAttributes valueForKey:@"attributeName"] :
-        [mentionTextAttributes valueForKey:@"attributeName"];
+        if (defaultTextAttributes.count >= mentionTextAttributes.count) {
+            attributeNamesToLoop = defaultTextAttributes;
+            attributeNamesToCompare = mentionTextAttributes;
+        } else {
+            attributeNamesToLoop = mentionTextAttributes;
+            attributeNamesToCompare = defaultTextAttributes;
+        }
+
+        attributeNamesToCompare = [attributeNamesToCompare valueForKey:@"attributeName"];
+        attributeNamesToLoop = [attributeNamesToLoop valueForKey:@"attributeName"];
 
         for (NSString *attributeName in attributeNamesToLoop) {
             BOOL attributeHasMatch = [attributeNamesToCompare containsObject:attributeName];
@@ -200,7 +207,6 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
 
         _defaultTextAttributes = defaultTextAttributes;
         _mentionTextAttributes = mentionTextAttributes;
-        _cooldownInterval = cooldownInterval;
         [self resetEmptyTextView:_textView];
     }
 
@@ -218,11 +224,9 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
     self.mutableMentions = @[].mutableCopy;
     [textView setText:@" "];
     NSMutableAttributedString *mutableAttributedString = textView.attributedText.mutableCopy;
-    for (SZAttribute *attribute in _defaultTextAttributes) {
-        [mutableAttributedString addAttribute:attribute.attributeName
-                                        value:attribute.attributeValue
-                                        range:NSMakeRange(0, 1)];
-    }
+    [SZAttributedStringHelper applyAttributes:_defaultTextAttributes
+                                        range:NSMakeRange(0, 1)
+                      mutableAttributedString:mutableAttributedString];
     [textView setAttributedText:mutableAttributedString];
     [textView setText:@""];
 }
@@ -232,11 +236,9 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
  the currently selected range and the nearest trigger when doing a backward search.  It also
  sets the currentMentionRange to be used as the range to replace when adding a mention.
  @param textView: the mentions text view
- @param range: the selected range
  @param text: the replacement text
  */
 - (void)adjustTextView:(UITextView *)textView
-                  text:(NSString *)text
                  range:(NSRange)range
 {
     NSString *substring = [textView.text substringToIndex:range.location];
@@ -249,24 +251,23 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
 
         if (location > 0) {
             NSRange substringRange = NSMakeRange(location - 1, 1);
+            //Determine whether or not a space exists before the trigger.
+            //(in the case of an @ trigger this avoids showing the mention list for an email address)
             mentionEnabled =
             [[substring substringWithRange:substringRange] isEqualToString:@" "];
         }
     }
 
-    NSArray *strings = [substring componentsSeparatedByString:@" "];
+    if (mentionEnabled) {
+        NSString *stringBeingTyped = [[substring componentsSeparatedByString:@" "] lastObject];
 
-    if ([[strings lastObject] rangeOfString:self.trigger].location !=
-        NSNotFound) {
-        if (mentionEnabled) {
+        if ([stringBeingTyped containsString:self.trigger]) {
             self.currentMentionRange =
-            [textView.text rangeOfString:[strings lastObject]
+            [textView.text rangeOfString:stringBeingTyped
                                  options:NSBackwardsSearch
                                    range:NSMakeRange(0, textView.selectedRange.location + textView.selectedRange.length)];
-            NSString *mentionString =
-            [[strings lastObject] stringByAppendingString:text];
             self.filterString =
-            [mentionString stringByReplacingOccurrencesOfString:self.trigger
+            [stringBeingTyped stringByReplacingOccurrencesOfString:self.trigger
                                                      withString:@""];
 
             if (self.filterString.length && !self.cooldownTimer.isValid) {
@@ -303,9 +304,7 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
     if (editedMention) {
         self.editingMention = YES;
         [self.mutableMentions removeObject:editedMention];
-    }
 
-    if (self.editingMention) {
         shouldAdjust = [self handleEditingMention:editedMention
                                          textView:textView
                                             range:range
@@ -404,19 +403,11 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
                                                           self.currentMentionRange.length)
                       mutableAttributedString:mutableAttributedString];
 
-    [SZAttributedStringHelper applyAttributes:self.defaultTextAttributes
-                                        range:NSMakeRange(self.currentMentionRange.location +
-                                                          self.currentMentionRange.length -
-                                                          1,
-                                                          0)
-                      mutableAttributedString:mutableAttributedString];
-
     self.settingText = YES;
 
     NSRange selectedRange = NSMakeRange(self.currentMentionRange.location + self.currentMentionRange.length, 0);
 
     [self.textView setAttributedText:mutableAttributedString];
-
 
     if (self.spaceAfterMention) {
         selectedRange.location++;
@@ -603,7 +594,7 @@ shouldInteractWithURL:(NSURL *)URL
 - (void)textViewDidChangeSelection:(UITextView *)textView
 {
     if (!self.editingMention) {
-        [self adjustTextView:textView text:@"" range:textView.selectedRange];
+        [self adjustTextView:textView range:textView.selectedRange];
 
         if ([self.delegate
              respondsToSelector:@selector(textViewDidChangeSelection:)]) {
