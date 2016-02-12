@@ -236,7 +236,8 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
         if (mentionEnabled) {
             self.currentMentionRange =
             [textView.text rangeOfString:[strings lastObject]
-                                 options:NSBackwardsSearch];
+                                 options:NSBackwardsSearch
+                                   range:NSMakeRange(0, textView.selectedRange.location + textView.selectedRange.length)];
             NSString *mentionString =
             [[strings lastObject] stringByAppendingString:text];
             self.filterString =
@@ -373,6 +374,10 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
     self.currentMentionRange = NSMakeRange(self.currentMentionRange.location,
                                            mention.szMentionName.length);
 
+    SZMention *szmention = [[SZMention alloc] initWithRange:self.currentMentionRange
+                                                     object:mention];
+    [self.mutableMentions addObject:szmention];
+
     [SZAttributedStringHelper applyAttributes:self.mentionTextAttributes
                                         range:NSMakeRange(self.currentMentionRange.location,
                                                           self.currentMentionRange.length)
@@ -397,11 +402,7 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
     [self.textView setSelectedRange:selectedRange];
     self.settingText = NO;
 
-    SZMention *szmention = [[SZMention alloc] initWithRange:self.currentMentionRange
-                                                     object:mention];
-
     [self.mentionsManager hideMentionsList];
-    [self.mutableMentions addObject:szmention];
 }
 
 /**
