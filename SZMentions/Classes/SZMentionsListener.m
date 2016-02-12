@@ -391,9 +391,11 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
                       mutableAttributedString:mutableAttributedString];
 
     self.settingText = YES;
-    [self.textView setAttributedText:mutableAttributedString];
 
     NSRange selectedRange = NSMakeRange(self.currentMentionRange.location + self.currentMentionRange.length, 0);
+
+    [self.textView setAttributedText:mutableAttributedString];
+
 
     if (self.spaceAfterMention) {
         selectedRange.location++;
