@@ -45,11 +45,4 @@
  */
 + (BOOL)needsToChangeToDefaultColorForRange:(NSRange)range textView:(UITextView *)textView mentions:(NSArray<SZMention *> *)mentions;
 
-/**
- @brief Uses the text being entered into the view to determine whether or not we should hide the mentions list
- @param text: the text being entered
- @return BOOL: whether or not we should hide the mentions list.
- */
-+ (BOOL)shouldHideMentionsForText:(NSString *)text;
-
 @end

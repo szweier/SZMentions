@@ -24,7 +24,7 @@
 + (SZAttribute *)defaultColor
 {
     SZAttribute *defaultColor = [[SZAttribute alloc] initWithAttributeName:NSForegroundColorAttributeName
-                                                            attributeValue:[UIColor greenColor]];
+                                                            attributeValue:[UIColor blackColor]];
     return defaultColor;
 }
 

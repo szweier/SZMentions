@@ -346,6 +346,19 @@
     XCTAssert([[self.textView.attributedText attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:nil] isEqual:UIColor.blackColor]);
 }
 
+- (void)testAddingTestImmediatelyAfterMentionChangesToDefaultText
+{
+    [self.textView insertText:@"@s"];
+    SZExampleMention *mention = [[SZExampleMention alloc] init];
+    [mention setSzMentionName:@"Steven"];
+    [self.mentionsListener addMention:mention];
+    if ([self.mentionsListener textView:self.textView shouldChangeTextInRange:self.textView.selectedRange replacementText:@"test"]) {
+        [self.textView insertText:@"test"];
+    }
+
+    XCTAssert([[self.textView.attributedText attribute:NSForegroundColorAttributeName atIndex:self.textView.selectedRange.location - 1 effectiveRange:nil] isEqual:UIColor.blackColor]);
+}
+
 - (void)testMentionsLibraryReplacesCorrectMentionRangeIfMultipleExistAndThatSelectedRangeWillBeCorrect
 {
     [self.textView insertText:@" @st"];

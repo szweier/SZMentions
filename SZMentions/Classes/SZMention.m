@@ -19,13 +19,14 @@
 
 @implementation SZMention
 
-- (instancetype)initWithRange:(NSRange)range object:(NSObject *)object
+- (instancetype)initWithRange:(NSRange)range
+                       object:(NSObject *)object
 {
     self = [super init];
 
     if (self) {
-        self.range = range;
-        self.object = object;
+        _range = range;
+        _object = object;
     }
 
     return self;

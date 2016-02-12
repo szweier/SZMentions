@@ -272,10 +272,6 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
         [self resetEmptyTextView:textView];
     }
 
-    if ([SZMentionHelper shouldHideMentionsForText:text]) {
-        [self.mentionsManager hideMentionsList];
-    }
-
     self.editingMention = NO;
     SZMention *editedMention = [self mentionBeingEditedForRange:range];
 
