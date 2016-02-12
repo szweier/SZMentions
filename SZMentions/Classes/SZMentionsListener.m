@@ -95,14 +95,17 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
 
 #pragma mark - initialization
 
-- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
+- (instancetype)initWithTextView:(UITextView *)textView
+                 mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
 {
     return [self initWithTextView:textView
                   mentionsManager:mentionsManager
                  textViewDelegate:nil];
 }
 
-- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
+- (instancetype)initWithTextView:(UITextView *)textView
+                 mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
+                textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
 {
     return [self initWithTextView:textView
                   mentionsManager:mentionsManager
@@ -111,7 +114,11 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
             mentionTextAttributes:[SZDefaultAttributes defaultMentionAttributes]];
 }
 
-- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes
+- (instancetype)initWithTextView:(UITextView *)textView
+                 mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
+                textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
+           defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes
+           mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes
 {
     return [self initWithTextView:textView
                   mentionsManager:mentionsManager
@@ -121,7 +128,12 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
                 spaceAfterMention:NO];
 }
 
-- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes spaceAfterMention:(BOOL)spaceAfterMention
+- (instancetype)initWithTextView:(UITextView *)textView
+                 mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
+                textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
+           defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes
+           mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes
+               spaceAfterMention:(BOOL)spaceAfterMention
 {
     return [self initWithTextView:textView
                   mentionsManager:mentionsManager
@@ -132,7 +144,13 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
                    mentionTrigger:@"@"];
 }
 
-- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes spaceAfterMention:(BOOL)spaceAfterMention mentionTrigger:(NSString *)mentionTrigger
+- (instancetype)initWithTextView:(UITextView *)textView
+                 mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
+                textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
+           defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes
+           mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes
+               spaceAfterMention:(BOOL)spaceAfterMention
+                  mentionTrigger:(NSString *)mentionTrigger
 {
     return [self initWithTextView:textView
                   mentionsManager:mentionsManager
@@ -144,7 +162,14 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
                  cooldownInterval:0.5];
 }
 
-- (instancetype)initWithTextView:(UITextView *)textView mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager textViewDelegate:(id<UITextViewDelegate>)textViewDelegate defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes spaceAfterMention:(BOOL)spaceAfterMention mentionTrigger:(NSString *)mentionTrigger cooldownInterval:(CGFloat)cooldownInterval
+- (instancetype)initWithTextView:(UITextView *)textView
+                 mentionsManager:(id<SZMentionsManagerProtocol>)mentionsManager
+                textViewDelegate:(id<UITextViewDelegate>)textViewDelegate
+           defaultTextAttributes:(NSArray<SZAttribute *> *)defaultTextAttributes
+           mentionTextAttributes:(NSArray<SZAttribute *> *)mentionTextAttributes
+               spaceAfterMention:(BOOL)spaceAfterMention
+                  mentionTrigger:(NSString *)mentionTrigger
+                cooldownInterval:(CGFloat)cooldownInterval
 {
     self = [super init];
 
