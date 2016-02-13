@@ -24,13 +24,14 @@
 
 @implementation SZAttribute
 
-- (instancetype)initWithAttributeName:(NSString *)attributeName attributeValue:(NSObject *)attributeValue
+- (instancetype)initWithAttributeName:(NSString *)attributeName
+                       attributeValue:(NSObject *)attributeValue
 {
     self = [super init];
 
     if (self) {
-        self.attributeName = attributeName;
-        self.attributeValue = attributeValue;
+        _attributeName = attributeName;
+        _attributeValue = attributeValue;
     }
 
     return self;

@@ -25,6 +25,7 @@
  @param mentionRange: the range of the mention
  @param mentionObject: the object of your mention (assuming you get extra data you need to store and retrieve later)
  */
-- (instancetype)initWithRange:(NSRange)range object:(NSObject *)object;
+- (instancetype)initWithRange:(NSRange)range
+                       object:(NSObject *)object;
 
 @end

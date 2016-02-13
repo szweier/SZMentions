@@ -25,6 +25,7 @@
  @param attributeName: the name of the attribute (example: NSForegroundColorAttributeName)
  @param attributeValue: the value for the given attribute (example: [UIColor redColor])
  */
-- (instancetype)initWithAttributeName:(NSString *)attributeName attributeValue:(NSObject *)attributeValue;
+- (instancetype)initWithAttributeName:(NSString *)attributeName
+                       attributeValue:(NSObject *)attributeValue;
 
 @end
