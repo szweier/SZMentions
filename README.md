@@ -1,4 +1,4 @@
-[![Cocoapods Compatible](https://img.shields.io/cocoapods/v/SZMentions.svg)](https://img.shields.io/cocoapods/v/SZMentions.svg)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/SZMentions.svg)](https://img.shields.io/cocoapods/v/SZMentions.svg)
 [![Platform](https://img.shields.io/cocoapods/p/SZMentions.svg?style=flat)](http://cocoadocs.org/docsets/SZMentions)
 [![Twitter](https://img.shields.io/badge/twitter-@StevenZweier-blue.svg?style=flat)](http://twitter.com/StevenZweier)
 
