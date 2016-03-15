@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AA8938291C25A5DD009BE6A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8938201C25A5DD009BE6A7 /* Assets.xcassets */; };
+		DB12BBB01C988A8400161A5A /* SZExampleInsertMention.m in Sources */ = {isa = PBXBuildFile; fileRef = DB12BBAF1C988A8400161A5A /* SZExampleInsertMention.m */; };
 		DBE8B4811C6576BE0090EF32 /* SZMentions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBE8B4801C6576BE0090EF32 /* SZMentions.framework */; };
 		DBE8B48D1C6577EA0090EF32 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8B4841C6577EA0090EF32 /* AppDelegate.m */; };
 		DBE8B48E1C6577EA0090EF32 /* SZExampleAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8B4861C6577EA0090EF32 /* SZExampleAccessoryView.m */; };
@@ -35,6 +36,8 @@
 /* Begin PBXFileReference section */
 		AA57D9261C222C47004ABC4E /* SZMentionsExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SZMentionsExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8938201C25A5DD009BE6A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DB12BBAE1C988A8400161A5A /* SZExampleInsertMention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZExampleInsertMention.h; sourceTree = "<group>"; };
+		DB12BBAF1C988A8400161A5A /* SZExampleInsertMention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZExampleInsertMention.m; sourceTree = "<group>"; };
 		DBE8B4801C6576BE0090EF32 /* SZMentions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SZMentions.framework; path = "../SZMentions/build/Debug-iphoneos/SZMentions.framework"; sourceTree = "<group>"; };
 		DBE8B4831C6577EA0090EF32 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DBE8B4841C6577EA0090EF32 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 				DBE8B48A1C6577EA0090EF32 /* SZExampleMentionsTableViewDataManager.m */,
 				DBE8B48B1C6577EA0090EF32 /* SZExampleViewController.h */,
 				DBE8B48C1C6577EA0090EF32 /* SZExampleViewController.m */,
+				DB12BBAE1C988A8400161A5A /* SZExampleInsertMention.h */,
+				DB12BBAF1C988A8400161A5A /* SZExampleInsertMention.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -199,6 +204,7 @@
 				DBE8B4911C6577EA0090EF32 /* SZExampleViewController.m in Sources */,
 				DBE8B4901C6577EA0090EF32 /* SZExampleMentionsTableViewDataManager.m in Sources */,
 				DBE8B48F1C6577EA0090EF32 /* SZExampleMention.m in Sources */,
+				DB12BBB01C988A8400161A5A /* SZExampleInsertMention.m in Sources */,
 				DBE8B48D1C6577EA0090EF32 /* AppDelegate.m in Sources */,
 				DBE8B4981C6578170090EF32 /* main.m in Sources */,
 				DBE8B48E1C6577EA0090EF32 /* SZExampleAccessoryView.m in Sources */,

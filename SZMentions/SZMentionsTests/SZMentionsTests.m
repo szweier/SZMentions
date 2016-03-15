@@ -21,6 +21,16 @@
 
 @end
 
+@interface SZExampleInsertMention : NSObject<SZInsertMentionProtocol>
+
+@property (nonatomic, assign) NSRange szMentionRange;
+
+@end
+
+@implementation SZExampleInsertMention
+
+@end
+
 @interface SZMentionsTests : XCTestCase <SZMentionsManagerProtocol, UITextViewDelegate>
 
 @property (nonatomic, strong) UITextView *textView;
@@ -123,6 +133,28 @@
     [self.textView insertText:@" "];
 
     XCTAssertEqual(self.hidingMentionsList, YES);
+}
+
+- (void)testMentionsCanBePlacedInAdvance
+{
+    [self.textView setText:@"Testing Steven Zweier and Tiffany get mentioned correctly"];
+
+    SZExampleInsertMention *mention = [[SZExampleInsertMention alloc] init];
+    [mention setSzMentionRange:NSMakeRange(8, 13)];
+
+    SZExampleInsertMention *mention2 = [[SZExampleInsertMention alloc] init];
+    [mention2 setSzMentionRange:NSMakeRange(26, 7)];
+
+    NSArray<id<SZInsertMentionProtocol>> *insertMentions = @[mention, mention2];
+
+    [self.mentionsListener insertExistingMentions:insertMentions];
+
+    XCTAssertTrue([self.mentionsListener mentions].count == 2);
+    XCTAssert([[self.textView.attributedText attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:nil] isEqual:UIColor.blackColor]);
+    XCTAssert([[self.textView.attributedText attribute:NSForegroundColorAttributeName atIndex:9 effectiveRange:nil] isEqual:UIColor.redColor]);
+    XCTAssert([[self.textView.attributedText attribute:NSForegroundColorAttributeName atIndex:21 effectiveRange:nil] isEqual:UIColor.blackColor]);
+    XCTAssert([[self.textView.attributedText attribute:NSForegroundColorAttributeName atIndex:27 effectiveRange:nil] isEqual:UIColor.redColor]);
+    XCTAssert([[self.textView.attributedText attribute:NSForegroundColorAttributeName atIndex:33 effectiveRange:nil] isEqual:UIColor.blackColor]);
 }
 
 - (void)testMentionIsAdded
