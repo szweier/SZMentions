@@ -369,13 +369,15 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
 
 #pragma mark - mention management
 
-- (void)insertExistingMentions:(NSArray<id<SZInsertMentionProtocol>> *)mentions
+- (void)insertExistingMentions:(NSArray<id<SZCreateMentionProtocol>> *)mentions
 {
     NSMutableAttributedString *mutableAttributedString =
     [self.textView.attributedText mutableCopy];
 
-    for (NSObject<SZInsertMentionProtocol> *mention in mentions) {
+    for (NSObject<SZCreateMentionProtocol> *mention in mentions) {
         NSRange range = mention.szMentionRange;
+
+        NSAssert(mention.szMentionRange.location != NSNotFound, @"Mention must have a range to insert into");
 
         SZMention *szmention = [[SZMention alloc] initWithRange:range
                                                          object:mention];

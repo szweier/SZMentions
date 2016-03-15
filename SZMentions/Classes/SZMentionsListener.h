@@ -37,10 +37,7 @@
  */
 @property (nonatomic, strong) NSString *szMentionName;
 
-@end
-
-@protocol SZInsertMentionProtocol <NSObject>
-@required
+@optional
 /**
  @brief The range to place the mention at (optional: if not set mention will be added to the current range being edited)
  */
@@ -64,7 +61,7 @@
  is returned in the mentions array in the object parameter of the SZMention object.
  szMentionRange is used the range to place the metion at
  */
-- (void)insertExistingMentions:(NSArray<id <SZInsertMentionProtocol>> *)mentions;
+- (void)insertExistingMentions:(NSArray<id <SZCreateMentionProtocol>> *)mentions;
 
 /**
  @brief Add mention object to current string being edited

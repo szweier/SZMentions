@@ -14,20 +14,11 @@
 @interface SZExampleMention : NSObject<SZCreateMentionProtocol>
 
 @property (nonatomic, strong) NSString *szMentionName;
-
-@end
-
-@implementation SZExampleMention
-
-@end
-
-@interface SZExampleInsertMention : NSObject<SZInsertMentionProtocol>
-
 @property (nonatomic, assign) NSRange szMentionRange;
 
 @end
 
-@implementation SZExampleInsertMention
+@implementation SZExampleMention
 
 @end
 
@@ -139,13 +130,15 @@
 {
     [self.textView setText:@"Testing Steven Zweier and Tiffany get mentioned correctly"];
 
-    SZExampleInsertMention *mention = [[SZExampleInsertMention alloc] init];
+    SZExampleMention *mention = [[SZExampleMention alloc] init];
+    [mention setSzMentionName:@"Steve"];
     [mention setSzMentionRange:NSMakeRange(8, 13)];
 
-    SZExampleInsertMention *mention2 = [[SZExampleInsertMention alloc] init];
+    SZExampleMention *mention2 = [[SZExampleMention alloc] init];
+    [mention2 setSzMentionName:@"Tiff"];
     [mention2 setSzMentionRange:NSMakeRange(26, 7)];
 
-    NSArray<id<SZInsertMentionProtocol>> *insertMentions = @[mention, mention2];
+    NSArray<id<SZCreateMentionProtocol>> *insertMentions = @[mention, mention2];
 
     [self.mentionsListener insertExistingMentions:insertMentions];
 
