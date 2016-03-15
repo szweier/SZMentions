@@ -369,12 +369,42 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
 
 #pragma mark - mention management
 
+- (void)insertExistingMentions:(NSArray<id<SZCreateMentionProtocol>> *)mentions
+{
+    NSMutableAttributedString *mutableAttributedString =
+    [self.textView.attributedText mutableCopy];
+
+    for (NSObject<SZCreateMentionProtocol> *mention in mentions) {
+        NSRange range = mention.szMentionRange;
+
+        NSAssert(mention.szMentionRange.location != NSNotFound, @"Mention must have a range to insert into");
+
+        SZMention *szmention = [[SZMention alloc] initWithRange:range
+                                                         object:mention];
+        [self.mutableMentions addObject:szmention];
+
+        [SZAttributedStringHelper applyAttributes:self.mentionTextAttributes
+                                            range:NSMakeRange(range.location,
+                                                              range.length)
+                          mutableAttributedString:mutableAttributedString];
+    }
+    
+    self.settingText = YES;
+
+    [self.textView setAttributedText:mutableAttributedString];
+
+    self.settingText = NO;
+}
+
+
+
 /**
  @brief Adds a mention to the current mention range (determined by trigger + characters typed up to space or end of line)
  @param mention: the mention object to apply
  */
 - (void)addMention:(NSObject<SZCreateMentionProtocol> *)mention
 {
+    NSRange range = self.currentMentionRange;
     self.filterString = nil;
     NSString *displayName = mention.szMentionName;
 
@@ -384,28 +414,28 @@ NSString * const attributeConsistencyError = @"Default and mention attributes mu
     NSMutableAttributedString *mutableAttributedString =
     [self.textView.attributedText mutableCopy];
     [[mutableAttributedString mutableString]
-     replaceCharactersInRange:self.currentMentionRange
+     replaceCharactersInRange:range
      withString:displayName];
 
-    [SZMentionHelper adjustMentionsInRange:self.currentMentionRange
+    [SZMentionHelper adjustMentionsInRange:range
                                       text:displayName
                                   mentions:self.mentions];
 
-    self.currentMentionRange = NSMakeRange(self.currentMentionRange.location,
+    range = NSMakeRange(range.location,
                                            mention.szMentionName.length);
 
-    SZMention *szmention = [[SZMention alloc] initWithRange:self.currentMentionRange
+    SZMention *szmention = [[SZMention alloc] initWithRange:range
                                                      object:mention];
     [self.mutableMentions addObject:szmention];
 
     [SZAttributedStringHelper applyAttributes:self.mentionTextAttributes
-                                        range:NSMakeRange(self.currentMentionRange.location,
-                                                          self.currentMentionRange.length)
+                                        range:NSMakeRange(range.location,
+                                                          range.length)
                       mutableAttributedString:mutableAttributedString];
 
     self.settingText = YES;
 
-    NSRange selectedRange = NSMakeRange(self.currentMentionRange.location + self.currentMentionRange.length, 0);
+    NSRange selectedRange = NSMakeRange(range.location + range.length, 0);
 
     [self.textView setAttributedText:mutableAttributedString];
 

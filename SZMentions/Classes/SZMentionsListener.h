@@ -37,6 +37,12 @@
  */
 @property (nonatomic, strong) NSString *szMentionName;
 
+@optional
+/**
+ @brief The range to place the mention at (optional: if not set mention will be added to the current range being edited)
+ */
+@property (nonatomic, assign) NSRange szMentionRange;
+
 @end
 
 @interface SZMentionsListener : NSObject <UITextViewDelegate>
@@ -45,6 +51,17 @@
  @brief Array of mentions currently added to the textview
  */
 @property (nonatomic, readonly) NSArray<SZMention *> *mentions;
+
+/**
+ @brief Insert mentions into an existing textview.  This is provided assuming you are given text
+ along with a list of users mentioned in that text and want to prep the textview in advance.
+
+ @param mention the mention object adhereing to SZInsertMentionProtocol
+ szMentionName is used as the name to set for the mention.  This parameter
+ is returned in the mentions array in the object parameter of the SZMention object.
+ szMentionRange is used the range to place the metion at
+ */
+- (void)insertExistingMentions:(NSArray<id <SZCreateMentionProtocol>> *)mentions;
 
 /**
  @brief Add mention object to current string being edited
