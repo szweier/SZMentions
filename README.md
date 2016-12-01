@@ -1,4 +1,4 @@
-# SZMentions is no longer being updated, please use [SZMentionsSwift](https://github.com/szweier/SZMentionsSwift) (Now Objective-C Compatible)
+# SZMentions is no longer being updated, please use [SZMentionsSwift](https://github.com/szweier/SZMentionsSwift)
 
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/SZMentions.svg)](https://img.shields.io/cocoapods/v/SZMentions.svg)
 [![Platform](https://img.shields.io/cocoapods/p/SZMentions.svg?style=flat)](http://cocoadocs.org/docsets/SZMentions)
